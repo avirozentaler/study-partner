@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import {useState} from 'react';
 import axios from 'axios';
@@ -18,10 +17,7 @@ const func = async()=>{
 
   return (
     <div className="App">
-       
-      
-          <button onClick={func}>call server</button>
-          <h3>{liveSign}</h3>
+
       
     </div>
   );
