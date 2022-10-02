@@ -1,23 +1,28 @@
 import logo from './logo.svg';
 import './App.css';
+import {useState} from 'react';
+import axios from 'axios';
 
 function App() {
+
+const [liveSign,setLiveSign] = useState();
+
+const func = async()=>{
+  const answer = await axios.get("http://localhost:3002/");
+  console.log(answer)
+  setLiveSign(answer.data);
+}
+
+
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+       
+      
+          <button onClick={func}>call server</button>
+          <h3>{liveSign}</h3>
+      
     </div>
   );
 }
