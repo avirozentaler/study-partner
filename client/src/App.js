@@ -7,7 +7,7 @@ function App() {
   const [liveSign, setLiveSign] = useState();
 
   const func = async () => {
-    const answer = await axios.get("http://localhost:3002/");
+    const answer = await axios.get("http://localhost:3002/",{withCredentials: true});
     console.log(answer)
     setLiveSign(answer.data);
   }
