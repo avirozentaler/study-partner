@@ -10,11 +10,20 @@ const users  = db.define('users', {
         type: DataTypes.STRING,
         allowNull: false,
     },
+    email: {
+        type: DataTypes.STRING,
+        allowNull: false,
+
+    },
     password: {
         type: DataTypes.STRING,
         allowNull: false,
     }, 
-  
+    
+    refresh_token:{
+        type :DataTypes.TEXT,
+        allowNull:true, 
+    }
 },
 {
     timestamps: false
