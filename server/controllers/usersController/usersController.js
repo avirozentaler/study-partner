@@ -40,19 +40,19 @@ console.log(process.env.BCRYPT_ROUNDS);
 }
 
 const logInValid = (req, res, next) => {
-    const { email, password } = req.body;
-    if (!email || !password) {
-        res.send('please fill all the fields');
-    }
-    else if (!emailValid(email)) {
-        res.send('email not valid');
-    }
-    else if (!passwordValid(password)) {
-        res.send('password not valid');
-    }
-    else {
-        next();
-    }
+    // const { email, password } = req.body;
+    // if (!email || !password) {
+    //     res.send('please fill all the fields');
+    // }
+    // else if (!emailValid(email)) {
+    //     res.send('email not valid');
+    // }
+    // else if (!passwordValid(password)) {
+    //     res.send('password not valid');
+    // }
+    // else {
+    //     next();
+    // }
 }
 
 const logIn = (req, res) => {
