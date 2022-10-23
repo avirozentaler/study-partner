@@ -2,10 +2,10 @@
 
 const express = require('express');
 const router = express.Router();
+const userRouter = require('./usersRouter/usersRouter');
 
 
-
-router.use('users',user)
+router.use('/users',userRouter)
 
 
 

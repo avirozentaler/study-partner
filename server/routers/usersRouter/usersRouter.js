@@ -1,11 +1,13 @@
 const express = require('express');
 const userRouter = express.Router();
-const {register,logIn} = require('../../controllers/usersController/usersController')
+const {registerValid, register,logInValid, logIn } = require('../../controllers/usersController/usersController')
 
 
 
 
-userRouter.post('/register',register)/////  needs a middlewhere of validation
+
+
+userRouter.post('/register', registerValid, register)/////  needs a middlewhere of validation
 
 
 
