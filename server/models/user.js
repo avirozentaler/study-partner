@@ -1,20 +1,27 @@
-
-
 const db = require('../db/mysql')
 const {DataTypes} = require('sequelize')
 
 
 
-const users  = db.define('users', {
+const user  = db.define('user', {
     name: {
         type: DataTypes.STRING,
         allowNull: false,
+    },
+    email: {
+        type: DataTypes.STRING,
+        allowNull: false,
+
     },
     password: {
         type: DataTypes.STRING,
         allowNull: false,
     }, 
-  
+    
+    refresh_token:{
+        type :DataTypes.TEXT,
+        allowNull:true, 
+    }
 },
 {
     timestamps: false
@@ -24,4 +31,5 @@ const users  = db.define('users', {
     await db.sync();
  })()
 
-module.exports = users;
+module.exports = user;
+
