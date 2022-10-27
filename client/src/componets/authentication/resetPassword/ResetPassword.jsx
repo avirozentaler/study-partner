@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import { useNavigate } from "react-router-dom";
  import {emailValid} from '../../../utilities/validetion/validetion.js'
 
-export default function ResetPassword (){
+export default function ResetPassword(){
     
     const [email , setEmail]=  useState("")
     const navigate = useNavigate();
