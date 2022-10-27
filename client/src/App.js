@@ -1,7 +1,8 @@
 import './App.css';
 import { useState } from 'react';
 import axios from 'axios';
-
+import Authentication from './componets/authentication/Authentication';
+import Register from './componets/authentication/register/Register';
 function App() {
 
   const [liveSign, setLiveSign] = useState();
@@ -40,14 +41,7 @@ function App() {
 
   return (
     <div className="App">
-      <button onClick={func}>call server</button>
-      <h3>{liveSign}</h3>
-      <input type="text" value={name} placeholder='name' onChange={(event) => setName(event.target.value)} />
-      <input type="text" value={password} placeholder='password' onChange={(event) => setPassword(event.target.value)} />
-      <button onClick={join}>click</button>
-
-
-
+      <Authentication/>
     </div>
   );
 }

@@ -1,0 +1,11 @@
+.Authentication{
+
+         /* Hidden by default */
+    position: fixed; /* Stay in place */
+    left: 25%;
+    top: 25%;
+    width: 50%; /* Full width */
+    height: 50%; /* Full height */
+    background-color: blanchedalmond;
+   
+}
