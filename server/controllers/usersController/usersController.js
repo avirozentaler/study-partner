@@ -10,19 +10,19 @@ const registerValid = (req, res, next) => {
     const { name, email, password, confirmPassword } = req.body;
 
     if (!name || !email || !password || !confirmPassword) {
-        res.send('please fill all the fields');
+        res.status(400).send({ message:'please fill all the fields'});
     }
     else if (!nameValid(name)) {
-        res.send('name not valid');
+        res.status(400).send({message:'name not valid'});
     }
     else if (!emailValid(email)) {
-        res.send('email not valid');
+        res.status(400).send({message: 'email not valid'});
     }
     else if (!passwordValid(password)) {
-        res.send('password not valid');
+        res.status(400).send({message:'password not valid'});
     }
     else if (password !== confirmPassword) {
-        res.send('confirm password is not the same');
+        res.send('auth faild');
     }
 
 
@@ -40,12 +40,12 @@ const register = async (req, res) => {
             where: { email: email }
         });
         if (existUser) {
-            res.status(405).send('user already exist');
+            res.status(400).send({message:'auth faild'});
         }
         else {
             const hashPssword = bcrypt.hashSync(password, BCRYPT_ROUNDS);
             await userModel.create({ name, email, password: hashPssword });
-            res.status(200).send('user created successfully');
+            res.status(200).send({message:'user created successfully'});
         }
 
     }
@@ -57,13 +57,13 @@ const register = async (req, res) => {
 const logInValid = (req, res, next) => {
     const { email, password } = req.body;
     if (!email || !password) {
-        res.send('please fill all the fields');
+        res.status(400).send({ message:'please fill all the fields'});
     }
     else if (!emailValid(email)) {
         res.send('email not valid');
     }
     else if (!passwordValid(password)) {
-        res.send('email or password are not correct');
+        res.status(400).send({message:'email or password are not valid'});
     }
     else {
         next();
@@ -81,12 +81,12 @@ const logIn = async (req, res) => {
             }
         })
         if (!user) {
-            res.status(401).send('aithentication faild');
+            res.status(400).send({message:'auth faild'});
             return;
         }
         const isComparePassword = await bcrypt.compare(password, user.password);
         if (!isComparePassword) {
-            res.status(401).send('aithentication faild');
+            res.status(400).send({message:'auth faild'});
             return;
         }
         else {
@@ -103,7 +103,7 @@ const logIn = async (req, res) => {
                     httpOnly: false
                 })
                 
-            res.status(200).send({ message: 'user log in!!' });
+            res.status(200).send({ message: 'user loged in!!' });
         }
 
     }
