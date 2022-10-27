@@ -1,16 +1,20 @@
 import React, {useState} from "react";
 import '../register/register.css'
-// import {BrowserRouter, Route, Routes} from "react-router-dom"
+import axios from 'axios'
+import {useNavigate} from "react-router-dom"
  import {nameValid,emailValid,passwordValid} from '../../../utilities/validetion/validetion.js'
+
+
+
 export default function Register (){
     const [name , setName]=  useState("")
     const [email , setEmail]=  useState("")
     const [password , setPassword]=  useState("")
     const [confirmPassword , setConfirmPassword]=  useState("")
+    const navigate = useNavigate()
 
 
-
-    const submit = ()=>{
+    const submit = async () =>{
         if(!nameValid(name)){
             alert('name not valid')
         }
@@ -24,7 +28,15 @@ export default function Register (){
             alert('confirmPassword not match')
         }
         else{
-            alert('successe')
+            try{ 
+            const answer = await axios.post('http://localhost:3002/user/register',{name,email,password,confirmPassword})
+            console.log(answer);
+navigate('/log-in')
+
+            }
+            catch(err){
+                console.log(err)
+            }
         }
     }
 
