@@ -92,19 +92,18 @@ const logIn = async (req, res) => {
         else {
             const accessToken = jwt.sign({ email }, process.env.SECRET_KEY, {
                 algorithm: 'HS256',
-                expiresIn: '1m',
+                expiresIn: '5m',
             });
             console.log(accessToken);
 
-            // await userModel.update({ refresh_token: accessToken },{where: { id: user.id } });
+            await userModel.update({ refresh_token: accessToken },{where: { id: user.id } });
            
             res.cookie(process.env.TOKEN_NAME, accessToken, {
-                    maxAge: 1000 * 60 * 3,
+                    maxAge: 1000 * 60 * 5,
                     httpOnly: false
                 })
                 
             res.status(200).send({ message: 'user log in!!' });
-            console.log('loged in');
         }
 
     }
