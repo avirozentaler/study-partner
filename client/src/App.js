@@ -10,6 +10,7 @@ function App() {
   const [password, setPassword] = useState('');
 
   const func = async () => {
+
     const answer = await axios.get("http://localhost:3002/", { withCredentials: true });
     console.log(answer)
     setLiveSign(answer.data);

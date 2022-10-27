@@ -96,13 +96,13 @@ const logIn = async (req, res) => {
             });
             console.log(accessToken);
 
-            await userModel.update({ refresh_token: accessToken },{where: { id: user.id } });
-           
+            await userModel.update({ refresh_token: accessToken }, { where: { id: user.id } });
+
             res.cookie(process.env.TOKEN_NAME, accessToken, {
-                    maxAge: 1000 * 60 * 5,
-                    httpOnly: false
-                })
-                
+                maxAge: 1000 * 60 * 5,
+                httpOnly: false
+            })
+
             res.status(200).send({ message: 'user log in!!' });
         }
 
@@ -112,6 +112,23 @@ const logIn = async (req, res) => {
     }
 
 }
+
+
+
+const resetPassword = async (req, res) => {
+    try {
+        const { email } = req.body;
+        const user = await userModel.findOne({ where: { email: email } });
+        
+    }
+    catch (err) {
+
+    }
+
+}
+
+
+
 
 module.exports = {
     registerValid,
