@@ -1,0 +1,20 @@
+input{
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+    
+    
+}
+button{
+    display: block;
+    margin: auto;
+}
+.Login{
+    padding: 20%;
+    
+}
+.authbButtons
+{
+    color: blue;
+    text-decoration-line:underline ;
+}
