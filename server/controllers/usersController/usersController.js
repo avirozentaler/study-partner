@@ -89,13 +89,13 @@ const logIn = async (req, res) => {
             res.status(400).send({message:'auth faild'});
             return;
         }
+        
         else {
             const accessToken = jwt.sign({ email }, process.env.SECRET_KEY, {
                 algorithm: 'HS256',
                 expiresIn: '5m',
             });
             console.log(accessToken);
-
             await userModel.update({ refresh_token: accessToken },{where: { id: user.id } });
            
             res.cookie(process.env.TOKEN_NAME, accessToken, {
