@@ -4,7 +4,7 @@ const userModel = require('../../models/user');
 const token = process.env.TOKEN_NAME;
 const BCRYPT_ROUNDS = parseInt(process.env.BCRYPT_ROUNDS);
 const nodeMailer = require('nodemailer');
-const { emailValid } = require('../../utilities/validations/validations');
+const { emailValid, passwordValid } = require('../../utilities/validations/validations');
 const { use } = require('../../routers');
 
 
@@ -22,6 +22,7 @@ const auth = async (req, res) => {
             const isVarify = jwt.verify(cookie, process.env.SECRET_KEY);
             // const user = userModel.findOne({where:{email:isVarify.email}});
             if (isVarify.email) {
+                console.log(email);
                 res.status(200).send({ message: 'access exist' });
             }
         }
@@ -38,7 +39,7 @@ const auth = async (req, res) => {
 
 const forgetPassword = async (req, res) => {
     try {
-        const { email } = req.body;
+        const {email} = req.body;
         if (!email) {
             throw Error('email not match please try again');
         }
@@ -50,7 +51,7 @@ const forgetPassword = async (req, res) => {
             throw Error('email not macth please try again');
         }
         const newPass = Math.random().toString(36).slice(2, 8);
-        // const hashPass = bcrypt.hashSync(newPass, parseInt(process.env.BCRYPT_ROUNDS));
+        const hashPass = bcrypt.hashSync(newPass, parseInt(process.env.BCRYPT_ROUNDS));
         const mailTransporter = await nodeMailer.createTransport({
             service: 'gmail',
             auth: {
@@ -61,7 +62,7 @@ const forgetPassword = async (req, res) => {
         mailTransporter.sendMail(
             {
                 from: 'study-partner',
-                to: 'avraham8585@gmail.com',    ///user.email,    
+                to: user.email,    //avraham8585@gmail.com
                 subject: 'rest password',
                 text: `your temporary password is: ${newPass}  please do not share this password to anybody`
             },
@@ -92,23 +93,23 @@ const forgetPassword = async (req, res) => {
 
 const resetPassword = async (req, res) => {
     try {
-        const { temporaryPass, newPassword, confirmNewPassword } = req.body;
-        if (!temporaryPass || !newPassword || !confirmNewPassword) {
+        const { code, password, confirmPassword } = req.body;
+        if (!code || !password || !confirmPassword) {
             res.status(400).send({ message: 'please fill all the fields' });
         }
-        else if (!password(newPassword)) {
-            res.status(400).send({ message: 'name not valid' });
+        else if (!passwordValid(password)) {
+            res.status(400).send({ message: 'password not valid' });
         }
-        else if (newPassword !== confirmNewPassword) {
-            res.status(400).send({message:'auth faild'});
+        else if (password !== confirmPassword) {
+            res.status(400).send({ message: 'auth faild' });
         }
-
-        const user = userModel = await userModel.findOne({ where: { refresh_token: temporaryPass } })
+        const user = await userModel.findOne({ where: { refresh_token: code } });
         if (!user) {
             res.status(400).send('auth faild');
         }
         else {
-            await userModel.update({ password: newPassword, refresh_token: null }, { where: { email: user.email } });
+            const hashPssword = bcrypt.hashSync(password, BCRYPT_ROUNDS);
+            await userModel.update({ password: hashPssword, refresh_token: null }, { where: { email: user.email } });
             res.status(200).send('password update');
         }
     }

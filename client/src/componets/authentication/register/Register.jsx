@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import '../register/register.css'
+import './Register.css'
 import axios from 'axios'
 import { useNavigate } from "react-router-dom"
 import { nameValid, emailValid, passwordValid } from '../../../utilities/validetion/validetion.js'
@@ -31,7 +31,7 @@ export default function Register() {
             try {
                 const answer = await axios.post('http://localhost:3002/user/register', { name, email, password, confirmPassword })
                 console.log(answer);
-                navigate('/log-in')
+                navigate('/')
 
             }
             catch (err) {
