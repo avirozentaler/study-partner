@@ -1,27 +1,30 @@
-import {useContext} from 'react'
+import { useContext } from 'react'
 import UserConnected from '../../context/UserConnected'
-
+import  './Home.css';
 
 export default function Home() {
 
-const {userConnected, setUserConnected} = useContext(UserConnected);
+    const { userConnected, setUserConnected } = useContext(UserConnected);
 
-// const foo = () =>{
 
-//     setUserConnected(!userConnected);
-// }
-    
-    return(
-        <div>
 
-            {userConnected ?<div>
-                 <p>user  Connected</p>
+    return (
+        <div className='Home'>
+
+            <div className='home-header'>
+                <span>log in</span> <span>register</span>
             </div>
-            :
-            <div>
-                <p>user not Connected</p>
-            </div>}
-            {/* <button onClick={foo}>connect/disconnect</button> */}
+
+            <div className='home-body'>
+                {userConnected ? <div>
+                    <p>user  Connected</p>
+                </div>
+                    :
+                    <div>
+                        <p>user not Connected</p>
+                    </div>}
+
+            </div>
 
         </div>
     )
