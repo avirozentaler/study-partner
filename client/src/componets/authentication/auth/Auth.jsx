@@ -5,13 +5,19 @@ import Login from "../logIn/LogIn";
 import Forgetpassword from "../forgetpassword/Forgetpassword";
 import ResetPassword from "../resetPassword/ResetPassword";
 import '../auth/Auth.css';
-export default function Auth (){
+
+
+export default function Auth ({closePop}){
     
-    
+const closeAuth =()=>{
+    closePop();
+}    
 
     return(
     
     <div  className="Auth">
+                <span className="closeAuth" onClick={closeAuth}> close</span>
+
             <BrowserRouter>
             <Routes>
                 <Route path="/" element={<Login/>}/>

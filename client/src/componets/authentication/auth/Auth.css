@@ -1,5 +1,6 @@
 /* .Authentication{ */
 .Auth{
+    position: absolute;
          /* Hidden by default */
     position: fixed; /* Stay in place */
     left: 25%;

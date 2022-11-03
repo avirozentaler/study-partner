@@ -1,0 +1,27 @@
+.AppHeader {
+    width: 100%;
+    height: 20%;
+    background-color: cadetblue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+.auth-button {
+    text-decoration: underline;
+}
+
+.authFather {
+    position: relative;
+}
+
+.closeAuth {
+    color: red;
+    text-decoration: underline;
+}
+
+.hidden {
+    display: none;
+}
