@@ -1,12 +1,17 @@
 /* .Authentication{ */
 .Auth{
-    position: absolute;
+    /* position: absolute;   */
          /* Hidden by default */
-    position: fixed; /* Stay in place */
+     position: fixed; /*Stay in place */
     left: 25%;
     top: 25%;
     width: 50%; /* Full width */
     height: 50%; /* Full height */
-    background-color: blanchedalmond;
-   
+    background-color: #41B6C3;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.closeAuth{
+    float:  right;
+    margin-right: 5%;
+    cursor: pointer ;
 }

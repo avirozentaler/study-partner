@@ -2,19 +2,25 @@ input{
     display: block;
     margin-right: auto;
     margin-left: auto;
-    
+    margin-bottom: 1%;
+    padding: 1%;
+    border-radius: 10px ;
     
 }
 button{
     display: block;
     margin: auto;
+    border: 1px solid ;
+    border-radius: 5px;
+
 }
 .Login{
-    padding: 20%;
-    
+    display: inline;    
 }
 .authbButtons
 {
     color: blue;
     text-decoration-line:underline ;
+    cursor: pointer
+    
 }

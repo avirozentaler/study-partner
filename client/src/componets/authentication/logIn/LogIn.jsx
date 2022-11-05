@@ -1,5 +1,5 @@
 import React, { useState,useContext } from "react";
-import './Login.css';
+import './login.css';
 import axios from 'axios'
 import { emailValid, passwordValid } from '../../../utilities/validetion/validetion.js'
 import { useNavigate } from "react-router-dom";
@@ -41,13 +41,13 @@ export default function Login() {
 
     return (
         <div className="Login">
-            <p>Login</p>
+            <h2>Login</h2>
             <input type="email" value={email} onChange={(event) => { setEmail(event.target.value) }} placeholder="email" />
             <input type="password" value={password} onChange={(event) => { setPassword(event.target.value) }} placeholder="password" />
             <button onClick={submit}>Login</button>
             <div>
-                <span className="authbButtons" onClick={() => { navigate('/register') }}> sign up </span>
-                <span className="authbButtons" onClick={() => { navigate('/forget-pass') }}> forget passwod? </span>
+                <p className="authbButtons" onClick={() => { navigate('/register') }}> sign up </p>
+                <p className="authbButtons" onClick={() => { navigate('/forget-pass') }}> forget passwod? </p>
             </div>
         </div>
     )
