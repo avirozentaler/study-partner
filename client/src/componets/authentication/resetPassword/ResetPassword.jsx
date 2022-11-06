@@ -46,7 +46,6 @@ export default function ResetPassword() {
     }
 
 
-
     return (
         <div className="ResetPassword auth">
             <p>reset Password</p>
