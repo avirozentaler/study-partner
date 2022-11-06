@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { emailValid } from '../../../utilities/validetion/validetion.js';
 import axios from "axios";
-import './Forgetpassword.css';
+import './ForgetPassword.css';
 
-export default function Forgetpassword() {
+export default function ForgetPassword() {
 
 
 const navigate = useNavigate();
@@ -17,14 +17,14 @@ const submit =async()=>{
     }
     else{
       try {
-        const answer = await axios.post('http://localhost:3002/auth/forget-pass', { email })
+        const answer = await axios.post('http://localhost:3005/auth/forget-pass', { email })
         console.log(answer);
         navigate('/resetPassword');
 
     }
     catch (err) {
         console.log(err)
-        alert('email sent successfully')
+        alert('error');
     } 
     }
   

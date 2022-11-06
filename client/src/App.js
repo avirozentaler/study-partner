@@ -1,14 +1,17 @@
 import './App.css';
 import { useState } from 'react';
-import Auth from './componets/authentication/auth/Auth';
-import UserConnected from './context/UserConnected'; 
+import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
+
+import UserConnected from './context/UserConnected';
 import Home from './componets/home/Home';
 
-
-
+import Register from "./componets/authentication/register/Register";
+import Login from "./componets/authentication/logIn/LogIn";
+import ForgetPassword from "./componets/authentication/forgetPassword/ForgetPassword";
+import ResetPassword from "./componets/authentication/resetPassword/ResetPassword";
 
 function App() {
-  
+
 
 
   const [userConnected, setUserConnected] = useState(null);
@@ -16,15 +19,23 @@ function App() {
   return (
     <div className="App">
 
+      <UserConnected.Provider value={{ userConnected, setUserConnected }}>
+        
+        <BrowserRouter>
+          <Routes>
+            <Route path='/' element={<Home/>}>
+              <Route path="/log-in" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/forget-pass" element={<ForgetPassword />} />
+              <Route path="/reset-pass" element={<ResetPassword />} />
+            </Route>
+          </Routes>
 
-
-
-      <UserConnected.Provider value={{userConnected, setUserConnected}}>
-      <Auth />
-<Home/>     
+        </BrowserRouter>
       </UserConnected.Provider>
     </div>
   );
 }
 
 export default App;
+

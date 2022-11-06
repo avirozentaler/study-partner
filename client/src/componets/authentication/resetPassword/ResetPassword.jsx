@@ -1,10 +1,11 @@
 import React from "react";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,Link } from "react-router-dom";
 import { passwordValid } from '../../../utilities/validetion/validetion.js';
 import axios from "axios";
 import './ResetPassword.css';
 
+import '../auth/Auth.css';
 
 
 
@@ -32,7 +33,7 @@ export default function ResetPassword() {
         }
         else {
             try {
-                const answer = await axios.post('http://localhost:3002/auth/reset-pass', { code, password, confirmPassword })
+                const answer = await axios.post('http://localhost:3005/auth/reset-pass', { code, password, confirmPassword })
                 console.log(answer);
                 navigate('/')
 
@@ -45,15 +46,14 @@ export default function ResetPassword() {
     }
 
 
-
     return (
-        <div className="ResetPassword">
+        <div className="ResetPassword auth">
             <p>reset Password</p>
-
-            <input type="password" value={code} onChange={(event) => { setCode(event.target.value) }} placeholder="code" />
-            <input type="password" value={password} onChange={(event) => { setPassword(event.target.value) }} placeholder="new password" />
-            <input type="password" value={confirmPassword} onChange={(event) => { setConfirmPassword(event.target.value) }} placeholder="confirm new password" />
-            <button onClick={submit}>Reset</button>
+            <Link to='/'>close</Link>
+            <input className="authChildren" type="password" value={code} onChange={(event) => { setCode(event.target.value) }} placeholder="code" />
+            <input className="authChildren" type="password" value={password} onChange={(event) => { setPassword(event.target.value) }} placeholder="new password" />
+            <input className="authChildren" type="password" value={confirmPassword} onChange={(event) => { setConfirmPassword(event.target.value) }} placeholder="confirm new password" />
+            <button className="authChildren" onClick={submit}>Reset</button>
         </div>
     )
 }

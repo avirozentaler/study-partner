@@ -5,9 +5,6 @@ const token = process.env.TOKEN_NAME;
 const BCRYPT_ROUNDS = parseInt(process.env.BCRYPT_ROUNDS);
 const nodeMailer = require('nodemailer');
 const { emailValid, passwordValid } = require('../../utilities/validations/validations');
-const { use } = require('../../routers');
-
-
 
 
 const auth = async (req, res) => {
@@ -20,7 +17,6 @@ const auth = async (req, res) => {
         }
         else {
             const isVarify = jwt.verify(cookie, process.env.SECRET_KEY);
-            // const user = userModel.findOne({where:{email:isVarify.email}});
             if (isVarify.email) {
                 console.log(email);
                 res.status(200).send({ message: 'access exist' });
@@ -35,19 +31,20 @@ const auth = async (req, res) => {
 }
 
 
-
-
 const forgetPassword = async (req, res) => {
     try {
         const {email} = req.body;
         if (!email) {
+            console.log('! email');
             throw Error('email not match please try again');
         }
         else if (!emailValid(email)) {
+            console.log('email not valid');
             throw Error('email not valid');
         }
         const user = await userModel.findOne({ where: { email } });
         if (!user) {
+            console.log('user not foumd at database');
             throw Error('email not macth please try again');
         }
         const newPass = Math.random().toString(36).slice(2, 8);
@@ -62,7 +59,7 @@ const forgetPassword = async (req, res) => {
         mailTransporter.sendMail(
             {
                 from: 'study-partner',
-                to: user.email,    //avraham8585@gmail.com
+                to: user.email,   
                 subject: 'rest password',
                 text: `your temporary password is: ${newPass}  please do not share this password to anybody`
             },
@@ -117,7 +114,6 @@ const resetPassword = async (req, res) => {
         console.log(err);
         res.status(401).send(err.message);
     }
-
 }
 
 module.exports = {

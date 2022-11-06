@@ -1,11 +1,20 @@
-/* .Authentication{ */
-.Auth{
-         /* Hidden by default */
-    position: fixed; /* Stay in place */
+
+.auth{
+    position: absolute;
+         
+    position: fixed; 
     left: 25%;
     top: 25%;
-    width: 50%; /* Full width */
-    height: 50%; /* Full height */
-    background-color: blanchedalmond;
+    width: 30%; 
+    background-color: rgba(255, 255, 255, 0.587);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
    
+}
+.authChildren
+{
+    width:80%;
+    margin: 1%;
+
 }
