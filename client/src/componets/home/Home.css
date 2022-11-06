@@ -11,9 +11,17 @@ flex-flow: column;
 
 
 
-.home-body
+.headHome
+{
+    height: 20%;
+    width: 100%;
+    background-color: rgba(95, 158, 160, 0.663);
+
+}
+.bodyHome
 {
     height: 80%;
     width: 100%;
     background-color: rgba(95, 158, 160, 0.491);
 }
+

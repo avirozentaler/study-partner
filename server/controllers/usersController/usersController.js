@@ -24,8 +24,6 @@ const registerValid = (req, res, next) => {
     else if (password !== confirmPassword) {
         res.send('auth faild');
     }
-
-
     else {
         next();
     }
@@ -53,6 +51,7 @@ const register = async (req, res) => {
         res.send(err);
     }
 }
+
 //middleware validation for log-in
 const logInValid = (req, res, next) => {
     const { email, password } = req.body;
@@ -97,7 +96,6 @@ const logIn = async (req, res) => {
             });
             console.log(accessToken);
             // await userModel.update({ refresh_token: accessToken },{where: { id: user.id } });
-           
             res.cookie(process.env.TOKEN_NAME, accessToken, {
                     maxAge: 1000 * 60 * 5,
                     httpOnly: false
