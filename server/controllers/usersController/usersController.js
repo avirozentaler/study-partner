@@ -20,7 +20,7 @@ const registerValid = (req, res, next) => {
     else if (password !== confirmPassword) { throw Error('auth faild') }
     else if (country && !countryValid) { throw Error('country is not valid') }
     else if (phone_number && !phone_numberValid) { throw Error('phone number is not valid') }
-    else if (age_range && !age_rangeValid) { throw Error('age range is not valid') }
+    // else if (age_range && !age_rangeValid) { throw Error('age range is not valid') }
     else {
         next();
     }

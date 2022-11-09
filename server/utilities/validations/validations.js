@@ -5,7 +5,7 @@ const emailRegexp = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))
 const passwordRegexp = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,16}$/;
 const countryRegexp = /^[a-zA-Z ]{3,30}$/
 const languagesRegexp = /^[a-zA-Z ]{3,20}$/
-const phoneNumberRegexp = /^[\+]?[(]?[0-9]{3}[)][0-9]{4,6}$/
+const phoneNumberRegexp = /^[+ 0-9]{7,14}$/
 const ageRangeRegexp = /^[0-9]$/
 
 
