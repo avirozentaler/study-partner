@@ -8,7 +8,6 @@ const userModel = require('../../models/user');
 //middleware validation for registering
 const registerValid = (req, res, next) => {
     const { name, email, password, confirmPassword, country, languages, phone_number, age_range } = req.body;
-
     if (!name || !email || !password || !confirmPassword || !languages) {
         res.status(400).send({ message: 'please fill all the fields' });
     }
@@ -18,7 +17,7 @@ const registerValid = (req, res, next) => {
     else if (!emailValid(email)) { res.status(400).send({ message: 'email not valid' }); }
     else if (!passwordValid(password)) { res.status(400).send({ message: 'password not valid' }); }
     else if (!languagesValid) { throw Error('language is not valid') }
-    else if (password !== confirmPassword) { res.send('auth faild'); }
+    else if (password !== confirmPassword) { throw Error('auth faild') }
     else if (country && !countryValid) { throw Error('country is not valid') }
     else if (phone_number && !phone_numberValid) { throw Error('phone number is not valid') }
     else if (age_range && !age_rangeValid) { throw Error('age range is not valid') }
@@ -29,24 +28,23 @@ const registerValid = (req, res, next) => {
 
 const register = async (req, res) => {
     try {
-
-        const { name, email, password, country, languages, phone_number, age_range } = req.body;
-
+        const { name, email, password, confirmPassword, country, languages, phone_number, age_range } = req.body;
         const existUser = await userModel.findOne({
-            where: { email: email }
+            where: {email: email}
         });
-        if (existUser) {
+        if (existUser) {            
             res.status(400).send({ message: 'auth faild' });
         }
         else {
+
             const hashPssword = bcrypt.hashSync(password, BCRYPT_ROUNDS);
-            await userModel.create({ name, email, password: hashPssword });
+            await userModel.create({ name, email, password: hashPssword,country,languages,phone_number,age_range });
             res.status(200).send({ message: 'user created successfully' });
         }
 
     }
     catch (err) {
-        res.send(err);
+        res.status(400).send(err);
     }
 }
 

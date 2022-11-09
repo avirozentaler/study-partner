@@ -22,7 +22,7 @@ const user = db.define('user', {
         allowNull: true,
     },
     languages: {
-        type: DataTypes.ARRAY,
+        type: DataTypes.JSON,
         allowNull: false,
     },
     phone_number: {
@@ -30,7 +30,7 @@ const user = db.define('user', {
         allowNull: true,
     },
     age_range: {
-        type: DataTypes.RANGE,
+        type: DataTypes.INTEGER,
         allowNull: true,
     },
     refresh_token: {
