@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,Link,Outlet } from "react-router-dom";
 import { emailValid } from '../../../utilities/validetion/validetion.js';
 import axios from "axios";
 import './ForgetPassword.css';
+import '../auth/Auth.css';
 
 export default function ForgetPassword() {
 
@@ -19,7 +20,7 @@ const submit =async()=>{
       try {
         const answer = await axios.post('http://localhost:3005/auth/forget-pass', { email })
         console.log(answer);
-        navigate('/resetPassword');
+        navigate('/reset-pass');
 
     }
     catch (err) {
@@ -31,10 +32,12 @@ const submit =async()=>{
 }
 
   return (
-    <div className='Forgetpassword'>
+    <div className='Forgetpassword auth'>
       <p>forget Password</p>
-      <input type="email" value={email} onChange={(event) => { setEmail(event.target.value) }} placeholder="email" />
-      <button onClick={submit}>Reset</button>
+      <Link to='/'>close</Link>
+      <input className="authChildren" type="email" value={email} onChange={(event) => { setEmail(event.target.value) }} placeholder="email" />
+      <button className="authChildren" onClick={submit}>Reset</button>
+
     </div>
   )
 }

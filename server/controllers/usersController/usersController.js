@@ -1,4 +1,4 @@
-const { nameValid, emailValid, passwordValid } = require('../../utilities/validations/validations');
+const { nameValid, emailValid, passwordValid, countryValid, languagesValid, phone_numberValid, age_rangeValid } = require('../../utilities/validations/validations');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const BCRYPT_ROUNDS = parseInt(process.env.BCRYPT_ROUNDS);
@@ -7,23 +7,20 @@ const userModel = require('../../models/user');
 
 //middleware validation for registering
 const registerValid = (req, res, next) => {
-    const { name, email, password, confirmPassword } = req.body;
-
-    if (!name || !email || !password || !confirmPassword) {
-        res.status(400).send({ message:'please fill all the fields'});
+    const { name, email, password, confirmPassword, country, languages, phone_number, age_range } = req.body;
+    if (!name || !email || !password || !confirmPassword || !languages) {
+        res.status(400).send({ message: 'please fill all the fields' });
     }
     else if (!nameValid(name)) {
-        res.status(400).send({message:'name not valid'});
+        res.status(400).send({ message: 'name not valid' });
     }
-    else if (!emailValid(email)) {
-        res.status(400).send({message: 'email not valid'});
-    }
-    else if (!passwordValid(password)) {
-        res.status(400).send({message:'password not valid'});
-    }
-    else if (password !== confirmPassword) {
-        res.send('auth faild');
-    }
+    else if (!emailValid(email)) { res.status(400).send({ message: 'email not valid' }); }
+    else if (!passwordValid(password)) { res.status(400).send({ message: 'password not valid' }); }
+    else if (!languagesValid) { throw Error('language is not valid') }
+    else if (password !== confirmPassword) { throw Error('auth faild') }
+    else if (country && !countryValid) { throw Error('country is not valid') }
+    else if (phone_number && !phone_numberValid) { throw Error('phone number is not valid') }
+    // else if (age_range && !age_rangeValid) { throw Error('age range is not valid') }
     else {
         next();
     }
@@ -31,24 +28,23 @@ const registerValid = (req, res, next) => {
 
 const register = async (req, res) => {
     try {
-
-        const { name, email, password } = req.body;
-
+        const { name, email, password, confirmPassword, country, languages, phone_number, age_range } = req.body;
         const existUser = await userModel.findOne({
-            where: { email: email }
+            where: {email: email}
         });
-        if (existUser) {
-            res.status(400).send({message:'auth faild'});
+        if (existUser) {            
+            res.status(400).send({ message: 'auth faild' });
         }
         else {
+
             const hashPssword = bcrypt.hashSync(password, BCRYPT_ROUNDS);
-            await userModel.create({ name, email, password: hashPssword });
-            res.status(200).send({message:'user created successfully'});
+            await userModel.create({ name, email, password: hashPssword,country,languages,phone_number,age_range });
+            res.status(200).send({ message: 'user created successfully' });
         }
 
     }
     catch (err) {
-        res.send(err);
+        res.status(400).send(err);
     }
 }
 
@@ -56,20 +52,19 @@ const register = async (req, res) => {
 const logInValid = (req, res, next) => {
     const { email, password } = req.body;
     if (!email || !password) {
-        res.status(400).send({ message:'please fill all the fields'});
+        res.status(400).send({ message: 'please fill all the fields' });
     }
     else if (!emailValid(email)) {
         res.send('email not valid');
     }
     else if (!passwordValid(password)) {
-        res.status(400).send({message:'email or password are not valid'});
+        res.status(400).send({ message: 'email or password are not valid' });
     }
     else {
         next();
     }
 
 }
-
 const logIn = async (req, res) => {
 
     try {
@@ -80,15 +75,15 @@ const logIn = async (req, res) => {
             }
         })
         if (!user) {
-            res.status(400).send({message:'auth faild'});
+            res.status(400).send({ message: 'auth faild' });
             return;
         }
         const isComparePassword = await bcrypt.compare(password, user.password);
         if (!isComparePassword) {
-            res.status(400).send({message:'auth faild'});
+            res.status(400).send({ message: 'auth faild' });
             return;
         }
-        
+
         else {
             const accessToken = jwt.sign({ email }, process.env.SECRET_KEY, {
                 algorithm: 'HS256',
@@ -97,10 +92,10 @@ const logIn = async (req, res) => {
             console.log(accessToken);
             // await userModel.update({ refresh_token: accessToken },{where: { id: user.id } });
             res.cookie(process.env.TOKEN_NAME, accessToken, {
-                    maxAge: 1000 * 60 * 5,
-                    httpOnly: false
-                })
-                
+                maxAge: 1000 * 60 * 5,
+                httpOnly: false
+            })
+
             res.status(200).send({ message: 'user loged in!!' });
         }
 
