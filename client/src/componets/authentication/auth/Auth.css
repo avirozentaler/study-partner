@@ -1,20 +1,17 @@
 
 .auth{
-    position: absolute;
-         
-    position: fixed; 
-    left: 25%;
-    top: 25%;
-    width: 30%; 
-    background-color: rgba(255, 255, 255, 0.587);
-    display: flex;
+    
+          
+    
+    /* display: flex; */
     flex-direction: column;
+    justify-content: center;
     align-items: center;
    
 }
-.authChildren
+/* .authChildren
 {
     width:80%;
-    margin: 1%;
+    margin: %;
 
-}
+} */

@@ -7,7 +7,7 @@ import Home from './componets/home/Home';
 
 import Register from "./componets/authentication/register/Register";
 import Login from "./componets/authentication/logIn/LogIn";
-import ForgetPassword from "./componets/authentication/forgetPassword/ForgetPassword";
+import ForgetPassword from "./componets/authentication/forgetpassword/Forgetpassword"
 import ResetPassword from "./componets/authentication/resetPassword/ResetPassword";
 
 function App() {

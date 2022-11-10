@@ -1,7 +1,11 @@
 
 const nameRegexp = /^[a-zA-Z ]{2,30}$/;
 const emailRegexp = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+<<<<<<< HEAD
+const passwordRegexp = /^(?=.[A-Za-z])(?=.\d)[A-Za-z\d]{8,16}$/;
+=======
 const passwordRegexp = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,16}$/;
+>>>>>>> 05fed812c39a1dd3773383cdc1f379083f0aa08c
 const countryRegexp = /^[a-zA-Z ]{3,30}$/
 const languagesRegexp = /^[a-zA-Z ]{3,20}$/
 const phoneNumberRegexp =/^[+ 0-9]{7,14}$/
