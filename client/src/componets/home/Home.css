@@ -4,7 +4,7 @@
 .Home
 {
 height: 100vh;
-/* width: 100%; */
+width: 100%; 
 display: flex;
 flex-flow: column;
 }
@@ -13,6 +13,7 @@ flex-flow: column;
 
 .headHome
 {
+
     height: 20%;
     width: 100%;
     background-color: rgba(95, 158, 160, 0.663);
