@@ -6,13 +6,13 @@ import './Home.css';
 import { CssVarsProvider, useColorScheme } from '@mui/joy/styles';
 import Button from '@mui/joy/Button';
 
+
 function ModeToggle() {
     const { mode, setMode } = useColorScheme();
-  
-    
     return (
       <Button
-        variant="outlined"
+        variant= "soft"
+        size="lg"
         onClick={() => {
           setMode(mode === 'light' ? 'dark' : 'light');
         }}
@@ -30,11 +30,14 @@ export default function Home() {
     return (
         <CssVarsProvider>
         <div className='Home'>
-           <ModeToggle /> 
-
+           
+        
+      
             <div className='headHome'>
                 <h1>header</h1>
                 <Link to='/log-in'>log in</Link>
+                <ModeToggle />   
+                  
                  
             </div>
             <div className='bodyHome'>
