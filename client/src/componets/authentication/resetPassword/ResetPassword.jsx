@@ -1,10 +1,10 @@
-import React from "react";
+import axios from "axios";
 import { useState } from "react";
 import { useNavigate,Link } from "react-router-dom";
 import { passwordValid } from '../../../utilities/validetion/validetion.js';
-import axios from "axios";
-import './ResetPassword.css';
 
+import CloseIcon from '@mui/icons-material/Close';
+import {Sheet, Typography, TextField, Button }from '@mui/joy';
 import '../auth/Auth.css';
 
 
@@ -48,12 +48,84 @@ export default function ResetPassword() {
 
     return (
         <div className="ResetPassword auth">
-            <p>reset Password</p>
-            <Link to='/'>close</Link>
-            <input className="authChildren" type="password" value={code} onChange={(event) => { setCode(event.target.value) }} placeholder="code" />
+            {/* <input className="authChildren" type="password" value={code} onChange={(event) => { setCode(event.target.value) }} placeholder="code" />
             <input className="authChildren" type="password" value={password} onChange={(event) => { setPassword(event.target.value) }} placeholder="new password" />
             <input className="authChildren" type="password" value={confirmPassword} onChange={(event) => { setConfirmPassword(event.target.value) }} placeholder="confirm new password" />
-            <button className="authChildren" onClick={submit}>Reset</button>
+            <button className="authChildren" onClick={submit}>Reset</button> */}
+            <Sheet
+            
+          sx={{
+            width: 300,
+            mx: 'auto', // margin left & right
+            my: 4, // margin top & botom
+            py: 3, // padding top & bottom
+            px: 2, // padding left & right
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 2,
+            borderRadius: 'sm',
+            boxShadow: 'md',
+          }}
+          variant="outlined"
+        >
+          <div>
+          <Typography
+            endDecorator={<Link to="/"><CloseIcon/></Link>}
+            fontSize="sm"
+          >
+          </Typography>
+          
+            <Typography level="h4" component="h1"> <b>Welcome!</b>  </Typography>
+            <Typography level="body2">enter code and new password to continue.</Typography>
+          </div>
+          
+          
+          <TextField
+            required
+            id='code'
+            name="code"
+            type="password"
+            label="Code"
+            autoComplete="current-password"
+            value={code}
+            onChange={(event)=>setCode(event.target.value)}
+
+
+            
+          />
+          
+          <TextField
+            required
+            id='password'
+            name="password"
+            type="password"
+            label="Password"
+            autoComplete="current-password"
+            value={password}
+            onChange={(event)=>setPassword(event.target.value)}
+
+
+          />
+          
+          <TextField
+            required
+            id='confirmPassword'
+            name="confirmPassword"
+            type="password"
+            label="Confirm Password"
+            autoComplete="current-password"
+            value={confirmPassword}
+            onChange={(event)=>setConfirmPassword(event.target.value)}
+          />
+           <Button
+              type="submit"
+             
+              sx={{ mt: 1 /* margin top */}}
+              onClick={submit}
+            >
+              Reset
+            </Button>
+        </Sheet>
         </div>
     )
 }
