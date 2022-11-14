@@ -56,7 +56,6 @@ export default function Home() {
 
    
     return (
-
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static">
                 <Toolbar>
@@ -76,8 +75,6 @@ export default function Home() {
         {mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
       </IconButton>
 
-        
-      
                     {!userConnected ? <Box> <Button color="inherit" onClick={handleOpenLogin}>Login</Button> </Box> : null}
                     {/* {!userConnected ? <Link to='/log-in'>log in</Link> : null} */}
                     <div>
@@ -136,13 +133,7 @@ export default function Home() {
                         <Typography variant='h3'>user not Connected</Typography>
                 }
             </Box>           
-            <></>
         </Box>
-
-    
-
-
-
     );
 }
 
