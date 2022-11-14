@@ -1,8 +1,15 @@
-import React, { useState } from "react";
+import axios from "axios";
+import { useState } from "react";
 import { useNavigate,Link,Outlet } from "react-router-dom";
 import { emailValid } from '../../../utilities/validetion/validetion.js';
+<<<<<<< HEAD
 import axios from "axios";
 // import './ForgetPassword.css';
+=======
+
+import CloseIcon from '@mui/icons-material/Close';
+import {Sheet, Typography, TextField, Button }from '@mui/joy';
+>>>>>>> 9800c450b1038f75bae555b6ef6ce3a268777cb7
 import '../auth/Auth.css';
 
 export default function ForgetPassword() {
@@ -19,7 +26,6 @@ const submit =async()=>{
     else{
       try {
         const answer = await axios.post('http://localhost:3005/auth/forget-pass', { email })
-        console.log(answer);
         navigate('/reset-pass');
 
     }
@@ -33,11 +39,56 @@ const submit =async()=>{
 
   return (
     <div className='Forgetpassword auth'>
-      <p>forget Password</p>
-      <Link to='/'>close</Link>
-      <input className="authChildren" type="email" value={email} onChange={(event) => { setEmail(event.target.value) }} placeholder="email" />
-      <button className="authChildren" onClick={submit}>Reset</button>
-
+      <Sheet
+            sx={{
+              width: 300,
+              mx: 'auto', // margin left & right
+              my: 4, // margin top & botom
+              py: 3, // padding top & bottom
+              px: 2, // padding left & right
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 2,
+              borderRadius: 'sm',
+              boxShadow: 'xl',
+            }}
+            variant="outlined"
+          >
+            <div>
+            <Typography
+              endDecorator={<Link to="/"><CloseIcon/></Link>}
+              fontSize="sm"
+  
+            >
+            </Typography>
+            
+              <Typography level="h4" component="h1">
+            
+                  
+                <b>Welcome!</b>
+              </Typography>
+              <Typography level="body2">enter email to continue.</Typography>
+            </div>
+            <TextField
+              // html input attribute
+              required
+            id='email'
+            label="Email address"
+            name="email"
+            type="email"
+            autoComplete='email'
+            autoFocus
+            value={email}
+            onChange={(event)=>setEmail(event.target.value)}
+              />
+             <Button
+                type="submit"
+                sx={{ mt: 1 /* margin top */}}
+                onClick={submit}
+                >
+                Reset
+              </Button>
+          </Sheet>
     </div>
   )
 }
