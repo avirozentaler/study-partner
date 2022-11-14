@@ -1,10 +1,5 @@
-<<<<<<< HEAD
 import React, { useState } from "react";
-// import './Register.css'
-=======
->>>>>>> 9800c450b1038f75bae555b6ef6ce3a268777cb7
 import axios from 'axios'
-import React, { useState } from "react";
 import { useNavigate,Link,Outlet } from "react-router-dom"
 import { nameValid, emailValid, passwordValid,countryValid,languagesValid,phone_numberValid,age_rangeValid} from '../../../utilities/validetion/validetion.js'
 
