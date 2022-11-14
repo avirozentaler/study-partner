@@ -1,8 +1,10 @@
-import React, { useState,useContext } from "react";
 import axios from 'axios'
+import React, { useState,useContext } from "react";
+import { useNavigate, Link } from "react-router-dom"; 
+import UserConnected from '../../../context/UserConnected';
 import { emailValid, passwordValid } from '../../../utilities/validetion/validetion.js'
-import { useNavigate, Link } from "react-router-dom"; //link
-import UserConnected from '../../../context/UserConnected'; 
+
+import CloseIcon from '@mui/icons-material/Close';
 import {Sheet, Typography, TextField, Button }from '@mui/joy';
 import '../auth/Auth.css'
 
@@ -44,6 +46,7 @@ export default function Login() {
     return (
         <div className="Login auth">
             <Sheet
+            
           sx={{
             width: 300,
             mx: 'auto', // margin left & right
@@ -54,32 +57,58 @@ export default function Login() {
             flexDirection: 'column',
             gap: 2,
             borderRadius: 'sm',
-            boxShadow: 'md',
+            boxShadow: 'xl',
           }}
           variant="outlined"
         >
           <div>
+          <Typography
+            endDecorator={<Link to="/"><CloseIcon/></Link>}
+            fontSize="sm"
+
+          >
+          </Typography>
+          
             <Typography level="h4" component="h1">
+          
+                
               <b>Welcome!</b>
             </Typography>
             <Typography level="body2">Sign in to continue.</Typography>
           </div>
-          <Link to='/'>X</Link>
+          
           <TextField
             // html input attribute
+            required
+            id='email'
+            label="Email address"
             name="email"
             type="email"
-            placeholder="email address@email.com"
+            autoComplete='email'
+            autoFocus
+            value={email}
+            onChange={(event)=>setEmail(event.target.value)}
             // pass down to FormLabel as children
-            label="Email"
+
           />
           <TextField
+            required
+            id='password'
             name="password"
             type="password"
-            placeholder="password"
             label="Password"
+            autoComplete="current-password"
+            value={password}
+            onChange={(event)=>setPassword(event.target.value)}
           />
-          <Button sx={{ mt: 1 /* margin top */ }}>Log in</Button>
+           <Button
+              type="submit"
+             
+              sx={{ mt: 1 /* margin top */}}
+              onClick={submit}
+            >
+              Log in
+            </Button>
           <Typography
             endDecorator={<Link to="/register">Sign up</Link>}
             fontSize="sm"
@@ -94,65 +123,6 @@ export default function Login() {
             >
             </Typography>
         </Sheet>
-           
-           {/* <Typography variant="h4">login</Typography>
-            <TextField
-              required
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
-              autoFocus
-            />
-             <TextField
-              margin="normal"
-              required
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-            />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
-            <Button
-              type="submit"
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-              onClick={submit}
-            >
-              Sign In
-            </Button>
-            <Grid container>
-                <Grid item >
-                    <Link to='/forget-pass'> Forgot password?</Link>
-                     <Link href="/forget-pass" variant="body2">
-                       Forgot password?
-                    </Link> 
-                </Grid>
-                <Grid item xs>
-                     <Link to='/register'>"Don't have an account? Sign Up"</Link>
-                    <Link href="/register" variant="body2">
-                        {"Don't have an account? Sign Up"}
-                    </Link> 
-                </Grid>
-            </Grid>
-             <p>Login</p> 
-            <input className="authChildren" type="email" value={email} onChange={(event) => { setEmail(event.target.value) }} placeholder="email" /> 
-            <input className="authChildren" type="password" value={password} onChange={(event) => { setPassword(event.target.value) }} placeholder="password" />
-            <button className="authChildren" onClick={submit}>Login</button> 
-             <div> 
-               
-    
-                
-               
-                
-            
-           
-                
-                </div>*/} 
         </div>
     )
 }
