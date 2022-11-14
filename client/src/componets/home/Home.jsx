@@ -136,7 +136,7 @@ export default function Home() {
                         <Typography variant='h3'>user not Connected</Typography>
                 }
             </Box>           
-            
+            <></>
         </Box>
 
     
