@@ -128,8 +128,6 @@ export default function Home() {
                     </div>
                 </Toolbar>
             </AppBar>
-            {/* <Button onClick={handleAuth}>user</Button> */}
-
 
             <Box>
                 {userConnected ?
@@ -137,11 +135,11 @@ export default function Home() {
                         :
                         <Typography variant='h3'>user not Connected</Typography>
                 }
-            </Box>
-           
-
-            <Outlet/> 
+            </Box>           
+            
         </Box>
+
+    
 
 
 
