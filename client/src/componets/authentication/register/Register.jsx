@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import './Register.css'
+// import './Register.css'
 import axios from 'axios'
 import { useNavigate,Link,Outlet } from "react-router-dom"
 import { nameValid, emailValid, passwordValid,countryValid,languagesValid,phone_numberValid,age_rangeValid} from '../../../utilities/validetion/validetion.js'

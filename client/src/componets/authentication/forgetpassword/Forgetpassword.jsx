@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate,Link,Outlet } from "react-router-dom";
 import { emailValid } from '../../../utilities/validetion/validetion.js';
 import axios from "axios";
-import './ForgetPassword.css';
+// import './ForgetPassword.css';
 import '../auth/Auth.css';
 
 export default function ForgetPassword() {
