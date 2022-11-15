@@ -5,7 +5,7 @@ import { passwordValid } from '../../../utilities/validetion/validetion.js';
 
 import CloseIcon from '@mui/icons-material/Close';
 import {Sheet, Typography, TextField, Button }from '@mui/joy';
-import '../auth/Auth.css';
+// import '../auth/Auth.css';
 
 
 
@@ -48,10 +48,6 @@ export default function ResetPassword() {
 
     return (
         <div className="ResetPassword auth">
-            {/* <input className="authChildren" type="password" value={code} onChange={(event) => { setCode(event.target.value) }} placeholder="code" />
-            <input className="authChildren" type="password" value={password} onChange={(event) => { setPassword(event.target.value) }} placeholder="new password" />
-            <input className="authChildren" type="password" value={confirmPassword} onChange={(event) => { setConfirmPassword(event.target.value) }} placeholder="confirm new password" />
-            <button className="authChildren" onClick={submit}>Reset</button> */}
             <Sheet
             
           sx={{

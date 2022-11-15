@@ -5,7 +5,7 @@ import { nameValid, emailValid, passwordValid,countryValid,languagesValid,phone_
 
 import CloseIcon from '@mui/icons-material/Close';
 import {Sheet, Typography, TextField, Button }from '@mui/joy';
-import '../auth/Auth.css';
+// import '../auth/Auth.css';
 
 
 export default function Register() {
@@ -60,17 +60,6 @@ export default function Register() {
 
     return (
         <div className="Register auth" >
-            {/* <p>Register</p>
-            <Link to='/'>close</Link>
-            <input className="authChildren" type="text" value={name} onChange={(event) => { setName(event.target.value) }} placeholder="name" />
-            <input className="authChildren" type="email" value={email} onChange={(event) => { setEmail(event.target.value) }} placeholder="email" />
-            <input className="authChildren" type="password" value={password} onChange={(event) => { setPassword(event.target.value) }} placeholder="password" />
-            <input className="authChildren" type="password" value={confirmPassword} onChange={(event) => { setConfirmPassword(event.target.value) }} placeholder="confirm password" />
-            <input className="authChildren" type="text" value={country} onChange={(event) => { setCountry(event.target.value) }} placeholder="country" />
-            <input className="authChildren" type="text" value={languages} onChange={(event) => { setLanguages(event.target.value) }} placeholder="languages" />
-            <input className="authChildren" type="number" value={phone_number} onChange={(event) => { setPhone_number(event.target.value) }} placeholder="phone_number" />
-            <input className="authChildren" type="number" value={age_range} onChange={(event) => { setAge_range(event.target.value) }} placeholder="age_range" />
-            <button className="authChildren" type={"submit"} onClick={submit} >Register </button> */}
             <Sheet
             
           sx={{

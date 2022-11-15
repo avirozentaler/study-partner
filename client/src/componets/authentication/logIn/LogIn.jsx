@@ -6,12 +6,11 @@ import { emailValid, passwordValid } from '../../../utilities/validetion/validet
 
 import CloseIcon from '@mui/icons-material/Close';
 import {Sheet, Typography, TextField, Button }from '@mui/joy';
-import '../auth/Auth.css'
+// import '../auth/Auth.css'
 
 
 
 export default function Login() {
-
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const navigate = useNavigate();
@@ -78,7 +77,6 @@ export default function Login() {
           </div>
           
           <TextField
-            // html input attribute
             required
             id='email'
             label="Email address"
@@ -87,9 +85,7 @@ export default function Login() {
             autoComplete='email'
             autoFocus
             value={email}
-            onChange={(event)=>setEmail(event.target.value)}
-            // pass down to FormLabel as children
-
+              
           />
           <TextField
             required

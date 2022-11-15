@@ -7,7 +7,7 @@ import Home from './componets/home/Home';
 
 import Register from "./componets/authentication/register/Register";
 import Login from "./componets/authentication/logIn/LogIn";
-import ForgetPassword from "./componets/authentication/forgetPassword/Forgetpassword";
+import ForgetPassword from "./componets/authentication/forgetpassword/Forgetpassword";
 import ResetPassword from "./componets/authentication/resetPassword/ResetPassword";
 import { Experimental_CssVarsProvider as CssVarsProvider, useColorScheme } from '@mui/material/styles';
 
@@ -24,7 +24,7 @@ function App() {
         
         <BrowserRouter>
           <Routes>
-          <Route path='/' element={<Home /> }>
+              <Route path='/' element={<Home /> }>
               <Route path="/log-in" element={<Login />} />
               <Route path="/register" element={<Register />} />
               <Route path="/forget-pass" element={<ForgetPassword />} />
