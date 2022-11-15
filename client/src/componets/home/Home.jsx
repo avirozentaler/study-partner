@@ -1,58 +1,51 @@
 import React, { useContext, useState } from 'react';
 import UserConnected from '../../context/UserConnected';
 import { Link, Outlet, useNavigate } from "react-router-dom";
-import './Home.css';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
-import AccountCircle from '@mui/icons-material/AccountCircle';
-import MenuItem from '@mui/material/MenuItem';
-import Menu from '@mui/material/Menu';
-import Avatar from '@mui/material/Avatar';
-import Tooltip from '@mui/material/Tooltip';
+
+import {AppBar, Box, Toolbar, Typography, Button, IconButton, ListItemIcon, MenuItem, Menu, Avatar, Tooltip}
+ from '@mui/material'
+
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
-import ListItemIcon from '@mui/material/ListItemIcon';
+import AccountCircle from '@mui/icons-material/AccountCircle';
 import { useColorScheme } from '@mui/material/styles';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 
 
-
 export default function Home() {
     
-            
     const { mode, setMode } = useColorScheme();
     const { userConnected, setUserConnected } = useContext(UserConnected);
     const [anchorUserMenu, setAnchorUserMenu] = useState(null);
     const navigate = useNavigate();
 
-    const modeToggle = () => {
-        setMode(mode === 'light' ? 'dark' : 'light');
-    }
 
-    const handleOpenLogin = () => {
-        navigate('/log-in');
-    }
+    
+const modeToggle = () => {
+    setMode(mode === 'light' ? 'dark' : 'light');
+}
 
-    const handleAuth = () => {
-        setUserConnected(!userConnected)
-    }
-    const handleOpenUserMenu = (event) => {
-        setAnchorUserMenu(event.currentTarget);
-    };
+const handleOpenLogin = () => {
+    console.log("hiihihh")
+    navigate('/log-in');
+}
 
-    const handleCloseUserMenu = () => {
-        setAnchorUserMenu(null);
-    };
+const handleAuth = () => {
+    setUserConnected(!userConnected)
+}
+const handleOpenUserMenu = (event) => {
+    setAnchorUserMenu(event.currentTarget);
+};
 
-    const handleLogOut = () => {
-        setUserConnected(false);
-    }
+const handleCloseUserMenu = () => {
+    setAnchorUserMenu(null);
+};
+
+const handleLogOut = () => {
+    setUserConnected(false);
+}
+
 
    
     return (
@@ -60,7 +53,12 @@ export default function Home() {
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static">
                 <Toolbar>
-                    <IconButton
+
+
+               {/* Here you need to add a logo with a permanent link to the home page */}
+
+
+                    {/* <IconButton
                         size="large"
                         edge="start"
                         color="inherit"
@@ -68,7 +66,7 @@ export default function Home() {
                         sx={{ mr: 2 }}
                     >
                         <MenuIcon />
-                    </IconButton>
+                    </IconButton> */}
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                         Study Partner
                     </Typography>
@@ -137,10 +135,12 @@ export default function Home() {
                 }
             </Box>           
             <></>
+            <Box> <Button color="inherit" onClick={handleOpenLogin}>Login</Button> </Box>
         </Box>
+        
 
     
-
+                
 
 
     );

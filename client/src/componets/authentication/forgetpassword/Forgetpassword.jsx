@@ -2,15 +2,10 @@ import axios from "axios";
 import { useState } from "react";
 import { useNavigate,Link,Outlet } from "react-router-dom";
 import { emailValid } from '../../../utilities/validetion/validetion.js';
-<<<<<<< HEAD
-import axios from "axios";
-// import './ForgetPassword.css';
-=======
 
 import CloseIcon from '@mui/icons-material/Close';
 import {Sheet, Typography, TextField, Button }from '@mui/joy';
->>>>>>> 9800c450b1038f75bae555b6ef6ce3a268777cb7
-import '../auth/Auth.css';
+// import '../auth/Auth.css';
 
 export default function ForgetPassword() {
 
@@ -70,7 +65,6 @@ const submit =async()=>{
               <Typography level="body2">enter email to continue.</Typography>
             </div>
             <TextField
-              // html input attribute
               required
             id='email'
             label="Email address"
