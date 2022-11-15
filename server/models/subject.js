@@ -8,6 +8,7 @@ const subject = db.define('subject', {
 
     },
 
+
     category_id: {
         type: DataTypes.STRING,
         allowNull: false

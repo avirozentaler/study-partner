@@ -1,11 +1,12 @@
-import React, { useState,useContext } from "react";
-import './Login.css';
 import axios from 'axios'
+import React, { useState,useContext } from "react";
+import { useNavigate, Link } from "react-router-dom"; 
+import UserConnected from '../../../context/UserConnected';
 import { emailValid, passwordValid } from '../../../utilities/validetion/validetion.js'
-import { useNavigate,Link,Outlet } from "react-router-dom";
-import UserConnected from '../../../context/UserConnected'; 
-import '../auth/Auth.css';
 
+import CloseIcon from '@mui/icons-material/Close';
+import {Sheet, Typography, TextField, Button }from '@mui/joy';
+import '../auth/Auth.css'
 
 
 
@@ -18,7 +19,10 @@ export default function Login() {
 
     const submit = async () => {
         if (!emailValid(email)) {
-            alert('email not valid')
+            
+            alert("email not valid!")
+            
+            
         }
         else if (!passwordValid(password)) {
             alert('password not valid')
@@ -41,16 +45,84 @@ export default function Login() {
 
     return (
         <div className="Login auth">
-            <p>Login</p>
-            <Link to='/'>close</Link>
-            <input className="authChildren" type="email" value={email} onChange={(event) => { setEmail(event.target.value) }} placeholder="email" />
-            <input className="authChildren" type="password" value={password} onChange={(event) => { setPassword(event.target.value) }} placeholder="password" />
-            <button className="authChildren" onClick={submit}>Login</button>
-            <div>
-                <Link to='/register'>register</Link>
-                <Link to='/forget-pass'>forget password?</Link>
+            <Sheet
+            
+          sx={{
+            width: 300,
+            mx: 'auto', // margin left & right
+            my: 4, // margin top & botom
+            py: 3, // padding top & bottom
+            px: 2, // padding left & right
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 2,
+            borderRadius: 'sm',
+            boxShadow: 'xl',
+          }}
+          variant="outlined"
+        >
+          <div>
+          <Typography
+            endDecorator={<Link to="/"><CloseIcon/></Link>}
+            fontSize="sm"
+
+          >
+          </Typography>
+          
+            <Typography level="h4" component="h1">
+          
                 
-            </div>
+              <b>Welcome!</b>
+            </Typography>
+            <Typography level="body2">Sign in to continue.</Typography>
+          </div>
+          
+          <TextField
+            // html input attribute
+            required
+            id='email'
+            label="Email address"
+            name="email"
+            type="email"
+            autoComplete='email'
+            autoFocus
+            value={email}
+            onChange={(event)=>setEmail(event.target.value)}
+            // pass down to FormLabel as children
+
+          />
+          <TextField
+            required
+            id='password'
+            name="password"
+            type="password"
+            label="Password"
+            autoComplete="current-password"
+            value={password}
+            onChange={(event)=>setPassword(event.target.value)}
+          />
+           <Button
+              type="submit"
+             
+              sx={{ mt: 1 /* margin top */}}
+              onClick={submit}
+            >
+              Log in
+            </Button>
+          <Typography
+            endDecorator={<Link to="/register">Sign up</Link>}
+            fontSize="sm"
+            sx={{ alignSelf: 'center' }}
+          >
+            Don&apos;t have an account?
+          </Typography>
+          <Typography
+          endDecorator={<Link to='/forget-pass'> Forgot password?</Link>}
+          fontSize="sm"
+            sx={{ alignSelf: 'center' }}
+            >
+            </Typography>
+        </Sheet>
         </div>
     )
 }

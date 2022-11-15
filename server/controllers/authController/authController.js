@@ -33,6 +33,7 @@ const auth = async (req, res) => {
 
 const forgetPassword = async (req, res) => {
     try {
+        console.log('1')
         const {email} = req.body;
         if (!email) {
             console.log('! email');
