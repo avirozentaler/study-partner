@@ -24,12 +24,11 @@ function App() {
         
         <BrowserRouter>
           <Routes>
-              <Route path='/' element={<Home /> }>
+              <Route path='/' element={<Home /> }/>
               <Route path="/log-in" element={<Login />} />
               <Route path="/register" element={<Register />} />
               <Route path="/forget-pass" element={<ForgetPassword />} />
               <Route path="/reset-pass" element={<ResetPassword />} />
-            </Route>
           </Routes>
 
         </BrowserRouter>
