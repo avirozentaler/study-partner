@@ -1,14 +1,12 @@
 const db = require('../db/mysql');
 const { DataTypes } = require('sequelize');
 
-const subject = db.define('subject', {
+const subjects = db.define('subjects', {
     name: {
         type: DataTypes.STRING,
         allowNull: false
 
     },
-
-
     category_id: {
         type: DataTypes.STRING,
         allowNull: false
@@ -16,7 +14,7 @@ const subject = db.define('subject', {
     ,
     user_connected: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: true 
     }
 },
     {
@@ -28,4 +26,4 @@ const subject = db.define('subject', {
     await db.sync();
 })()
 
-module.exports = subject
+module.exports = subjects

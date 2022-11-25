@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const userModel = require('../../models/user');
+const userModel = require('../../models/users');
 const token = process.env.TOKEN_NAME;
 const BCRYPT_ROUNDS = parseInt(process.env.BCRYPT_ROUNDS);
 const nodeMailer = require('nodemailer');

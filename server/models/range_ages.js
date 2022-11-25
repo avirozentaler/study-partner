@@ -1,12 +1,13 @@
 const db = require('../db/mysql');
 const { DataTypes } = require('sequelize');
-const range_age = db.define('range_age', {
-    id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true,
-        allowNull: false
-    },
+
+const range_ages = db.define('range_ages', {
+    // id: {
+    //     type: DataTypes.INTEGER,
+    //     primaryKey: true,
+    //     autoIncrement: true,
+    //     allowNull: false
+    // },
     age_range: {
         type: DataTypes.STRING,
         allowNull: false
@@ -30,9 +31,8 @@ for (let i = 1; i < 12; i ++) {
 }
 
 (async () => {
-
-    await db.sync({force:true});
-    await range_age.bulkCreate(ageRangeData,{ validate: true, } );
+    await db.sync();
+    // await range_ages.bulkCreate(ageRangeData, {validate: true} );
 })()
 
-module.exports = range_age
+module.exports = range_ages

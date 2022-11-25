@@ -3,7 +3,7 @@ const { DataTypes } = require('sequelize')
 
 
 
-const user = db.define('user', {
+const users = db.define('users',{
     name: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -17,13 +17,13 @@ const user = db.define('user', {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    country: {
-        type: DataTypes.STRING,
-        allowNull: true,
-    },
     languages: {
         type: DataTypes.JSON,
         allowNull: false,
+    },
+    country: {
+        type: DataTypes.STRING,
+        allowNull: true,
     },
     phone_number: {
         type: DataTypes.STRING,
@@ -46,5 +46,5 @@ const user = db.define('user', {
     await db.sync();
 })()
 
-module.exports = user;
+module.exports = users;
 

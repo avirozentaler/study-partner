@@ -2,12 +2,12 @@ const { nameValid, emailValid, passwordValid, countryValid, languagesValid, phon
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const BCRYPT_ROUNDS = parseInt(process.env.BCRYPT_ROUNDS);
-const userModel = require('../../models/user');
+const userModel = require('../../models/users');
 
 
 //middleware validation for registering
 const registerValid = (req, res, next) => {
-    const { name, email, password, confirmPassword, country, languages, phone_number, age_range } = req.body;
+    const { name, email, password, confirmPassword, languages,country, phone_number, age_range } = req.body;
     if (!name || !email || !password || !confirmPassword || !languages) {
         res.status(400).send({ message: 'please fill all the fields' });
     }
@@ -28,7 +28,7 @@ const registerValid = (req, res, next) => {
 
 const register = async (req, res) => {
     try {
-        const { name, email, password, confirmPassword, country, languages, phone_number, age_range } = req.body;
+        const { name, email, password, confirmPassword, languages,country, phone_number, age_range } = req.body;
         const existUser = await userModel.findOne({
             where: {email: email}
         });
@@ -38,7 +38,7 @@ const register = async (req, res) => {
         else {
 
             const hashPssword = bcrypt.hashSync(password, BCRYPT_ROUNDS);
-            await userModel.create({ name, email, password: hashPssword,country,languages,phone_number,age_range });
+            await userModel.create({ name, email, password: hashPssword,languages,country,phone_number,age_range });
             res.status(200).send({ message: 'user created successfully' });
         }
 
