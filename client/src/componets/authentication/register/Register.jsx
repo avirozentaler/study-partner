@@ -4,7 +4,7 @@ import { useNavigate,Link,Outlet } from "react-router-dom"
 import { nameValid, emailValid, passwordValid,countryValid,languagesValid,phone_numberValid,age_rangeValid} from '../../../utilities/validetion/validetion.js'
 
 import CloseIcon from '@mui/icons-material/Close';
-import {Sheet, Typography, TextField, Button }from '@mui/joy';
+import {Box, Typography, TextField, Button }from '@mui/material';
 // import '../auth/Auth.css';
 
 
@@ -60,7 +60,7 @@ export default function Register() {
 
     return (
         <div className="Register auth" >
-            <Sheet
+            <Box
             
           sx={{
             width: 600,
@@ -188,7 +188,7 @@ export default function Register() {
             >
               Register
             </Button>
-        </Sheet>
+        </Box>
  
         </div >
     )

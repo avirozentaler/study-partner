@@ -4,24 +4,24 @@ import { useNavigate,Link,Outlet } from "react-router-dom";
 import { emailValid } from '../../../utilities/validetion/validetion.js';
 
 import CloseIcon from '@mui/icons-material/Close';
-import {Sheet, Typography, TextField, Button }from '@mui/joy';
+import {Box, Typography, TextField, Button }from '@mui/material';
 // import '../auth/Auth.css';
 
-export default function ForgetPassword() {
+export default function ForgetPassword({handleResetPass}) {
 
 
 const navigate = useNavigate();
 const [email,setEmail]= useState('');
 
 const submit =async()=>{
-  
     if(!email || !emailValid(email)){
       alert('please add an valid email');
     }
     else{
       try {
         const answer = await axios.post('http://localhost:3005/auth/forget-pass', { email })
-        navigate('/reset-pass');
+        handleResetPass()
+        // navigate('/reset-pass');
 
     }
     catch (err) {
@@ -34,7 +34,7 @@ const submit =async()=>{
 
   return (
     <div className='Forgetpassword auth'>
-      <Sheet
+      <Box
             sx={{
               width: 300,
               mx: 'auto', // margin left & right
@@ -82,7 +82,7 @@ const submit =async()=>{
                 >
                 Reset
               </Button>
-          </Sheet>
+          </Box>
     </div>
   )
 }

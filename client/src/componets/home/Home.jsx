@@ -1,34 +1,80 @@
 import React, { useContext, useState } from 'react';
 import UserConnected from '../../context/UserConnected';
-import { Link, Outlet, useNavigate } from "react-router-dom";
-
-import {AppBar, Box, Toolbar, Typography, Button, IconButton, ListItemIcon, MenuItem, Menu, Avatar, Tooltip}
+import Auth from '../authentication/auth/Auth';
+import {AppBar, Box, Toolbar, Typography, IconButton, ListItemIcon, MenuItem, Menu, Avatar, Tooltip,Button}
  from '@mui/material'
-
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import { useColorScheme } from '@mui/material/styles';
+import { useColorScheme,styled } from '@mui/material/styles';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
+//
 
-
+import PropTypes from 'prop-types';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import DialogActions from '@mui/material/DialogActions';
+// import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
 export default function Home() {
-    
+
+    /////
+    const BootstrapDialog = styled(Dialog)(({ theme }) => ({
+        '& .MuiDialogContent-root': {
+          padding: theme.spacing(2),
+        },
+        '& .MuiDialogActions-root': {
+          padding: theme.spacing(1),
+        },
+      }));
+      
+      function BootstrapDialogTitle(props) {
+        const { children, onClose, ...other } = props;
+      
+        return (
+          <DialogTitle sx={{ m: 0, p: 2 }} {...other}>
+            {children}
+            {onClose ? (
+              <IconButton
+                aria-label="close"
+                onClick={onClose}
+                sx={{
+                  position: 'absolute',
+                  right: 8,
+                  top: 8,
+                  color: (theme) => theme.palette.grey[500],
+                }}
+              >
+                <CloseIcon />
+              </IconButton>
+            ) : null}
+          </DialogTitle>
+        );
+      }
+      
+      BootstrapDialogTitle.propTypes = {
+        children: PropTypes.node,
+        onClose: PropTypes.func.isRequired,
+      };
+
+    /////
     const { mode, setMode } = useColorScheme();
     const { userConnected, setUserConnected } = useContext(UserConnected);
     const [anchorUserMenu, setAnchorUserMenu] = useState(null);
-    const navigate = useNavigate();
+    const [openLogIn, setOpenLogIn] = useState(false);
 
+    const handleOpenLogIn = () => {
+        setOpenLogIn(true);
+    };
+    const handleCloseLogIn = () => {
+        setOpenLogIn(false);
+    };
 
     
 const modeToggle = () => {
     setMode(mode === 'light' ? 'dark' : 'light');
-}
-
-const handleOpenLogin = () => {
-    console.log("hiihihh")
-    navigate('/log-in');
 }
 
 const handleAuth = () => {
@@ -71,13 +117,17 @@ const handleLogOut = () => {
                         Study Partner
                     </Typography>
                     <IconButton sx={{ ml: 1 }} onClick={modeToggle} color="inherit">
-        {mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
-      </IconButton>
-
-        
+                        {mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
+                    </IconButton>
+                    {/* {!userConnected? <Dialogs title="login">
+                         <Login/>
+                    </Dialogs>:null}
+                    */}
+            
+                    {/* popup */}
       
-                    {!userConnected ? <Box> <Button color="inherit" onClick={handleOpenLogin}>Login</Button> </Box> : null}
-                    {/* {!userConnected ? <Link to='/log-in'>log in</Link> : null} */}
+                    {!userConnected ? <Box> <Button color="inherit" onClick={handleOpenLogIn}>Login</Button> </Box> : null}
+
                     <div>
                         <Box sx={{ flexGrow: 0 }}>
                             <Tooltip title="open user options">
@@ -126,7 +176,8 @@ const handleLogOut = () => {
                     </div>
                 </Toolbar>
             </AppBar>
-
+             
+                
             <Box>
                 {userConnected ?
                         <Typography variant='h3'>user  Connected</Typography>
@@ -135,7 +186,21 @@ const handleLogOut = () => {
                 }
             </Box>           
             <></>
-            <Box> <Button color="inherit" onClick={handleOpenLogin}>Login</Button> </Box>
+            <BootstrapDialog
+        onClose={handleCloseLogIn}
+        aria-labelledby="customized-dialog-title"
+        open={openLogIn}
+      >
+        <BootstrapDialogTitle id="customized-dialog-title" onClose={handleCloseLogIn}>
+          log in
+        </BootstrapDialogTitle>
+        <DialogContent dividers>
+            <Auth/>
+        </DialogContent>
+        <DialogActions>
+          
+        </DialogActions>
+      </BootstrapDialog>
         </Box>
         
 

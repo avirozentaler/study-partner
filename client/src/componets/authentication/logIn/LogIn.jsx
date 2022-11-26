@@ -4,13 +4,14 @@ import { useNavigate, Link } from "react-router-dom";
 import UserConnected from '../../../context/UserConnected';
 import { emailValid, passwordValid } from '../../../utilities/validetion/validetion.js'
 
-import CloseIcon from '@mui/icons-material/Close';
-import {Sheet, Typography, TextField, Button }from '@mui/joy';
+import {Box, Typography, TextField, Button }from '@mui/material';
 // import '../auth/Auth.css'
 
 
 
-export default function Login() {
+export default function Login({handleRegistered,handleHavePass}) {
+  
+  console.log("dfghj")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const navigate = useNavigate();
@@ -44,29 +45,25 @@ export default function Login() {
 
     return (
         <div className="Login auth">
-            <Sheet
+           
+            <Box
             
           sx={{
-            width: 300,
-            mx: 'auto', // margin left & right
-            my: 4, // margin top & botom
-            py: 3, // padding top & bottom
-            px: 2, // padding left & right
+            width: 500,
+            mx: 'auto',  //margin left & right
+            my: 'auto', // margin top & botom
+            py: 'auto', // padding top & bottom
+            px: 'auto', // padding left & right
             display: 'flex',
             flexDirection: 'column',
-            gap: 2,
+            gap: 5,
             borderRadius: 'sm',
             boxShadow: 'xl',
           }}
           variant="outlined"
         >
           <div>
-          <Typography
-            endDecorator={<Link to="/"><CloseIcon/></Link>}
-            fontSize="sm"
-
-          >
-          </Typography>
+          
           
             <Typography level="h4" component="h1">
           
@@ -85,6 +82,8 @@ export default function Login() {
             autoComplete='email'
             autoFocus
             value={email}
+            onChange={(event)=>setEmail(event.target.value)}
+
               
           />
           <TextField
@@ -105,20 +104,27 @@ export default function Login() {
             >
               Log in
             </Button>
-          <Typography
-            endDecorator={<Link to="/register">Sign up</Link>}
-            fontSize="sm"
-            sx={{ alignSelf: 'center' }}
-          >
-            Don&apos;t have an account?
+
+          {/* <Typography>
+            Don&apos;t have an account?  <Dialog title={"sign-up"}><Register/></Dialog>
           </Typography>
-          <Typography
-          endDecorator={<Link to='/forget-pass'> Forgot password?</Link>}
-          fontSize="sm"
-            sx={{ alignSelf: 'center' }}
-            >
-            </Typography>
-        </Sheet>
+          <Typography >
+              Forgot password?  <Dialog title={"Forget Password"}><ForgetPassword/></Dialog>
+          </Typography> */}
+              <Typography >
+            Don't have an account? <Button onClick={()=>{handleRegistered()}}>sign up</Button>      
+          </Typography>
+          <Link
+            component="button"
+            variant="inherit"
+           onClick={() => {
+            
+            handleHavePass();
+          }}
+          >
+          Forgot password? 
+        </Link>
+        </Box>
         </div>
     )
 }
