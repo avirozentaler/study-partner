@@ -4,13 +4,13 @@ import { useNavigate,Link } from "react-router-dom";
 import { passwordValid } from '../../../utilities/validetion/validetion.js';
 
 import CloseIcon from '@mui/icons-material/Close';
-import {Sheet, Typography, TextField, Button }from '@mui/joy';
+import {Box, Typography, TextField, Button }from '@mui/material';
 // import '../auth/Auth.css';
+    
 
 
 
-
-export default function ResetPassword() {
+export default function ResetPassword({handleHavePass}) {
     const [code, setCode] = useState('');
     const [password, setPassword] = useState("")
     const [confirmPassword, setConfirmPassword] = useState("")
@@ -21,7 +21,6 @@ export default function ResetPassword() {
 
 
     const submit = async () => {
-
         if (!code || !password || !confirmPassword) {
             alert('please fill all the field');
         }
@@ -35,7 +34,9 @@ export default function ResetPassword() {
             try {
                 const answer = await axios.post('http://localhost:3005/auth/reset-pass', { code, password, confirmPassword })
                 console.log(answer);
-                navigate('/')
+                // navigate('/')
+                handleHavePass()
+
 
             }
             catch (err) {
@@ -48,7 +49,7 @@ export default function ResetPassword() {
 
     return (
         <div className="ResetPassword auth">
-            <Sheet
+            <Box
             
           sx={{
             width: 300,
@@ -121,7 +122,7 @@ export default function ResetPassword() {
             >
               Reset
             </Button>
-        </Sheet>
+        </Box>
         </div>
     )
 }
