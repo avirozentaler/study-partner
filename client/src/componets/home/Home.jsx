@@ -1,15 +1,17 @@
 import React, { useContext, useState } from 'react';
+
 import UserConnected from '../../context/UserConnected';
 import Auth from '../authentication/auth/Auth';
-import {AppBar, Box, Toolbar, Typography, IconButton, ListItemIcon, MenuItem, Menu, Avatar, Tooltip,Button}
+import {AppBar, Box, Toolbar, Typography, IconButton, ListItemIcon, MenuItem, Menu, Avatar, Tooltip,Button, AvatarGroup}
  from '@mui/material'
+
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import { useColorScheme,styled } from '@mui/material/styles';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
-//
+import InfoIcon from '@mui/icons-material/Info';
 
 import PropTypes from 'prop-types';
 import Dialog from '@mui/material/Dialog';
@@ -18,6 +20,8 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 // import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
+import { useNavigate} from 'react-router-dom';
+import { blue, deepPurple } from '@mui/material/colors';
 export default function Home() {
 
     /////
@@ -64,6 +68,9 @@ export default function Home() {
     const { userConnected, setUserConnected } = useContext(UserConnected);
     const [anchorUserMenu, setAnchorUserMenu] = useState(null);
     const [openLogIn, setOpenLogIn] = useState(false);
+    const navigat = useNavigate()
+    
+
 
     const handleOpenLogIn = () => {
         setOpenLogIn(true);
@@ -93,26 +100,24 @@ const handleLogOut = () => {
 }
 
 
+
    
     return (
 
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static">
                 <Toolbar>
-
-
+            <Button
+                type='link'
+                onClick={()=> navigat('/')}
+            >
+                <Avatar sx={{width: 60, height: 50 }} alt="LOGO" src="SP.png" />
+            </Button>
+            
                {/* Here you need to add a logo with a permanent link to the home page */}
 
 
-                    {/* <IconButton
-                        size="large"
-                        edge="start"
-                        color="inherit"
-                        aria-label="menu"
-                        sx={{ mr: 2 }}
-                    >
-                        <MenuIcon />
-                    </IconButton> */}
+                    
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                         Study Partner
                     </Typography>
@@ -124,7 +129,6 @@ const handleLogOut = () => {
                     </Dialogs>:null}
                     */}
             
-                    {/* popup */}
       
                     {!userConnected ? <Box> <Button color="inherit" onClick={handleOpenLogIn}>Login</Button> </Box> : null}
 
@@ -171,6 +175,12 @@ const handleLogOut = () => {
                                         </ListItemIcon>
                                         Logout
                                     </MenuItem>}
+                                    <MenuItem onClick={()=> navigat('/about')}>
+                                        <ListItemIcon>
+                                            <InfoIcon fontSize="small" />
+                                        </ListItemIcon>
+                                        About
+                                    </MenuItem>
                             </Menu>
                         </Box>
                     </div>
@@ -186,6 +196,12 @@ const handleLogOut = () => {
                 }
             </Box>           
             <></>
+            
+
+            
+
+                
+
             <BootstrapDialog
         onClose={handleCloseLogIn}
         aria-labelledby="customized-dialog-title"
