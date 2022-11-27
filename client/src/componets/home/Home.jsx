@@ -1,8 +1,10 @@
 import React, { useContext, useState } from 'react';
+
 import UserConnected from '../../context/UserConnected';
 import Auth from '../authentication/auth/Auth';
-import {AppBar, Box, Toolbar, Typography, IconButton, ListItemIcon, MenuItem, Menu, Avatar, Tooltip,Button}
+import {AppBar, Box, Toolbar, Typography, IconButton, ListItemIcon, MenuItem, Menu, Avatar, Tooltip,Button, AvatarGroup}
  from '@mui/material'
+
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 import AccountCircle from '@mui/icons-material/AccountCircle';
@@ -18,6 +20,8 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 // import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
+import { useNavigate} from 'react-router-dom';
+import { blue, deepPurple } from '@mui/material/colors';
 export default function Home() {
 
     /////
@@ -64,6 +68,9 @@ export default function Home() {
     const { userConnected, setUserConnected } = useContext(UserConnected);
     const [anchorUserMenu, setAnchorUserMenu] = useState(null);
     const [openLogIn, setOpenLogIn] = useState(false);
+    const navigat = useNavigate()
+    
+
 
     const handleOpenLogIn = () => {
         setOpenLogIn(true);
@@ -93,14 +100,20 @@ const handleLogOut = () => {
 }
 
 
+
    
     return (
 
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static">
                 <Toolbar>
-
-
+            <Button
+                type='link'
+                onClick={()=> navigat('/')}
+            >
+                <Avatar sx={{width: 60, height: 50 }} alt="LOGO" src="SP.png" />
+            </Button>
+            
                {/* Here you need to add a logo with a permanent link to the home page */}
 
 
@@ -186,6 +199,12 @@ const handleLogOut = () => {
                 }
             </Box>           
             <></>
+            
+
+            
+
+                
+
             <BootstrapDialog
         onClose={handleCloseLogIn}
         aria-labelledby="customized-dialog-title"
