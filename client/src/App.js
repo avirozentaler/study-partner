@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import UserConnected from './context/UserConnected';
 import Home from './componets/home/Home';
+import About from './componets/about/About'
 
 import { Experimental_CssVarsProvider as CssVarsProvider, useColorScheme } from '@mui/material/styles';
 
@@ -20,6 +21,7 @@ function App() {
           <BrowserRouter>
             <Routes>
                 <Route path='/' element={<Home /> }/>
+                <Route path='/about' element={<About /> }/>
             </Routes>
           </BrowserRouter>
         </UserConnected.Provider>

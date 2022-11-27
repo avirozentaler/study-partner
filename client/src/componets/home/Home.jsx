@@ -11,7 +11,7 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import { useColorScheme,styled } from '@mui/material/styles';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
-//
+import InfoIcon from '@mui/icons-material/Info';
 
 import PropTypes from 'prop-types';
 import Dialog from '@mui/material/Dialog';
@@ -117,15 +117,7 @@ const handleLogOut = () => {
                {/* Here you need to add a logo with a permanent link to the home page */}
 
 
-                    {/* <IconButton
-                        size="large"
-                        edge="start"
-                        color="inherit"
-                        aria-label="menu"
-                        sx={{ mr: 2 }}
-                    >
-                        <MenuIcon />
-                    </IconButton> */}
+                    
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                         Study Partner
                     </Typography>
@@ -137,7 +129,6 @@ const handleLogOut = () => {
                     </Dialogs>:null}
                     */}
             
-                    {/* popup */}
       
                     {!userConnected ? <Box> <Button color="inherit" onClick={handleOpenLogIn}>Login</Button> </Box> : null}
 
@@ -184,6 +175,12 @@ const handleLogOut = () => {
                                         </ListItemIcon>
                                         Logout
                                     </MenuItem>}
+                                    <MenuItem onClick={()=> navigat('/about')}>
+                                        <ListItemIcon>
+                                            <InfoIcon fontSize="small" />
+                                        </ListItemIcon>
+                                        About
+                                    </MenuItem>
                             </Menu>
                         </Box>
                     </div>
