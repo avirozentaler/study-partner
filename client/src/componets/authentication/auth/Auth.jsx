@@ -2,7 +2,7 @@ import React, { useState,useContext } from "react";
 import Register from '../register/Register';
 import LogIn from '../logIn/LogIn';
 
-import ForgetPassword from "../forgetPassword/ForgetPassword";
+import ForgetPassword from "../forgetPassword/Forgetpassword";
 import ResetPassword from '../resetPassword/ResetPassword'
 
 export default function Auth() {
