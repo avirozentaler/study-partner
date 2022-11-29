@@ -1,9 +1,10 @@
-const db = require('../db/mysql')
-const { DataTypes } = require('sequelize')
+const db = require('../db/mysql');
+const { DataTypes } = require('sequelize');
+const range_agesModel = require('./range_ages');
 
 
 
-const users = db.define('users',{
+const users = db.define('users', {
     name: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -18,7 +19,7 @@ const users = db.define('users',{
         allowNull: false,
     },
     languages: {
-        type: DataTypes.JSON,
+        type: DataTypes.STRING,
         allowNull: false,
     },
     country: {
@@ -40,11 +41,14 @@ const users = db.define('users',{
 },
     {
         timestamps: false
-    });
+    }
+);
+users.hasOne(range_agesModel);
 
 (async () => {
     await db.sync();
 })()
+
 
 module.exports = users;
 

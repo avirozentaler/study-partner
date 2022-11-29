@@ -32,9 +32,7 @@ userRouter.get('/user-details', async(req, res) => {
     try {
     //  const result = await userModel.findAll({include:range_agesModel,where:{id:1}}) 
     const user = await userModel.findOne({where:{id:1}})
-    console.log(user);
-    await userModel.hasMany(range_agesModel,) 
-    range_agesModel.belongsTo(userModel);
+   
     const result = await userModel.findAll({
         where : {id : 1},
         include: [{

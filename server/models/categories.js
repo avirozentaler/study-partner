@@ -26,7 +26,7 @@ const categories = db.define('categories', {
 const temp = ['languages','math','software','philosophy']
 const categorydata = temp.map((item,index)=>{
     return {
-        id: index+1,
+        // id: index+1,
         name:item
     }
 });
