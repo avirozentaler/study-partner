@@ -1,14 +1,5 @@
-
 import { Typography, Box } from "@mui/material"
-
-
 export default function About(){
-
-
-
-
-
-
     return(
         <div className="about">
             <Box
@@ -27,7 +18,6 @@ export default function About(){
                 האתר נוסד על ידי אבי רוזנטלר ויצחק שנק בתור פרויקט גמר בהנדסת תוכנה מטעם מכללת מבחר 
             </Typography>
             </Box>
-
         </div>
     ) 
 }

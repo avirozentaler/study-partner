@@ -1,7 +1,6 @@
 import './App.css';
 import { useState } from 'react';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-
 import UserConnected from './context/UserConnected';
 import Home from './componets/home/Home';
 import About from './componets/about/About'
@@ -12,18 +11,19 @@ import { Experimental_CssVarsProvider as CssVarsProvider, useColorScheme } from 
 function App() {
 
 
-  const [userConnected, setUserConnected] = useState(false);
+  const [userConnected, setUserConnected] = useState(null);
 
   return (
     <div className="App">
       <CssVarsProvider>
         <UserConnected.Provider value={{ userConnected, setUserConnected }}> 
-          <BrowserRouter>
+        <Home/>
+          {/* <BrowserRouter>
             <Routes>
                 <Route path='/' element={<Home /> }/>
                 <Route path='/about' element={<About /> }/>
             </Routes>
-          </BrowserRouter>
+          </BrowserRouter> */}
         </UserConnected.Provider>
       </CssVarsProvider>
     </div>
