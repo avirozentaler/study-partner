@@ -1,7 +1,7 @@
-import React,{useContext} from 'react'
+import React, { useContext } from 'react'
 import UserConnected from '../../../context/UserConnected';
 import Auth from '../../authentication/auth/Auth';
-import { AppBar, Box, Toolbar, Typography, IconButton, ListItemIcon, MenuItem, Menu, Avatar, Tooltip, Button, AvatarGroup }
+import { Box, Typography, IconButton, Button }
     from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close';
 import { useColorScheme, styled } from '@mui/material/styles';
@@ -11,16 +11,13 @@ import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 
-export default function BodyApp({openLogIn,handleOpenLogIn,handleCloseLogIn}) {
+export default function BodyApp({ openLogIn, handleCloseLogIn }) {
 
     const { userConnected, setUserConnected } = useContext(UserConnected);
 
-    const aaa =()=>{
-        setUserConnected({name:'amit'})
+    const aaa = () => {
+        setUserConnected({ name: 'amit' })
     }
-
-
-
     const BootstrapDialog = styled(Dialog)(({ theme }) => ({
         '& .MuiDialogContent-root': {
             padding: theme.spacing(2),
@@ -29,7 +26,6 @@ export default function BodyApp({openLogIn,handleOpenLogIn,handleCloseLogIn}) {
             padding: theme.spacing(1),
         },
     }));
-
     function BootstrapDialogTitle(props) {
         const { children, onClose, ...other } = props;
 
@@ -53,21 +49,13 @@ export default function BodyApp({openLogIn,handleOpenLogIn,handleCloseLogIn}) {
             </DialogTitle>
         );
     }
-
     BootstrapDialogTitle.propTypes = {
         children: PropTypes.node,
         onClose: PropTypes.func.isRequired,
     };
 
-
-  return (
-    <Box>
-                 {userConnected ?
-                    <Typography variant='h3'>user  Connected</Typography>
-                    :
-                    <Typography variant='h3'>user not Connected</Typography>
-                }
-    
+    return (
+        <Box>
             <></>
             <BootstrapDialog
                 onClose={handleCloseLogIn}
@@ -75,18 +63,21 @@ export default function BodyApp({openLogIn,handleOpenLogIn,handleCloseLogIn}) {
                 open={openLogIn}
             >
                 <BootstrapDialogTitle id="customized-dialog-title" onClose={handleCloseLogIn}>
-                    log in
+               
                 </BootstrapDialogTitle>
-                <DialogContent dividers>
-                    <Auth />
+                <DialogContent >
+                    <Auth handleCloseLogIn={handleCloseLogIn}/>
                 </DialogContent>
                 <DialogActions>
 
                 </DialogActions>
             </BootstrapDialog>
-
- 
- <Button onClick={aaa}>test connected</Button>
-</Box>
-  )
+            {userConnected ?
+                <Typography variant='h3'>user  Connected</Typography>
+                :
+                <Typography variant='h3'>user not Connected</Typography>
+            }
+            <Button onClick={aaa}>test connected</Button>
+        </Box>
+    )
 }

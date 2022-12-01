@@ -1,11 +1,11 @@
-import React, { useState,useContext } from "react";
+import React, { useState, } from "react";
 import Register from '../register/Register';
 import LogIn from '../logIn/LogIn';
 
 import ForgetPassword from "../forgetPassword/Forgetpassword";
 import ResetPassword from '../resetPassword/ResetPassword'
 
-export default function Auth() {
+export default function Auth({handleCloseLogIn}) {
     
 const [registered, setRegistered]= useState(true)
 const [havePass, setHavePass]= useState(true)
@@ -25,7 +25,7 @@ const handleResetPass=()=>{
     return (
         <div className="Auth">
             {registered?  havePass ?
-            <LogIn handleRegistered={handleRegistered } handleHavePass={handleHavePass}/> 
+            <LogIn handleRegistered={handleRegistered } handleHavePass={handleHavePass} handleCloseLogIn={handleCloseLogIn}/> 
             : resetPass ? <ResetPassword handleHavePass={handleHavePass}/> 
             :<ForgetPassword handleResetPass={handleResetPass}/>
             :<Register handleRegistered={handleRegistered}/>}
