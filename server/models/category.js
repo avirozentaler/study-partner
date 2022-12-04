@@ -2,7 +2,13 @@
 const db = require('../db/mysql');
 const { DataTypes } = require('sequelize');
 
-const category = db.define('category', {
+const Category = db.define('category', {
+    id:{
+        type:DataTypes.INTEGER,
+        autoIncrement:true,
+        allowNull:false,
+        primaryKey:true
+    },
     name: {
         type: DataTypes.STRING,
         allowNull:false
@@ -10,7 +16,7 @@ const category = db.define('category', {
     },
     user_connected: {
         type: DataTypes.INTEGER,
-        allowNull:false
+        allowNull:true
     }
 },
 {
@@ -19,7 +25,10 @@ const category = db.define('category', {
 );
 
 (async () => {
+    console.log('>> category model');
+
     await db.sync();
+    console.log('>> category model');
 })()
 
-module.exports = category
+module.exports = Category

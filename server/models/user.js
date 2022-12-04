@@ -1,9 +1,15 @@
 const db = require('../db/mysql')
 const { DataTypes } = require('sequelize')
+const User_subjects = require('./user_subjects');
 
 
-
-const user = db.define('user', {
+const User = db.define('user', {
+    id:{
+        type:DataTypes.INTEGER,
+        autoIncrement:true,
+        allowNull:false,
+        primaryKey:true
+    },
     name: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -23,7 +29,7 @@ const user = db.define('user', {
     },
     languages: {
         type: DataTypes.JSON,
-        allowNull: false,
+        allowNull: true,
     },
     phone_number: {
         type: DataTypes.STRING,
@@ -43,8 +49,13 @@ const user = db.define('user', {
     });
 
 (async () => {
+    console.log('>> user model');
+    User.hasMany(User_subjects,{foreignKey:"user_id"})
     await db.sync();
+    User_subjects.belongsTo(User,{foreignKey:"user_id"})
+    console.log('>> user model');
+
 })()
 
-module.exports = user;
+module.exports = User;
 

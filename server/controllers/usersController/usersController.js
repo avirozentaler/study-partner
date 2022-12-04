@@ -28,7 +28,7 @@ const registerValid = (req, res, next) => {
 
 const register = async (req, res) => {
     try {
-        const { name, email, password, confirmPassword, country, languages, phone_number, age_range } = req.body;
+        const { name, email, password, country, languages, phone_number, age_range } = req.body;
         const existUser = await userModel.findOne({
             where: {email: email}
         });

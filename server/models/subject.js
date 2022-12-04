@@ -1,7 +1,15 @@
 const db = require('../db/mysql');
 const { DataTypes } = require('sequelize');
+const User_subjects = require('./user_subjects');
 
-const subject = db.define('subject', {
+
+const Subject = db.define('subject', {
+    id:{
+        type:DataTypes.INTEGER,
+        autoIncrement:true,
+        allowNull:false,
+        primaryKey:true
+    },
     name: {
         type: DataTypes.STRING,
         allowNull: false
@@ -16,7 +24,7 @@ const subject = db.define('subject', {
     ,
     user_connected: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: true
     }
 },
     {
@@ -25,7 +33,12 @@ const subject = db.define('subject', {
 );
 
 (async () => {
+    console.log('>> subject model');
+    Subject.hasMany(User_subjects,{foreignKey:"subject_id"})
     await db.sync();
+    User_subjects.belongsTo(Subject,{foreignKey:"subject_id"})
+
+    console.log('>> subject model');
 })()
 
-module.exports = subject
+module.exports = Subject
