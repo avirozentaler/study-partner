@@ -27,8 +27,7 @@ const submit =async()=>{
         console.log(err)
         alert('error');
     } 
-    }
- 
+    } 
 }
   return (
     <div className='Forgetpassword auth'>
