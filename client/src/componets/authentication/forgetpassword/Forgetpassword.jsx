@@ -5,12 +5,9 @@ import { emailValid } from '../../../utilities/validetion/validetion.js';
 
 import CloseIcon from '@mui/icons-material/Close';
 import {Box, Typography, TextField, Button }from '@mui/material';
-// import '../auth/Auth.css';
 
 export default function ForgetPassword({handleResetPass}) {
 
-
-const navigate = useNavigate();
 const [email,setEmail]= useState('');
 
 const submit =async()=>{
@@ -21,7 +18,6 @@ const submit =async()=>{
       try {
         const answer = await axios.post('http://localhost:3005/auth/forget-pass', { email })
         handleResetPass()
-        // navigate('/reset-pass');
 
     }
     catch (err) {
@@ -50,18 +46,6 @@ const submit =async()=>{
             variant="outlined"
           >
             <div>
-            <Typography
-              endDecorator={<Link to="/"><CloseIcon/></Link>}
-              fontSize="sm"
-  
-            >
-            </Typography>
-            
-              <Typography level="h4" component="h1">
-            
-                  
-                <b>Welcome!</b>
-              </Typography>
               <Typography level="body2">enter email to continue.</Typography>
             </div>
             <TextField

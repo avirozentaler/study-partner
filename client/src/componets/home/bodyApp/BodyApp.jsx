@@ -12,7 +12,6 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 
 export default function BodyApp({ openLogIn, handleCloseLogIn }) {
-
     const { userConnected, setUserConnected } = useContext(UserConnected);
 
     const aaa = () => {
