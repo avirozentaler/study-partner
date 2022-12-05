@@ -50,19 +50,7 @@ const submit =async()=>{
             variant="outlined"
           >
             <div>
-            <Typography
-              endDecorator={<Link to="/"><CloseIcon/></Link>}
-              fontSize="sm"
-  
-            >
-            </Typography>
             
-              <Typography level="h4" component="h1">
-            
-                  
-                <b>Welcome!</b>
-              </Typography>
-              <Typography level="body2">enter email to continue.</Typography>
             </div>
             <TextField
               required
