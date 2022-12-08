@@ -31,7 +31,7 @@ const Subject = db.define('subject', {
 );
 
 (async () => {
-    Subject.hasOne(CategoryModel,{foreignKey:id})
+    // Subject.hasOne(CategoryModel,{foreignKey:id})
     // Subject.belongsToMany(UserModel, { through: 'UserSubjects' })
     // UserModel.belongsToMany(Subject, { through: 'UserSubjects' })
     await db.sync();
