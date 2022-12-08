@@ -2,7 +2,7 @@ const { nameValid, emailValid, passwordValid, countryValid, languagesValid, phon
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const BCRYPT_ROUNDS = parseInt(process.env.BCRYPT_ROUNDS);
-const userModel = require('../../models/user');
+const userModel = require('../../models/User');
 
 
 //middleware validation for registering
