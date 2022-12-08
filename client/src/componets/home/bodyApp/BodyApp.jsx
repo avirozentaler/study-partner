@@ -1,12 +1,22 @@
 import React, { useContext } from "react";
 import UserConnected from "../../../context/UserConnected";
 import Auth from "../../authentication/auth/Auth";
-import {DialogActions, DialogContent, DialogTitle, Dialog, Fab, Box, Typography, IconButton, Button} from "@mui/material";
-import AddIcon from '@mui/icons-material/Add'; 
+import Post from "../../post/Post"
+import {
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Dialog,
+  Fab,
+  Box,
+  Typography,
+  IconButton,
+  Button,
+} from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
 import CloseIcon from "@mui/icons-material/Close";
 import { useColorScheme, styled } from "@mui/material/styles";
 import PropTypes from "prop-types";
-
 
 export default function BodyApp({ openLogIn, handleCloseLogIn }) {
   const { userConnected, setUserConnected } = useContext(UserConnected);
@@ -14,6 +24,7 @@ export default function BodyApp({ openLogIn, handleCloseLogIn }) {
   const aaa = () => {
     setUserConnected({ name: "amit" });
   };
+
   const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     "& .MuiDialogContent-root": {
       padding: theme.spacing(2),
@@ -50,6 +61,11 @@ export default function BodyApp({ openLogIn, handleCloseLogIn }) {
     onClose: PropTypes.func.isRequired,
   };
 
+//   const post =() =>{
+//     return (<Post/>)
+//  }
+  
+
   return (
     <Box>
       <></>
@@ -65,7 +81,6 @@ export default function BodyApp({ openLogIn, handleCloseLogIn }) {
         <DialogContent>
           <Auth handleCloseLogIn={handleCloseLogIn} />
         </DialogContent>
-        <DialogActions></DialogActions>
       </BootstrapDialog>
       {userConnected ? (
         <Typography variant="h3">user Connected</Typography>
@@ -73,10 +88,20 @@ export default function BodyApp({ openLogIn, handleCloseLogIn }) {
         <Typography variant="h3">user not Connected</Typography>
       )}
       <Button onClick={aaa}>test connected</Button>
-      <Fab variant="extended" color="primary" aria-label="add">
-        <AddIcon />
-        post
-      </Fab>
+      {userConnected ? (
+        
+        <Fab
+          sx={{ position: "absolute", bottom: 50, right: 50 }}
+          variant="extended"
+          color="primary"
+          // onClick={<Post/>}
+        >
+          <AddIcon />
+          post
+        </Fab>
+      ) : null}
+        <Post/>
+
     </Box>
   );
 }
