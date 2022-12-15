@@ -5,7 +5,10 @@ const userRouter = require('./usersRouter/usersRouter');
 const authRouter = require('./authRouter/authRouter');
 const updateDataRouter = require('./updateDataRouter/updateDataRouter')
 const getDataRouter = require('./getDataRouter/getDataRouter')
+const postRouter = require('./postRouter/postRouter')
 
+
+router.use('/post',postRouter);
 router.use('/user',userRouter);
 router.use('/auth',authRouter);
 router.use('/update',updateDataRouter);
