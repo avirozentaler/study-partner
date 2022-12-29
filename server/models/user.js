@@ -1,16 +1,19 @@
 const db = require('../db/mysql');
-const { DataTypes } = require('sequelize')
+const { DataTypes } = require('sequelize');
+
 const SubjectModel = require('./Subject');
-// const UserSubjects = require('./UserSubject')
+const UserSubjects = require('./UserSubject');
+const PostModel = require('./Post');
 
 
 const User = db.define('user', {
     id: {
         type: DataTypes.INTEGER,
-        autoIncrement: true,
+        autoIncrement:true,
         allowNull: false,
         primaryKey: true
     },
+    
     name: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -49,14 +52,25 @@ const User = db.define('user', {
         timestamps: false
     });
 
-(async () => {
-    User.belongsToMany(SubjectModel,{through: "User_Subjects"});
-    SubjectModel.belongsToMany(User, { through: "User_Subjects"})
-    // User.hasMany(SubjectModel,{foreignKey:'id'})
-    await db.sync();
-})()
 
+User.associations =()=>{
+}
 
+User.hasMany(PostModel,{foreignKey:"user_id"});
+PostModel.belongsTo(User,{foreignKey:"user_id"});
+User.belongsToMany(SubjectModel,{through: UserSubjects,foreignKey:"UserId"});
+SubjectModel.belongsToMany(User, { through: UserSubjects,foreignKey:"SubjectId"});
 
 module.exports = User;
 
+
+
+
+
+// (async () => {
+//     // User.hasMany(PostModel,{foreignKey:"id"});
+//     // PostModel.belongsTo(User,{foreignKey:"id"});
+//     // User.belongsToMany(SubjectModel,{through: UserSubjects});
+//     // SubjectModel.belongsToMany(User, { through: UserSubjects});
+//     await db.sync();
+// })()

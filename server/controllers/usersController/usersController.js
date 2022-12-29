@@ -3,6 +3,8 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const BCRYPT_ROUNDS = parseInt(process.env.BCRYPT_ROUNDS);
 const userModel = require('../../models/User');
+const { UserModel } = require('../../models/Models');
+
 
 
 //middleware validation for registering

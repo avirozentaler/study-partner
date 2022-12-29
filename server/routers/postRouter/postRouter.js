@@ -1,9 +1,10 @@
 const postRouter = require('express').Router()
-const {addPost} = require('../../controllers/postController/addPostController')
+const {addPost,getPosts} = require('../../controllers/postController/addPostController')
 
 
 
 postRouter.post('/add',addPost);
+postRouter.get('/get-all',getPosts);
 
 
 

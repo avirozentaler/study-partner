@@ -1,38 +1,42 @@
 const db = require('../db/mysql');
-const { DataTypes, STRING } = require('sequelize');
-const UserModel = require('./User');
+const { DataTypes } = require('sequelize');
+
 
 const Post = db.define('post', {
     id: {
         type: DataTypes.INTEGER,
-        autoIncrement: true,
+        autoIncrement:true,
         allowNull: false,
         primaryKey: true
+    },
+    user_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
     },
     auther_name: {
         type: DataTypes.STRING,
         allowNull: false
 
     },
-    category:{
-        type:STRING,
-        allowNull:false
+    category: {
+        type: DataTypes.STRING,
+        allowNull: true
     },
-    sub_category:{
-        type:STRING,
-        allowNull:false
+    sub_category: {
+        type: DataTypes.STRING,
+        allowNull: false
     },
     post: {
         type: DataTypes.TEXT,
-        allowNull:false
+        allowNull: false
     },
-    time_from:{
-        type:DataTypes.DATE,
-        allowNull:false
+    time_from: {
+        type: DataTypes.DATE,
+        allowNull: true //false
     },
-    time_to:{
-        type:DataTypes.DATE,
-        allowNull:false
+    time_to: {
+        type: DataTypes.DATE,
+        allowNull: true //false
     }
 
 },
@@ -41,9 +45,7 @@ const Post = db.define('post', {
     }
 );
 
-(async () => {
-    await db.sync();
-    Post.hasOne(UserModel,{foreignKey:"id"})
-})()
+
 
 module.exports = Post
+
