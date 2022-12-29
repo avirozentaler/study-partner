@@ -1,25 +1,25 @@
 const db = require('../db/mysql');
 const { DataTypes } = require('sequelize');
-const UserModel = require('./User');
-const SubjectModel = require('./Subject');
 
 
 
-const UserSubject = db.define('user_subject', {
-//     UserId: {
-//         type:DataTypes.INTEGER,
-//         // references: {
-//         //     model: UserModel,
-//         //     key: 'id'
-//         // }
-//     },
-//     SubjectId: {
-//         type: DataTypes.INTEGER,
-//         // references: {
-//         //     model: SubjectModel,
-//         //     key: 'id'
-//         // }
-//     }
+
+const UserSubject = db.define('usersubjects', {
+    UserId: {
+        type:DataTypes.INTEGER,
+        references: {
+            model: "User",
+            key: "id"
+        }
+    },
+    SubjectId: {
+        type: DataTypes.INTEGER,
+        references: {
+            model: "Subject",
+            key: "id",
+        }
+    },
+    
 },
     {
         timestamps: false
@@ -30,4 +30,5 @@ const UserSubject = db.define('user_subject', {
 })()
 
 module.exports = UserSubject;
+
 

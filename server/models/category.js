@@ -1,8 +1,12 @@
 
 const db = require('../db/mysql');
-const { DataTypes } = require('sequelize');
+const { DataTypes, sequalzie } = require('sequelize');
+// const UsersModel = require('./user');
+const SubjectModel = require('./Subject');
 
-const category = db.define('category', {
+
+
+const Category = db.define('category', {
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
@@ -11,21 +15,27 @@ const category = db.define('category', {
     },
     name: {
         type: DataTypes.STRING,
-        allowNull:false
-        
+        allowNull: false
     },
     user_connected: {
         type: DataTypes.INTEGER,
-        allowNull:true  ///false
+        allowNull: true  ///false
     }
 },
-{
-    timestamps:false
-}
+    {
+        timestamps: false
+    }
 );
+// Category.hasMany(SubjectModel, { foreignKey: "id" });
+// SubjectModel.belongsTo(Category, { foreignKey: "id" })
 
-(async () => {
-    await db.sync();
-})()
 
-module.exports = category
+
+module.exports = Category;
+
+
+
+
+
+
+

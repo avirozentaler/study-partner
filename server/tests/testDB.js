@@ -1,24 +1,33 @@
 const testRouter = require('express').Router();
-const {fillTable}= require('./fillTables')
+const { fillTable } = require('./fillTables')
 
-const UserModel =  require('../models/User');
+const PostModel = require('../models/Post');
+const UserModel = require('../models/User');
 const SubjectModel = require('../models/Subject');
+const CategoryModel = require('../models/category');
 
-testRouter.get('/test/fill-tables', (req, res) => {
+testRouter.get('/test/fill-tables', async(req, res) => {
+    console.log('called fill tables');
     try {
-        fillTable();
-        res.status(200).send('test')
+        const result = await fillTable();
+        if (result == 'yes') {
+            res.status(200).send('success');
+        }
+        else {
+            throw new Error({ message: 'error' });
+        }
+
     }
     catch (err) {
-        res.send(err)
+        res.status(400).send(err)
     }
 })
 
 
-testRouter.get('/test/get-users',async (req, res) => {
+testRouter.get('/test/get-users', async (req, res) => {
     console.log('called');
     try {
-        const result = await  UserModel.findAll({include:SubjectModel})
+        const result = await UserModel.findAll({ include:PostModel})  //SubjectModel
         console.log(result);
         res.status(200).send(result)
     }
@@ -26,10 +35,10 @@ testRouter.get('/test/get-users',async (req, res) => {
         res.send(err)
     }
 })
-testRouter.get('/test/get-subjects',async (req, res) => {
+testRouter.get('/test/get-subjects', async (req, res) => {
     console.log('called');
     try {
-        const result = await  SubjectModel.findAll()
+        const result = await SubjectModel.findAll();
         console.log(result);
         res.status(200).send(result)
     }
@@ -38,5 +47,29 @@ testRouter.get('/test/get-subjects',async (req, res) => {
     }
 })
 
+
+testRouter.get('/test/get-categories', async (req, res) => {
+    console.log('called');
+    try {
+        const result = await CategoryModel.findAll()
+        console.log(result);
+        res.status(200).send(result)
+    }
+    catch (err) {
+        res.send(err)
+    }
+});
+
+testRouter.get('/test/get-posts', async (req, res) => {
+    console.log('called');
+    try {
+        const result = await PostModel.findAll()
+        console.log(result);
+        res.status(200).send(result)
+    }
+    catch (err) {
+        res.send(err)
+    }
+});
 
 module.exports = testRouter
