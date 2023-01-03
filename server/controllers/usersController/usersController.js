@@ -32,15 +32,15 @@ const register = async (req, res) => {
     try {
         const { name, email, password, confirmPassword, country, languages, phone_number, age_range } = req.body;
         const existUser = await userModel.findOne({
-            where: {email: email}
+            where: { email: email }
         });
-        if (existUser) {            
+        if (existUser) {
             res.status(400).send({ message: 'auth faild' });
         }
         else {
 
             const hashPssword = bcrypt.hashSync(password, BCRYPT_ROUNDS);
-            await userModel.create({ name, email, password: hashPssword,country,languages,phone_number,age_range });
+            await userModel.create({ name, email, password: hashPssword, country, languages, phone_number, age_range });
             res.status(200).send({ message: 'user created successfully' });
         }
 
@@ -94,11 +94,17 @@ const logIn = async (req, res) => {
             console.log(accessToken);
             // await userModel.update({ refresh_token: accessToken },{where: { id: user.id } });
             res.cookie(process.env.TOKEN_NAME, accessToken, {
-                maxAge: 1000 * 60 * 5,
+                maxAge: 1000 * 60 * 60 *24,
                 httpOnly: false
             })
 
-            res.status(200).send({ message: 'user loged in!!' });
+            res.status(200).send({
+                name: user.name,
+                email: user.email,
+                country: user.country,
+                age: user.age_range,
+                phone_number: user.phone_number,
+            });
         }
 
     }

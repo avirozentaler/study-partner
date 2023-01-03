@@ -11,7 +11,7 @@ const Post = db.define('post', {
     },
     user_id: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: true,
     },
     auther_name: {
         type: DataTypes.STRING,
@@ -30,6 +30,7 @@ const Post = db.define('post', {
         type: DataTypes.TEXT,
         allowNull: false
     },
+    
     time_from: {
         type: DataTypes.DATE,
         allowNull: true //false

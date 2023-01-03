@@ -1,7 +1,7 @@
 
 const db = require('../db/mysql');
 const { DataTypes, sequalzie } = require('sequelize');
-// const UsersModel = require('./user');
+
 const SubjectModel = require('./Subject');
 
 
@@ -26,8 +26,9 @@ const Category = db.define('category', {
         timestamps: false
     }
 );
-// Category.hasMany(SubjectModel, { foreignKey: "id" });
-// SubjectModel.belongsTo(Category, { foreignKey: "id" })
+
+Category.hasMany(SubjectModel, { foreignKey: "category_id"});
+SubjectModel.belongsTo(Category,{foreignKey:"category_id"});
 
 
 

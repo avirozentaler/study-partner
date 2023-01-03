@@ -5,9 +5,9 @@ const fillTable = async () => {
 
     try {
         
-        const post1 = await PostModel.create({ user_id: 1, auther_name: 'avi', sub_category: 'read english', post: "bla bla 1" });
-        const post2 = await PostModel.create({ user_id: 2, auther_name: 'moshe', sub_category: 'read english', post: "bla bla 2" });
-        const post3 = await PostModel.create({ user_id: 1, auther_name: 'avi', sub_category: 'learn english', post: "bla bla 3" });
+        const post1 = await PostModel.findOrCreate({where:{ user_id: 1, auther_name: 'avi', sub_category: 'read english', post: "bla bla 1" }});
+        const post2 = await PostModel.findOrCreate({where:{ user_id: 2, auther_name: 'moshe', sub_category: 'read english', post: "bla bla 2" }});
+        const post3 = await PostModel.findOrCreate({where:{ user_id: 1, auther_name: 'avi', sub_category: 'learn english', post: "bla bla 3" }});
 
         const user1 = await UserModel.findOrCreate({where:{ name: 'avi', email: 'avi@g.com', password: '1234', } } );
         const user2 = await UserModel.findOrCreate({where:{ name: 'moshe', email: 'moshe@g.com', password: '1234' }});
