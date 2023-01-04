@@ -11,16 +11,21 @@ import {
   Box,
   Typography,
   IconButton,
+  TextField,
+  Autocomplete,
   Button,
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import CloseIcon from "@mui/icons-material/Close";
 import { useColorScheme, styled } from "@mui/material/styles";
 import PropTypes from "prop-types";
-
+import { useState } from "react";
+const options = ["English", "Math", "Program engineer"];
 export default function BodyApp({ openLogIn, handleCloseLogIn }) {
   const { userConnected, setUserConnected } = useContext(UserConnected);
-
+  const [openPost, setOpenPost] = useState(false);
+  const [value, setValue] = useState(null);
+  const [inputValue, setInputValue] = useState("");
   const aaa = () => {
     setUserConnected({ name: "amit" });
   };
@@ -61,10 +66,6 @@ export default function BodyApp({ openLogIn, handleCloseLogIn }) {
     onClose: PropTypes.func.isRequired,
   };
 
-//   const post =() =>{
-//     return (<Post/>)
-//  }
-  
 
   return (
     <Box>
@@ -89,19 +90,19 @@ export default function BodyApp({ openLogIn, handleCloseLogIn }) {
       )}
       <Button onClick={aaa}>test connected</Button>
       {userConnected ? (
-        
         <Fab
           sx={{ position: "absolute", bottom: 50, right: 50 }}
           variant="extended"
           color="primary"
-          // onClick={<Post/>}
+          onClick={() => {
+            setOpenPost(true);
+          }}
         >
-          <AddIcon />
-          post
+          <AddIcon />POST
         </Fab>
       ) : null}
-        <Post/>
-
+      {openPost ? <Post open={openPost} setOpen={setOpenPost} /> : null}
+      
     </Box>
   );
 }
