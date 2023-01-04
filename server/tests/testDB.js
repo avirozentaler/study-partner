@@ -51,7 +51,7 @@ testRouter.get('/test/get-subjects', async (req, res) => {
 testRouter.get('/test/get-categories', async (req, res) => {
     console.log('called');
     try {
-        const result = await CategoryModel.findAll()
+        const result = await CategoryModel.findAll({include:SubjectModel})
         console.log(result);
         res.status(200).send(result)
     }
