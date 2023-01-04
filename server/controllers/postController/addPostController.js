@@ -7,13 +7,6 @@ const addPost = async(req,res)=>{
         const answer = await PostService.addPost(req.body);
         console.log(answer);
         res.status(200).send(answer);
-
-        // const {userId,auther_name,category,sub_category,post,date,time_from,time_to} = req.body;
-        // await PostModel.create({auther_name,category,sub_category,post,time_from,time_to});
-        // const user = await UserModel.findOne({where:{id:userId}});
-        // const newPost = await PostModel.create({user_id:userId,auther_name,category,sub_category,post,date,time_from,time_to})
-        
-        
     }
     catch(err){
         console.log('CONTROLLER ERROR -----------------------------');

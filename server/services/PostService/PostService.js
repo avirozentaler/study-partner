@@ -1,29 +1,30 @@
-{ }
 const PostRepo = require('../../repositories/postRepo/postRepo');
 
 const addPost = async (reqBody) => {
     try {
-            //   await PostModel.create({auther_name, category, sub_category, post, date, time_from, time_to});
         const PostDetails = { userId, auther_name, category, sub_category, post, date, time_from, time_to } = reqBody;
-        const answer= PostRepo.addPost(PostDetails);
-        console.log('SERVICE CALLED');
+        const answer = await PostRepo.addPost(PostDetails);
         return answer;
     }
     catch (err) {
-        console.log('SERVICE ERROR -----------------------------');
         console.log(err);
         return err;
     }
-
-    
-
-
-
 }
 
-
+const getPosts = async () => {
+    try {
+        const answer = await PostRepo.getPosts();
+        return answer;
+    }
+    catch (err) {
+        console.log(err);
+        return err;
+    }
+}
 
 module.exports = PostService = {
     addPost,
+    getPosts
 
 }
