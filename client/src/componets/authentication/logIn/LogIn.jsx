@@ -41,11 +41,11 @@ export default function Login({
     <div className="Login auth">
       <Box
         sx={{
-          width: 500,
-          mx: "auto", //margin left & right
-          my: "auto", // margin top & botom
-          py: "auto", // padding top & bottom
-          px: "auto", // padding left & right
+          width: 450,
+          // mx: "auto", //margin left & right
+          // my: "auto", // margin top & botom
+          // py: "auto", // padding top & bottom
+          // px: "auto", // padding left & right
           display: "flex",
           flexDirection: "column",
           gap: 5,
@@ -85,30 +85,26 @@ export default function Login({
         </Button>
         <Grid container>
           <Grid item xs>
-          <Link
-          underline="hover"
-          onClick={() => {
-            handleHavePass();
-          }}
-        >
-          forgt password?
-        </Link>
+            <Link
+              underline="hover"
+              onClick={() => {
+                handleHavePass();
+              }}
+            >
+              forgt password?
+            </Link>
           </Grid>
           <Grid item>
-          <Link
-          underline="hover"
-          onClick={() => {
-            handleRegistered();
-          }}
-        >
-          Don't have an account? sign up
-        </Link>
+            <Link
+              underline="hover"
+              onClick={() => {
+                handleRegistered();
+              }}
+            >
+              Don't have an account? sign up
+            </Link>
           </Grid>
-            
         </Grid>
-        
-
-        
       </Box>
     </div>
   );
