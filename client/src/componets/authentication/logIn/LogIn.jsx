@@ -28,8 +28,9 @@ export default function Login({
           { email, password },
           { withCredentials: true }
         );
+
         console.log(answer);
-        setUserConnected(true);
+        setUserConnected(answer);
         handleCloseLogIn();
       } catch (err) {
         alert("login faild");

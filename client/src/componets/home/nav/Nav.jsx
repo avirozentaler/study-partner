@@ -1,34 +1,34 @@
 import React, { useState, useContext } from 'react'
 import UserConnected from '../../../context/UserConnected';
-import { AppBar, Box, Toolbar, Typography, IconButton, ListItemIcon, MenuItem, Menu, Avatar, Tooltip, Button }
+import { AppBar, Box, Toolbar, Typography, IconButton, ListItemIcon, MenuItem, Menu, Avatar, Tooltip, Button, Divider }
     from '@mui/material'
 import Logout from '@mui/icons-material/Logout';
-import { useColorScheme} from '@mui/material/styles';
+import { useColorScheme } from '@mui/material/styles';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 import InfoIcon from '@mui/icons-material/Info';
 import PersonIcon from '@mui/icons-material/Person';
 import HomeIcon from '@mui/icons-material/Home';
+import { useNavigate } from 'react-router-dom'
 
-
-export default function Nav({ setOpenLogIn, setPageVale, pageVale }) {
+export default function Nav({ setOpenLogIn }) {
+    const navigae = useNavigate();
     const { mode, setMode } = useColorScheme();
     const { userConnected, setUserConnected } = useContext(UserConnected)
     const [anchorUserMenu, setAnchorUserMenu] = useState(null);
+
     const handleOpenLogIn = () => {
-        console.log('1 open log in ');
         setOpenLogIn(true);
         handleCloseUserMenu();
     };
-    const handleCloseLogIn = () => {
-        setOpenLogIn(false);
-    };
+    // const handleCloseLogIn = () => {
+    //     setOpenLogIn(false);
+    // };
+
     const modeToggle = () => {
         setMode(mode === 'light' ? 'dark' : 'light');
     }
-    const handleAuth = () => {
-        setUserConnected(!userConnected)
-    }
+ 
     const handleOpenUserMenu = (event) => {
         setAnchorUserMenu(event.currentTarget);
     };
@@ -36,14 +36,20 @@ export default function Nav({ setOpenLogIn, setPageVale, pageVale }) {
         setAnchorUserMenu(null);
     };
     const handleLogOut = () => {
-        ((name)=> {
+        ((name) => {
             document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-          })('token')
+        })('token')
         setUserConnected(null);
-        
+
     }
     const handleBodyValContent = () => {
-        setPageVale((pageVale) => !pageVale)
+        navigae('/');
+    }
+    const HandleProfilePage = () => {
+        navigae('/profile');
+    }
+    const handleAboutPage = () => {
+        navigae('/about');
     }
 
     return (
@@ -70,6 +76,7 @@ export default function Nav({ setOpenLogIn, setPageVale, pageVale }) {
                                     {!userConnected ? <Avatar /> : <Avatar>{userConnected.name ? userConnected.name.slice(0, 1) : " "}</Avatar>}
                                 </IconButton>
                             </Tooltip>
+
                             <Menu
                                 sx={{ mt: '45px' }}
                                 id="menu-appbar"
@@ -86,28 +93,44 @@ export default function Nav({ setOpenLogIn, setPageVale, pageVale }) {
                                 open={Boolean(anchorUserMenu)}
                                 onClose={handleCloseUserMenu}
                             >
-                                <MenuItem onClick={handleBodyValContent} >
-                                    <ListItemIcon>
-                                        {pageVale ? <InfoIcon fontSize="small" /> : <HomeIcon fontSize="small" />}
-                                    </ListItemIcon>
-                                    {pageVale ? "about" : "home"}
-
-                                </MenuItem>
-
-                                <MenuItem onClick={!userConnected ? handleOpenLogIn : handleLogOut} >
-                                    <ListItemIcon>
-                                        {!userConnected ? <PersonIcon fontSize="small" /> : <Logout fontSize="small" />}
-                                    </ListItemIcon>
-                                    {!userConnected ? "log in" : "log out"}
-                                </MenuItem>
-
-                                {userConnected ? <MenuItem>
-                                    <ListItemIcon>
-                                        <PersonIcon fontSize="small" />
-                                    </ListItemIcon>
-                                    My account
-                                </MenuItem> : null}
+                                {userConnected ? <Box>
+                                    <MenuItem onClick={HandleProfilePage}>
+                                        <ListItemIcon>
+                                            <PersonIcon fontSize="small" />
+                                        </ListItemIcon>
+                                        Profile
+                                    </MenuItem>
+                                    <Divider />
+                                    <MenuItem onClick={handleLogOut} >
+                                        <ListItemIcon>
+                                            <Logout fontSize="small" />
+                                        </ListItemIcon>
+                                        Log Out
+                                    </MenuItem>
+                                    <Divider />
+                                    <MenuItem onClick={handleAboutPage} >
+                                        <ListItemIcon>
+                                            <InfoIcon fontSize="small" />
+                                        </ListItemIcon>About
+                                    </MenuItem>
+                                </Box>
+                                    :
+                                    <Box>
+                                        <MenuItem onClick={handleOpenLogIn} >
+                                            <ListItemIcon>
+                                                <PersonIcon fontSize="small" />
+                                            </ListItemIcon>
+                                            Log In
+                                        </MenuItem>
+                                        <Divider />
+                                        <MenuItem onClick={handleAboutPage} >
+                                            <ListItemIcon>
+                                                <InfoIcon fontSize="small" />
+                                            </ListItemIcon>About
+                                        </MenuItem>
+                                    </Box>}
                             </Menu>
+
                         </Box>
                     </div>
                 </Toolbar>

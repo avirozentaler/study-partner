@@ -1,12 +1,15 @@
-const CategoryModel = require('../../models/category');
-
+const CategoryService = require('../../services/CategoryService/CategoryService');
+// const Models= require('../../models/Models');
 
 
 const getAllCategories = async (req, res) => {
 
     try {
-        const categories = await CategoryModel.findAll();
-        res.status(200).send(categories);
+        console.log('first cat');
+        // const categories = await Models.CategoryModel.findAll({include:Models.SubjectModel});
+        const answer = await CategoryService.getAllCategories();
+        console.log('cat' ,answer);
+        res.status(200).send(answer);
     }
     catch (err) {
         res.status(401).send(err);
