@@ -1,29 +1,31 @@
-import * as React from "react";
 import axios from "axios";
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
-import Autocomplete from "@mui/material/Autocomplete";
-import Grid from "@mui/material/Grid";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogTitle from "@mui/material/DialogTitle";
+import React, { useState } from "react";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { TimePicker } from "@mui/x-date-pickers/TimePicker";
+import {
+  Button,
+  TextField,
+  Autocomplete,
+  Grid,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+} from "@mui/material/";
 
 const dateTime = new Date();
 const timeString = dateTime.toString();
 
 export default function Post({ open, setOpen }) {
-  const [valueCategory, setValueCategory] = React.useState("");
-  const [valueSubCategory, setValueSubCategory] = React.useState("");
-  const [date, setDate] = React.useState(timeString);
-  const [fromTime, setFromTime] = React.useState(timeString);
-  const [toTime, setToTime] = React.useState(timeString);
-  const [inputCategory, setInputCategory] = React.useState("");
-  const [inputSubCategory, setInputSubCategory] = React.useState("");
+  const [valueCategory, setValueCategory] = useState("");
+  const [valueSubCategory, setValueSubCategory] = useState("");
+  const [date, setDate] = useState(timeString);
+  const [fromTime, setFromTime] = useState(timeString);
+  const [toTime, setToTime] = useState(timeString);
+  const [inputCategory, setInputCategory] = useState("");
+  const [inputSubCategory, setInputSubCategory] = useState("");
 
   const option = [
     {
@@ -118,17 +120,21 @@ export default function Post({ open, setOpen }) {
   };
   const handlePost = async () => {
     //בדיקת שדות
-
-    // console.log("category: ", valueCategory);
-    // console.log("subCategory: ", valueSubCategory);
-    // console.log("fromTime: ", fromTime);
-    // console.log("toTime: ", toTime);
-    // console.log("date: ", date);
-    // console.log("timeString", timeString);
-    //קריאת שרת
     if (!valueCategory || !valueSubCategory || !date || !fromTime || !toTime) {
       alert("missing details");
-    } else {
+    }
+    // else if (valueCategory != handleOptionSub()){
+    //   alert('Invalid subcategory')
+    // }
+    // else if (date < timeString){
+    //   alert("Invalid date");
+    // }
+    // else if(fromTime<toTime){
+    //   alert('Invalid time range')
+    // }
+    else {
+      //קריאת שרת
+
       try {
         const answer = await axios.post("http://localhost:3005/post/add", {
           /*userId, auther_name,  post,*/ category: valueCategory,
@@ -151,12 +157,7 @@ export default function Post({ open, setOpen }) {
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Post</DialogTitle>
         <DialogContent>
-          <Grid
-            container
-            spacing={3}
-            // rowSpacing={2}
-            // columnSpacing={3}
-          >
+          <Grid container spacing={3}>
             <Grid item xs={6}>
               <Autocomplete
                 options={option.map((category) => category.name)}
@@ -175,7 +176,9 @@ export default function Post({ open, setOpen }) {
             </Grid>
             <Grid item xs={6}>
               <Autocomplete
-                options={valueCategory ? handleOptionSub() : []}
+                options={
+                  valueCategory ? handleOptionSub() : ["Select a category"]
+                }
                 value={valueSubCategory}
                 inputValue={inputSubCategory}
                 onChange={(event, newValue) => {
