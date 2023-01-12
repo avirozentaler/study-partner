@@ -102,6 +102,7 @@ const logIn = async (req, res) => {
                 name: user.name,
                 email: user.email,
                 country: user.country,
+                languages:user.languages,
                 age: user.age_range,
                 phone_number: user.phone_number,
             });

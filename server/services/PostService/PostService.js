@@ -3,7 +3,9 @@ const PostRepo = require('../../repositories/postRepo/postRepo');
 const addPost = async (reqBody) => {
     try {
         const PostDetails = { userId, auther_name, category, sub_category, post, date, time_from, time_to } = reqBody;
+        
         const answer = await PostRepo.addPost(PostDetails);
+
         return answer;
     }
     catch (err) {
