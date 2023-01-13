@@ -2,8 +2,8 @@ const PostRepo = require('../../repositories/postRepo/postRepo');
 
 const addPost = async (reqBody) => {
     try {
-        const PostDetails = { userId, auther_name, category, sub_category, post, date, time_from, time_to } = reqBody;
-        
+        const PostDetails = { email, userId, auther_name, category, sub_category, post, date, time_from, time_to } = reqBody;
+
         const answer = await PostRepo.addPost(PostDetails);
 
         return answer;
@@ -25,8 +25,44 @@ const getPosts = async () => {
     }
 }
 
+
+const updatePost = async (reqBody) => {
+
+    try {
+        const { id, newPost, newDate, newTime_from, newTime_to } = reqBody;
+        const updatedValues ={
+            id,
+            newPost:newPost ||undefined,
+            newDate:newDate ||undefined,
+            newTime_from:newTime_from ||undefined,
+            newTime_to:newTime_to ||undefined
+        }
+        
+        const answer = await PostRepo.updatePost(id, updatedValues);
+        return answer;
+    }
+    catch (err) {
+        return err;
+    }
+}
+
+const deletePost = async (reqBody) => {
+    const {id} = reqBody
+    try {
+         const answer = await PostRepo.deletePost(id);
+         return answer;
+    }
+    catch (err) {
+        console.log(err);
+        return err;
+    }
+}
+
 module.exports = PostService = {
     addPost,
-    getPosts
+    getPosts,
+    updatePost,
+    deletePost,
 
 }
+
