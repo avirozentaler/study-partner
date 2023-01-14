@@ -1,7 +1,7 @@
 // file of base router
 const express = require('express');
 const router = express.Router();
-const userRouter = require('./usersRouter/usersRouter');
+const userRouter = require('./userRouter/userRouter');
 const authRouter = require('./authRouter/authRouter');
 const updateDataRouter = require('./updateDataRouter/updateDataRouter');
 const getDataRouter = require('./getDataRouter/getDataRouter');

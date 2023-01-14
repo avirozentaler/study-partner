@@ -31,13 +31,11 @@ const updatePost = async (reqBody) => {
     try {
         const { id, newPost, newDate, newTime_from, newTime_to } = reqBody;
         const updatedValues ={
-            id,
-            newPost:newPost ||undefined,
-            newDate:newDate ||undefined,
-            newTime_from:newTime_from ||undefined,
-            newTime_to:newTime_to ||undefined
+            post:newPost ||undefined,
+            date:newDate ||undefined,
+            time_from:newTime_from ||undefined,
+            time_to:newTime_to ||undefined
         }
-        
         const answer = await PostRepo.updatePost(id, updatedValues);
         return answer;
     }

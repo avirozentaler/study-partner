@@ -9,7 +9,6 @@ const addPost = async (req, res) => {
         res.status(200).send(answer);
     }
     catch (err) {
-        console.log('CONTROLLER ERROR -----------------------------');
         res.status(401).send(err);
     }
 }
@@ -21,20 +20,21 @@ const getPosts = async (req, res) => {
     }
     catch (err) {
         console.log(err);
-        res.status(404).send(err);
+        res.status(404).send(err.message);
     }
 }
 
-
 const updatePost = async (req, res) => {
-    console.log('ypdate first');
     try {
         const answer = await PostService.updatePost(req.body);
+        if(answer.message){
+            console.log(answer.message);
+            throw new Error(answer.message);
+        }
         res.status(200).send(answer);
     }
     catch (err) {
-        res.status(400).send(err);
-        console.log(err);
+        res.status(400).send(err.message);
     }
 
 }

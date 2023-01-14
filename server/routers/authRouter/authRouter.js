@@ -3,9 +3,11 @@ const {auth,forgetPassword,resetPassword} = require('../../controllers/authContr
 
 
 authRouter.get('/',auth);
+
 authRouter.post('/forget-pass',forgetPassword);
 authRouter.post('/reset-pass',resetPassword);
 
+//log out router needed
 
 module.exports = authRouter; 
 
