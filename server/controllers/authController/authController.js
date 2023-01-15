@@ -5,7 +5,25 @@ const token = process.env.TOKEN_NAME;
 const BCRYPT_ROUNDS = parseInt(process.env.BCRYPT_ROUNDS);
 const nodeMailer = require('nodemailer');
 const { emailValid, passwordValid } = require('../../utilities/validations/validations');
+const AuthService = require('../../services/authService/authService');
 
+
+const logIn = async (req, res) => {
+    try {
+        const answer = await AuthService.logIn(req,res);
+        if (answer.message) {
+            throw new Error(answer.message);
+        }
+        else {
+            res.status(200).send(answer);
+        }
+    }
+    catch (err) {
+        console.log(err);
+        res.status(400).send(err.message);
+    }
+
+}
 
 const auth = async (req, res) => {
     try {
@@ -34,7 +52,7 @@ const auth = async (req, res) => {
 const forgetPassword = async (req, res) => {
     try {
         console.log('1')
-        const {email} = req.body;
+        const { email } = req.body;
         if (!email) {
             console.log('! email');
             throw Error('email not match please try again');
@@ -60,7 +78,7 @@ const forgetPassword = async (req, res) => {
         mailTransporter.sendMail(
             {
                 from: 'study-partner',
-                to: user.email,   
+                to: user.email,
                 subject: 'rest password',
                 text: `your temporary password is: ${newPass}  please do not share this password to anybody`
             },
@@ -87,7 +105,6 @@ const forgetPassword = async (req, res) => {
 
 
 }
-
 
 const resetPassword = async (req, res) => {
     try {
@@ -118,6 +135,7 @@ const resetPassword = async (req, res) => {
 }
 
 module.exports = {
+    logIn,
     auth,
     forgetPassword,
     resetPassword,

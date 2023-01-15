@@ -1,8 +1,3 @@
-const { nameValid, emailValid, passwordValid, countryValid, languagesValid, phone_numberValid, age_rangeValid } = require('../../utilities/validations/validations');
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-const BCRYPT_ROUNDS = parseInt(process.env.BCRYPT_ROUNDS);
-const { UserModel } = require('../../models/Models');
 const UserService = require('../../services/userService/userService');
 
 
@@ -115,70 +110,70 @@ const deleteUser = async (req, res) => {
 // }
 
 //middleware validation for log-in
-const logInValid = (req, res, next) => {
-    const { email, password } = req.body;
-    if (!email || !password) {
-        res.status(400).send({ message: 'please fill all the fields' });
-    }
-    else if (!emailValid(email)) {
-        res.send('email not valid');
-    }
-    else if (!passwordValid(password)) {
-        res.status(400).send({ message: 'email or password are not valid' });
-    }
-    else {
-        next();
-    }
+// const logInValid = (req, res, next) => {
+//     const { email, password } = req.body;
+//     if (!email || !password) {
+//         res.status(400).send({ message: 'please fill all the fields' });
+//     }
+//     else if (!emailValid(email)) {
+//         res.send('email not valid');
+//     }
+//     else if (!passwordValid(password)) {
+//         res.status(400).send({ message: 'email or password are not valid' });
+//     }
+//     else {
+//         next();
+//     }
 
-}
+// }
 
-const logIn = async (req, res) => {
+// const logIn = async (req, res) => {
 
-    try {
-        const { email, password } = req.body;
-        const user = await UserModel.findOne({
-            where: {
-                email: email
-            }
-        })
-        if (!user) {
-            res.status(400).send({ message: 'auth faild' });
-            return;
-        }
-        const isComparePassword = await bcrypt.compare(password, user.password);
-        if (!isComparePassword) {
-            res.status(400).send({ message: 'auth faild' });
-            return;
-        }
+//     try {
+//         const { email, password } = req.body;
+//         const user = await UserModel.findOne({
+//             where: {
+//                 email: email
+//             }
+//         })
+//         if (!user) {
+//             res.status(400).send({ message: 'auth faild' });
+//             return;
+//         }
+//         const isComparePassword = await bcrypt.compare(password, user.password);
+//         if (!isComparePassword) {
+//             res.status(400).send({ message: 'auth faild' });
+//             return;
+//         }
 
-        else {
-            const accessToken = jwt.sign({ email }, process.env.SECRET_KEY, {
-                algorithm: 'HS256',
-                expiresIn: '1h',
-            });
-            console.log(accessToken);
-            // await userModel.update({ refresh_token: accessToken },{where: { id: user.id } });
-            res.cookie(process.env.TOKEN_NAME, accessToken, {
-                maxAge: 1000 * 60 * 60 * 24,
-                httpOnly: false
-            })
+//         else {
+//             const accessToken = jwt.sign({ email }, process.env.SECRET_KEY, {
+//                 algorithm: 'HS256',
+//                 expiresIn: '1h',
+//             });
+//             console.log(accessToken);
+//             // await userModel.update({ refresh_token: accessToken },{where: { id: user.id } });
+//             res.cookie(process.env.TOKEN_NAME, accessToken, {
+//                 maxAge: 1000 * 60 * 60 * 24,
+//                 httpOnly: false
+//             })
 
-            res.status(200).send({
-                name: user.name,
-                email: user.email,
-                country: user.country,
-                languages: user.languages,
-                age: user.age_range,
-                phone_number: user.phone_number,
-            });
-        }
+//             res.status(200).send({
+//                 name: user.name,
+//                 email: user.email,
+//                 country: user.country,
+//                 languages: user.languages,
+//                 age: user.age_range,
+//                 phone_number: user.phone_number,
+//             });
+//         }
 
-    }
-    catch (err) {
-        res.send(err);
-    }
+//     }
+//     catch (err) {
+//         res.send(err);
+//     }
 
-}
+// }
 
 module.exports = {
     addUser,
@@ -186,6 +181,4 @@ module.exports = {
     getOneUser,
     updateUser,
     deleteUser,
-    logInValid,
-    logIn
 }

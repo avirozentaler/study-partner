@@ -82,6 +82,8 @@ const getOneUser = async (reqBody) => {
                 languages: answer.languages,
                 phone_number: answer.phone_number,
                 age_range: answer.age_range,
+                posts:answer.posts ||null,
+                
             }
         }
         return answer;
