@@ -1,9 +1,13 @@
 const SubCategoryService = require('../../services/subCategoryService/subCategoryService');
 
 
-const addSubCategory = async (req, res) => {
+const createSubCategory = async (req, res) => {
     try {
-        const answer = await SubCategoryService.addSubCategory(req,res);
+        const answer = await SubCategoryService.createSubCategory(req,res);
+        if(answer.message){
+            throw  new Error(answer.message);
+        }
+        return res.status(200).send(answer);
     }
     catch (err) {
         console.log(err);
@@ -13,7 +17,11 @@ const addSubCategory = async (req, res) => {
 
 const getSubCategory = async (req, res) => {
     try {
-
+        const answer = await SubCategoryService.getSubCategory(req.body);
+        if(answer.message){
+            throw  new Error(answer.message);
+        }
+        return res.status(200).send(answer);
     }
     catch (err) {
         console.log(err);
@@ -23,7 +31,11 @@ const getSubCategory = async (req, res) => {
 
 const getAllSubCategory = async (req, res) => {
     try {
-
+        const answer = await SubCategoryService.getAllSubCategory();
+        if(answer.message){
+            throw  new Error(answer.message);
+        }
+        return res.status(200).send(answer);
     }
     catch (err) {
         console.log(err);
@@ -32,6 +44,6 @@ const getAllSubCategory = async (req, res) => {
 
 
 module.exports = {
-    addSubCategory, getSubCategory, getAllSubCategory
+    addSubCategory: createSubCategory, getSubCategory, getAllSubCategory
 }
 

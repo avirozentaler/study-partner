@@ -1,8 +1,11 @@
 const subCategoryRouter = require('express').Router()
-const {getSubCategory,getAllSubCategory} = require('../../controllers/subCategoryController/subCategoryController');
+const {addSubCategory,getSubCategory,getAllSubCategory} = require('../../controllers/subCategoryController/subCategoryController');
 
 
-subCategoryRouter.get('/get-sub-category',getSubCategory);
-subCategoryRouter.get('/get-all-sub-category',getAllSubCategory);
+
+subCategoryRouter.post('/create',getSubCategory);
+subCategoryRouter.get('/get-all',getAllSubCategory);
+subCategoryRouter.post('/get',getSubCategory);
 
 module.exports = subCategoryRouter;
+

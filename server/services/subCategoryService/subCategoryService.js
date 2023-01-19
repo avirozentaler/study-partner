@@ -1,36 +1,43 @@
+const subCategoryRepo = require('../../repositories/subCategoryRepo/subCategoryRepo');
 const SubCategoryRepo = require('../../repositories/subCategoryRepo/subCategoryRepo');
 
-const addSubCategory = async (req, res) => {
+const createSubCategory = async (req, res) => {
     try {
-        const {userId,subCategoryId} = req.body;
-        const answer = await SubCategoryRepo.addSubCategory(userId,subCategoryId);
-
+        const {name,categoryId} = req.body;
+        const answer = await SubCategoryRepo.createSubCategory({name,category_id:categoryId});
+        return answer;
     }
     catch (err) {
         console.log(err);
+        return err;
     }
 }
 
-
-const getSubCategory = async (req, res) => {
+const getSubCategory = async (reqBody) => {
     try {
+        const {id}=reqBody;
+        const answer = subCategoryRepo.getSubCategory(id);
+        return answer;
 
     }
     catch (err) {
         console.log(err);
+        answer;
     }
 }
 
-
-const getAllSubCategory = async (req, res) => {
+const getAllSubCategory = async () => {
     try {
+        const answer = subCategoryRepo.getAllSubCategory();
+        return answer;
 
     }
     catch (err) {
         console.log(err);
+        answer;
     }
 }
 
 module.exports ={
-    addSubCategory, getSubCategory, getAllSubCategory
+    createSubCategory, getSubCategory, getAllSubCategory
 }
