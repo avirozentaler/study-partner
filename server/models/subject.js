@@ -1,14 +1,14 @@
 const db = require('../db/mysql');
 const { DataTypes } = require('sequelize');
 const CategoryModel = require('./Category');
-
+const { SubjectModel } = require('./Models');
 
 const Subject = db.define('subject', {
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         allowNull: false,
-        primaryKey: true
+        primaryKey: true,
     },
     name: {
         type: DataTypes.STRING,
@@ -29,8 +29,6 @@ const Subject = db.define('subject', {
         timestamps: false
     }
 );
-
-
 
 module.exports = Subject
 

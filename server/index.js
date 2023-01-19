@@ -7,7 +7,6 @@ const express = require('express');
 const router = require('./routers/index');
 const testRouter = require('./tests/testDB');
 const cors = require('cors');
-const { Sequelize } = require('sequelize');
 const app = express();
 
 app.use(cors({ origin: ['http://localhost:3000', 'http://localhost:3001', 'http://localhost:3002', 'http://localhost:3003'], credentials: true }));

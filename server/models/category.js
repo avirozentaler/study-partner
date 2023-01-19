@@ -1,11 +1,6 @@
-
 const db = require('../db/mysql');
 const { DataTypes, sequalzie } = require('sequelize');
-
 const SubjectModel = require('./Subject');
-
-
-
 const Category = db.define('category', {
     id: {
         type: DataTypes.INTEGER,
@@ -14,7 +9,7 @@ const Category = db.define('category', {
         primaryKey: true
     },
     name: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(10),
         allowNull: false
     },
     user_connected: {

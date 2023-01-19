@@ -4,7 +4,7 @@ const { DataTypes } = require('sequelize');
 
 
 
-const UserSubject = db.define('usersubjects', {
+const UserSubject = db.define('user_subjects', {
     UserId: {
         type:DataTypes.INTEGER,
         references: {

@@ -7,13 +7,14 @@ const PostModel = require('./Post');
 
 
 const User = db.define('user', {
+
     id: {
         type: DataTypes.INTEGER,
-        autoIncrement:true,
+        autoIncrement: true,
         allowNull: false,
         primaryKey: true
     },
-    
+
     name: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -21,6 +22,7 @@ const User = db.define('user', {
     email: {
         type: DataTypes.STRING,
         allowNull: false,
+        unique: true,
 
     },
     password: {
@@ -38,6 +40,8 @@ const User = db.define('user', {
     phone_number: {
         type: DataTypes.STRING,
         allowNull: true,
+        // unique:true,
+
     },
     age_range: {
         type: DataTypes.INTEGER,
@@ -49,17 +53,23 @@ const User = db.define('user', {
     }
 },
     {
+        indexes: [
+            {
+                unique: true,
+                fields: ["email"]
+            }
+        ],
         timestamps: false
     });
 
 
-User.associations =()=>{
+User.associations = () => {
 }
 
-User.hasMany(PostModel,{foreignKey:"user_id"});
-PostModel.belongsTo(User,{foreignKey:"user_id"});
-User.belongsToMany(SubjectModel,{through: UserSubjects,foreignKey:"UserId"});
-SubjectModel.belongsToMany(User, { through: UserSubjects,foreignKey:"SubjectId"});
+User.hasMany(PostModel, { foreignKey: "user_id" });
+PostModel.belongsTo(User, { foreignKey: "user_id" });
+User.belongsToMany(SubjectModel, { through: UserSubjects, foreignKey: "UserId" });
+SubjectModel.belongsToMany(User, { through: UserSubjects, foreignKey: "SubjectId" });
 
 module.exports = User;
 
