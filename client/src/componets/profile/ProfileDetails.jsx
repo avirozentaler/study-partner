@@ -1,66 +1,80 @@
 import React, { useState, useEffect, useContext } from 'react'
 import EditIcon from '@mui/icons-material/Edit';
+import SaveIcon from '@mui/icons-material/Save';
 import {
+    FormControl,
     Box,
     Typography,
     IconButton,
     TextField,
     Autocomplete,
     Button,
+    Divider,
+    Paper,
 } from "@mui/material";
 import axios from 'axios';
 import UserConnected from "../../context/UserConnected";
 
 
 
-
-
-
-
-
-
 export default function ProfileDetails() {
 
 
-    const { userConnected } = useContext(UserConnected);
+    const { userConnected, setUserConnected } = useContext(UserConnected);
 
-    const [name, setName] = useState()
-    const [email, setEmail] = useState()
-    const [country, setCountry] = useState()
-    const [language, setLanguage] = useState()
-    const [age, setAge] = useState()
-    const [phone_number, setPhone_number] = useState()
-
+    const [name, setName] = useState(userConnected.name);
+    const [email, setEmail] = useState(userConnected.email);
+    const [country, setCountry] = useState(userConnected.country);
+    const [languages, setLanguages] = useState(userConnected.languages);
+    const [age, setAge] = useState(userConnected.age);
+    const [phone_number, setPhone_number] = useState(userConnected.phone_number);
     const [edit, setEdit] = useState(true);
 
-
     const handleEdit = async () => {
-        if (!edit) {
-            try {
-                const update = await axios.post('http://localhost:3005/user/update');
-            } catch (err) {
-                console.log(err);
-            }
-        }
         setEdit(edit => !edit)
     }
 
+    const handleSave = async () => {
+        try {
+            const update = await axios.post('http://localhost:3005/user/update',
+                { email, name, country, languages, age, phone_number },
+                { withCredentials: true }
+            );
+        }
+        catch (err) {
+            console.log(err);
+
+        }
+    }
+    const handleCancel = () => {
+        setName(userConnected.name || undefined);
+        setEmail(userConnected.email || undefined);
+        setCountry(userConnected.country || undefined);
+        setLanguages(userConnected.languages || undefined);
+        setAge(userConnected.age || undefined);
+        setPhone_number(userConnected.phone_number || undefined);
+        setEdit(edit => !edit);
+    }
+
     return (
-        <div>
-            <Box component='form' autoComplete='on'>
-                <TextField disabled={edit} label="Name" type='text' onChange={(event) => { setName(event.target.value) }} defaultValue={userConnected.name} required />
-                <TextField disabled={edit} label="Email" type='email' onChange={(event) => { setEmail(event.target.value) }} defaultValue={userConnected.email} required />
-                <TextField disabled={edit} label="Age" type='number' onChange={(event) => { setAge(event.target.value) }} defaultValue={userConnected.age} />
-                <TextField disabled={edit} label="Country" type='text' onChange={(event) => { setCountry(event.target.value) }} defaultValue={userConnected.country} />
-                <TextField disabled={edit} label="Language" type='text' onChange={(event) => { setLanguage(event.target.value) }} defaultValue={userConnected.languages} />
-                <TextField disabled={edit} label="Phone Number" type="tel" onChange={(event) => { setPhone_number(event.target.value) }} defaultValue={userConnected.phone_number} />
+        <Box>
+            {/* <FormControl > */}
+            <Box >
+                <TextField sx={{ m: 1 }} disabled={edit} label="Name" type='text' onChange={(event) => { setName(event.target.value) }} value={name || undefined} required />
+                <TextField sx={{ m: 1 }} disabled label="Email" type='email' onChange={(event) => { setEmail(event.target.value) }} value={email || undefined} required />
+                <TextField sx={{ m: 1 }} disabled={edit} label="Age" type='number' onChange={(event) => { setAge(event.target.value) }} value={age || undefined} />
+                <TextField sx={{ m: 1 }} disabled={edit} label="Country" type='text' onChange={(event) => { setCountry(event.target.value) }} value={country || undefined} />
+                <TextField sx={{ m: 1 }} disabled={edit} label="Languages" type='text' onChange={(event) => { setLanguages(event.target.value) }} value={languages || undefined} />
+                <TextField sx={{ m: 1 }} disabled={edit} label="Phone Number" type="tel" onChange={(event) => { setPhone_number(event.target.value) }} value={phone_number || undefined} />
             </Box>
-
-            <Button variant={edit ? "outlined" : "contained"} onClick={handleEdit} >
-                {edit ? <EditIcon /> : null}
-                {edit ? "Edit" : "Save"}
-            </Button>
-
-        </div>
+            <Box>
+                {edit ? <Button sx={{ m: 1 }} onClick={handleEdit} size="large" startIcon={<EditIcon fontSize='small' />}>Edit</Button> :
+                    <Button sx={{ m: 1 }} variant={"contained"} onClick={handleSave} size="large" startIcon={<SaveIcon fontSize='small' />}>Save</Button>
+                }
+                {!edit && <Button sx={{ m: 1 }} variant="outlined" onClick={handleCancel} size="large">
+                    Cencel
+                </Button>}
+            </Box>
+        </Box>
     )
 }

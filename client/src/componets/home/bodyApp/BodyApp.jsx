@@ -51,13 +51,19 @@ export default function BodyApp({ openLogIn, handleCloseLogIn }) {
   const [inputValue, setInputValue] = useState("");
   const aaa = () => {   ////test
     setUserConnected({ 
-      name:'Moshe',
-      email: 'Moshe@gmail.com',
-      country: 'Israel',
-      languages:'Hebrew',
-      age: '30',
-      phone_number: '052434343', });
-  };
+      "id": 2,
+    name: "moshe cohen",
+    email: "moshe@m.com",
+    password: "$2b$04$NNerKKldfl2",
+    country: "Israel",
+    languages: "\"english\"",
+    phone_number: "0543338585",
+    age: null,
+    about: null,
+    posts: [],
+    subjects: []
+  });
+}
 
   useEffect(() => {
     getPosts();
