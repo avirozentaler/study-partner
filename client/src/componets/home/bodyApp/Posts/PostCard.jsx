@@ -8,11 +8,9 @@ import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 
 
-export default function PostCard(post) {
+export default function PostCard({post}) {
   return (
-    <Grid item xs={3}>
-      
-      
+    <Grid item xs={3}> 
     <Card
       sx={{
         // padding: "11px",
