@@ -1,13 +1,13 @@
 // file of base router
 const router = require('express').Router();
-const userRouter = require('./userRouter/userRouter');
-const authRouter = require('./authRouter/authRouter');
-const updateDataRouter = require('./updateDataRouter/updateDataRouter');
-const getDataRouter = require('./getDataRouter/getDataRouter');
-const postRouter = require('./postRouter/postRouter');
-const categoryRouter = require('./categoryRouter/categoryRouter');
-const subCategoryRouter = require('./subCategoryRouter/subCategoryRouter'); 
-const userSubjectRouter = require('./userSubjectRouter/userSubjectRouter');
+const userRouter = require('./userRouter');
+const authRouter = require('./authRouter');
+const updateDataRouter = require('./updateDataRouter');
+const getDataRouter = require('./getDataRouter');
+const postRouter = require('./postRouter');
+const categoryRouter = require('./categoryRouter');
+const subCategoryRouter = require('./subCategoryRouter'); 
+const userSubjectRouter = require('./userSubjectRouter');
 
 
 router.use('/post',postRouter);

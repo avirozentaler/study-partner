@@ -1,7 +1,6 @@
 const db = require('../db/mysql');
 const { DataTypes } = require('sequelize');
 
-
 const Post = db.define('post', {
     id: {
         type: DataTypes.INTEGER,
@@ -30,7 +29,6 @@ const Post = db.define('post', {
         type: DataTypes.TEXT,
         allowNull: false
     },
-    
     time_from: {
         type: DataTypes.DATE,
         allowNull: true //false

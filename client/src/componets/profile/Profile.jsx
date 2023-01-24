@@ -1,8 +1,11 @@
 import React, { useState, useContext } from 'react'
-
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { useNavigate } from 'react-router-dom'
+import ProfileSummary from './ProfileSummary';
 import ProfileDetails from './ProfileDetails';
+import ProfileSubjects from './ProfileSubjects';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {
+  Paper,
   Accordion,
   AccordionSummary,
   AccordionDetails,
@@ -11,11 +14,21 @@ import {
 } from "@mui/material";
 import UserConnected from '../../context/UserConnected';
 
+import { useEffect } from 'react';
+
 
 export default function Profie() {
 
-  const [expanded, setExpanded] = useState(" ");
+  const navigate = useNavigate()
+  const [expanded, setExpanded] = useState("1");
   const { userConnected } = useContext(UserConnected);
+
+  useEffect(() => {
+    if (!UserConnected) {
+      navigate('/')
+    }
+  }, []);
+
   const handleChange = (panel) => {
     if (expanded === panel) {
       setExpanded(" ");
@@ -23,11 +36,13 @@ export default function Profie() {
     }
     setExpanded(panel);
   }
-  console.log(userConnected);
+  
   return (
     <Box>
+     {/* <Paper > */}
+      
       {!userConnected ?
-        <Box>
+        <Box >
           <Typography>You are not loged in Please Login first</Typography>
         </Box>
         : <Box>
@@ -40,7 +55,7 @@ export default function Profie() {
               <Typography >Profile Details</Typography>
             </AccordionSummary>
             <AccordionDetails>
-              <ProfileDetails />
+              <ProfileDetails setExpanded={setExpanded}/>
             </AccordionDetails>
           </Accordion>
 
@@ -53,9 +68,7 @@ export default function Profie() {
               <Typography>About Me</Typography>
             </AccordionSummary>
             <AccordionDetails>
-              <Typography>
-                About
-              </Typography>
+              <ProfileSummary />
             </AccordionDetails>
           </Accordion>
           <Accordion expanded={expanded === '3'} onChange={() => { handleChange('3') }}>
@@ -67,9 +80,7 @@ export default function Profie() {
               <Typography>My Subjects</Typography>
             </AccordionSummary>
             <AccordionDetails>
-              <Typography>
-                Pots
-              </Typography>
+              <ProfileSubjects />
             </AccordionDetails>
           </Accordion>
           <Accordion expanded={expanded === '4'} onChange={() => { handleChange('4') }}>
@@ -82,13 +93,14 @@ export default function Profie() {
             </AccordionSummary>
             <AccordionDetails>
               <Typography>
-                Subjects
+                {/* Pots */}
               </Typography>
             </AccordionDetails>
           </Accordion>
         </Box>
       }
-    </Box>
+          {/* </Paper> */}
+      </Box>
 
   )
 }

@@ -24,13 +24,14 @@ export default function Login({
     } else {
       try {
         const answer = await axios.post(
-          "http://localhost:3005/user/log-in",
+          "http://localhost:3005/auth/log-in",
           { email, password },
           { withCredentials: true }
         );
 
         console.log(answer);
-        setUserConnected(answer);
+        setUserConnected(answer.data);
+        sessionStorage.setItem("user",JSON.stringify(answer.data));
         handleCloseLogIn();
       } catch (err) {
         alert("login faild");
