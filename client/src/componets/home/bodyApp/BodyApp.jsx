@@ -8,8 +8,6 @@ import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
-
-
 import Posts from "./Posts/Posts";
 
 import {
@@ -87,30 +85,35 @@ export default function BodyApp({ openLogIn, handleCloseLogIn }) {
   const [openPost, setOpenPost] = useState(false);
   const [value, setValue] = useState(null);
   const [inputValue, setInputValue] = useState("");
-  const aaa = () => {
-    ////test
-    setUserConnected({
-      name: "Moshe",
-      email: "Moshe@gmail.com",
-      country: "Israel",
-      languages: "Hebrew",
-      age: "30",
-      phone_number: "052434343",
-    });
-  };
+  const aaa = () => {   ////test
+    setUserConnected({ 
+    id: 2,
+    name: "moshe cohen",
+    email: "moshe@m.com",
+    password: "$2b$04$NNerKKldfl2",
+    country: "Israel",
+    languages: "\"english\"",
+    phone_number: "0543338585",
+    age: null,
+    about: null,
+    posts: [],
+    subjects: []
+  });
+}
 
   useEffect(() => {
-    getPosts();
+
   }, []);
 
   const getPosts = async () => {
     try {
-      const postsList = await (
-        await axios.get("http://localhost:3005/post/get-all")
-      ).data;
-      setPosts(postsList);
-    } catch (err) {
+      const postsList = await (await axios.get('http://localhost:3005/post/get-all')).data
+      setPosts(postsList)
+      return postsList
+    }
+    catch (err) {
       console.log(err);
+      return null
     }
   };
   const BootstrapDialog = styled(Dialog)(({ theme }) => ({

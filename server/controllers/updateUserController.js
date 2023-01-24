@@ -1,5 +1,5 @@
-const { nameValid, emailValid, passwordValid, countryValid, languagesValid, phone_numberValid, age_rangeValid } = require('../../utilities/validations/validations');
-const UserModel = require('../../models/User');
+const { nameValid, emailValid, passwordValid, countryValid, languagesValid, phone_numberValid, age_rangeValid } = require('../utilities/validations/validations');
+const UserModel = require('../models/User');
 
 
 const validUserDetails = async (req, res,next) => {

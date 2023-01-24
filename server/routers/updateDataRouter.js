@@ -1,6 +1,6 @@
 const updateDataRouter = require('express').Router()
 
-const {validUserDetails,updateUserDetails,addUserSubject} = require('../../controllers/updateDataController/updateUserController')
+const {validUserDetails,updateUserDetails,addUserSubject} = require('../controllers/updateUserController')
 
 
 

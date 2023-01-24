@@ -32,23 +32,21 @@ export default function Nav({ setOpenLogIn }) {
     setOpenLogIn(true);
     handleCloseUserMenu();
   };
- 
-
+  const handleLogOut = () => {
+    ((name) => {
+      document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:01 GMT;";
+    })("token");
+    sessionStorage.removeItem("user");
+    setUserConnected(null);
+  };
   const modeToggle = () => {
     setMode(mode === "light" ? "dark" : "light");
   };
-
   const handleOpenUserMenu = (event) => {
     setAnchorUserMenu(event.currentTarget);
   };
   const handleCloseUserMenu = () => {
     setAnchorUserMenu(null);
-  };
-  const handleLogOut = () => {
-    ((name) => {
-      document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:01 GMT;";
-    })("token");
-    setUserConnected(null);
   };
   const handleBodyValContent = () => {
     navigae("/");
