@@ -66,17 +66,18 @@ export default function BodyApp({ openLogIn, handleCloseLogIn }) {
 }
 
   useEffect(() => {
-    getPosts();
-
+    // getPosts();
   }, []);
 
   const getPosts = async () => {
     try {
       const postsList = await (await axios.get('http://localhost:3005/post/get-all')).data
       setPosts(postsList)
+      return postsList
     }
     catch (err) {
       console.log(err);
+      return null
     }
   }
   const BootstrapDialog = styled(Dialog)(({ theme }) => ({

@@ -1,5 +1,5 @@
-import React, { useState ,useContext} from 'react';
-import { Box,  Button, InputLabel, MenuItem, Select, FormControl,} from '@mui/material';
+import React, { useState, useContext } from 'react';
+import { Box, Button, InputLabel, MenuItem, Select,FormControl } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 
 import axios from 'axios';
@@ -93,58 +93,60 @@ export default function AddSubject({ addSubject, setAddSubject }) {
     const [newSub, setNewSub] = useState([]);
 
     const handleSetSubCategory = (id) => {
-        setSubCategory(category.filter((item) => item.id === id ).subjects)
+        setSubCategory(["lalala"])  //category.filter((item) => item.id === id).subjects
     }
     const handleAddSubject = async (id) => {
+       
+    }
+    const handleChangeCat = (event,cat) => {
+     
+    }
+    const handleChangeSub = () => {
+        ////
+    }
+    const handleSave = async() => {
         try {
-            await axios.post('http://localhost:3005/user-subject/add', { userId: UserConnected.id, subjectId: id });
+            await axios.post('http://localhost:3005/user-subject/add', { userId: UserConnected.id, subjectId: newSub.id });
         }
         catch (err) {
             console.log(err);
         }
-        setAddSubject(addSubject=>!addSubject);
-    }
-    const handleChange = () => {
-        ////
-    }
-
-    const handleSave = () => {
-
+        setAddSubject(addSubject => !addSubject);
     }
     return (
 
         <Box sx={{ m: 1 }} >
-                <FormControl sx={{ m: 1, minWidth: '30%' }} >
-                    <InputLabel size='small'>Category</InputLabel>
-                    <Select
-                        autoWidth
-                        value={category}
-                        label="Age"
-                        onChange={handleChange}
-                    >
-                        {category && category.map((item, index) => {
-                           return <MenuItem key={index} onClick={() => { handleSetSubCategory(item.id) }}>{item.name}</MenuItem>
-                        })}
+            <FormControl sx={{ m: 1, minWidth: '30%' }} >
+                <InputLabel size='small'>Category</InputLabel>
+                <Select
+                    autoWidth
+                    value={category}
+                    label="Age"
+                    onChange={handleChangeCat}
+                >
+                    {category && category.map((item, index) => {
+                        return <MenuItem key={index} onClick={() => { handleSetSubCategory(item.id) }} >{item.name} </MenuItem> 
+                    })}
 
 
-                    </Select>
-                </FormControl >
-                <FormControl sx={{ m: 1, minWidth: '30%' }}>
-                    <InputLabel size='small'> Sub Category</InputLabel>
-                    <Select
-                        value={category}
-                        label="Sub category"
-                        onChange={handleChange}
-                    >
-                        {subCategory && subCategory.map((item, index) => {
-                           return <MenuItem key={index} onClick={ handleAddSubject }>{item.name}</MenuItem>
-                        })}
+                </Select>
+            </FormControl >
+            <FormControl sx={{ m: 1, minWidth: '30%' }}>
+                <InputLabel size='small'> Sub Category</InputLabel>
+                <Select
+                    value={category}
+                    label="Sub category"
+                    onChange={handleChangeSub}
+                >
+                    {subCategory && subCategory.map((item, index) => {
+                        return <MenuItem key={index} onClick={handleAddSubject}>{item.name}</MenuItem>
+                    })}
 
 
-                    </Select>
-                </FormControl>
-                <Button sx={{ m: 1 }} size="large" variant='contained' startIcon={<AddIcon fontSize='small' />} onClick={handleAddSubject}>Add</Button>
-                <Button sx={{ m: 1 }} size="large" variant='outlined' onClick={() => setAddSubject(addSubject => !addSubject)}>Cancel</Button>
+                </Select>
+            </FormControl>
+            <Button sx={{ m: 1 }} size="large" variant='contained' startIcon={<AddIcon fontSize='small' />} onClick={handleAddSubject}>Add</Button>
+            <Button sx={{ m: 1 }} size="large" variant='outlined' onClick={() => setAddSubject(addSubject => !addSubject)}>Cancel</Button>
 
         </Box>
     )
