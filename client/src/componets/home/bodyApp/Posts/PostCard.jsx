@@ -6,15 +6,18 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
+import { Box } from "@mui/material";
 
 
 export default function PostCard({post}) {
   return (
-    <Grid item xs={3}> 
+    <Box>
+      <Grid item xs={3}> 
     <Card
       sx={{
         // padding: "11px",
         margin: '30px',
+        // m:2,
         width: '250px',
         
       }}
@@ -49,5 +52,6 @@ export default function PostCard({post}) {
       </CardActions>
     </Card>
     </Grid>
+    </Box>
   );
 }

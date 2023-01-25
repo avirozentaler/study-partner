@@ -1,5 +1,6 @@
 import React, { useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
+import UserConnected from '../../context/UserConnected';
 import ProfileSummary from './ProfileSummary';
 import ProfileDetails from './ProfileDetails';
 import ProfileSubjects from './ProfileSubjects';
@@ -12,7 +13,6 @@ import {
   Box,
   Typography,
 } from "@mui/material";
-import UserConnected from '../../context/UserConnected';
 
 import { useEffect } from 'react';
 
@@ -36,11 +36,11 @@ export default function Profie() {
     }
     setExpanded(panel);
   }
-  
+
   return (
     <Box>
-     {/* <Paper > */}
-      
+      {/* <Paper > */}
+
       {!userConnected ?
         <Box >
           <Typography>You are not loged in Please Login first</Typography>
@@ -55,7 +55,7 @@ export default function Profie() {
               <Typography >Profile Details</Typography>
             </AccordionSummary>
             <AccordionDetails>
-              <ProfileDetails setExpanded={setExpanded}/>
+              <ProfileDetails setExpanded={setExpanded} />
             </AccordionDetails>
           </Accordion>
 
@@ -99,8 +99,8 @@ export default function Profie() {
           </Accordion>
         </Box>
       }
-          {/* </Paper> */}
-      </Box>
+      {/* </Paper> */}
+    </Box>
 
   )
 }

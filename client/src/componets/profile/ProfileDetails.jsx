@@ -58,7 +58,6 @@ export default function ProfileDetails() {
 
     return (
         <Box>
-            {/* <FormControl > */}
             <Box >
                 <TextField sx={{ m: 1 }} disabled={edit} label="Name" type='text' onChange={(event) => { setName(event.target.value) }} value={name || undefined} required />
                 <TextField sx={{ m: 1 }} disabled label="Email" type='email' onChange={(event) => { setEmail(event.target.value) }} value={email || undefined} required />
