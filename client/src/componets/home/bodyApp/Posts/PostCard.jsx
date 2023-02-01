@@ -5,49 +5,41 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
 
-
-export default function PostCard({post}) {
+export default function PostCard({ post, setLearnMore}) {
   return (
-    <Grid item xs={3}> 
-    <Card
-      sx={{
-        // padding: "11px",
-        margin: '30px',
-        width: '250px',
-        
-      }}
-    >
+    <Card sx={{ minWidth: 250, maxWidth: 300, margin: 3, textAlign: "left" }}>
       <CardMedia
         component="img"
-        // alt={post.category}
-        height="100"
-        // image="./languages.png"
-        image="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&w=350&dpr=2"
-        // src="./joachim-schnurle-OOEKfjCRBWU-unsplash.jpg"
+        alt="languages"
+        height="140"
+        image={require("./languages.jpg")}
       />
       <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          {post.auther_name}
+        <Box sx={{ display: "flex", justifyContent: "space-around" }}>
+          <Typography gutterBottom variant="h5" component="div">
+            {post.auther_name}
+          </Typography>
+        </Box>
+        <Typography variant="body1" color="text.secondary">
+          {post.sub_category}
         </Typography>
         <Typography variant="body1" color="text.secondary">
-          category: {post.category}{" "}
+          22/12/2023
         </Typography>
         <Typography variant="body1" color="text.secondary">
-          sub category: {post.sub_category}{" "}
+          {post.time_from} - {post.time_to}
         </Typography>
-        <Typography variant="body1" color="text.secondary">
-          i am able in time:{" "}
-        </Typography>
-        <Typography variant="body3">{post.time_from} </Typography>
-        <Typography variant="body3">{post.time_to} </Typography>
       </CardContent>
-      <CardActions>
-        <Button size="small">Ask To</Button>
-        <Button size="small">Learn More</Button>
+      <CardActions sx={{ display: "flex", justifyContent: "flex-end" }}>
+        <Button variant="outlined" size="small" onClick={setLearnMore(true)}>
+          learn more
+        </Button>
+        <Button variant="outlined" size="small">
+          ask to
+        </Button>
       </CardActions>
     </Card>
-    </Grid>
   );
 }
