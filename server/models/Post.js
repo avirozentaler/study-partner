@@ -29,12 +29,16 @@ const Post = db.define('post', {
         type: DataTypes.TEXT,
         allowNull: false
     },
+    date:{
+        type: DataTypes.DATEONLY,
+        allowNull: true //false
+    },
     time_from: {
-        type: DataTypes.DATE,
+        type: DataTypes.TIME(6),
         allowNull: true //false
     },
     time_to: {
-        type: DataTypes.DATE,
+        type: DataTypes.DATE(6),
         allowNull: true //false
     }
 

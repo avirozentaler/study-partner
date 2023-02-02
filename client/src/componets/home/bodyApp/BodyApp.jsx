@@ -13,6 +13,8 @@ export default function BodyApp({ openLogIn, handleCloseLogIn }) {
 
   return (
     <Box>
+<h1>search options</h1>
+
       {openLogIn &&<Auth handleCloseLogIn={handleCloseLogIn} openLogIn={openLogIn}/>}
       <Box>
         <Posts />

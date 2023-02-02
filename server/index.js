@@ -16,7 +16,7 @@ app.use(testRouter);
 
 app.listen(process.env.PORT, () => {
     (async () => {
-        await db.sync();
+        await db.sync({alter:true});
         console.log(await fillCategoryTable());
         console.log(await fillSubjectTable());
     })()
