@@ -19,7 +19,7 @@ const Post = db.define('post', {
     },
     category: {
         type: DataTypes.STRING,
-        allowNull: true
+        allowNull: false
     },
     sub_category: {
         type: DataTypes.STRING,
@@ -27,17 +27,20 @@ const Post = db.define('post', {
     },
     post: {
         type: DataTypes.TEXT,
-        allowNull: false
+        allowNull: true
+    },
+    date:{
+        type: DataTypes.BIGINT,
+        allowNull: false,
     },
     time_from: {
-        type: DataTypes.DATE,
-        allowNull: true //false
+        type: DataTypes.BIGINT,
+        allowNull: false,
     },
     time_to: {
-        type: DataTypes.DATE,
-        allowNull: true //false
+        type: DataTypes.BIGINT,
+        allowNull: false 
     }
-
 },
     {
         timestamps: false

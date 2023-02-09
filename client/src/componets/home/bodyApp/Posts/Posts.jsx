@@ -5,6 +5,10 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 
 export default function Posts() {
+
+  // const [posts, setPosts] = useState([]);
+  const [isLoadin  ,setIsLoadin] = useState(true);
+
   const [posts, setPosts] = useState(
     null || [
       {
@@ -99,19 +103,25 @@ export default function Posts() {
     ]
   );
 
+
   useEffect(() => {
     // getPosts();
   }, []);
+
   const getPosts = async () => {
     try {
       const postsList = await (
         await axios.get("http://localhost:3005/post/get-all")
       ).data;
-      // setPosts(postsList);
-      return postsList;
+      if(postsList){
+        setIsLoadin(!isLoadin);
+      }
+
+      setPosts(postsList ||[])
+      // return postsList;
     } catch (err) {
       console.log(err);
-      return [];
+      // return [];
     }
   };
 

@@ -5,6 +5,7 @@ import Profie from '../profile/Profile';
 import Nav from './nav/Nav';
 import About from '../about/About'
 import BodyApp from './bodyApp/BodyApp';
+import UserProfile from './userProfile/UserProfile';
 import UserConnected from '../../context/UserConnected';
 import {Box} from '@mui/material'
 
@@ -28,8 +29,9 @@ export default function Home() {
                 
                 <Routes>
                     <Route path='/' element={<BodyApp openLogIn={openLogIn} handleCloseLogIn={handleCloseLogIn} />} />
-                    <Route path='/about' element={<About/>} />
+                    <Route path='/about' element={<About />} />
                     <Route path='/profile' element={<Profie/>} />
+                    <Route path='/user' element={<UserProfile/>} />
                 </Routes>
                 </BrowserRouter>
             </AuthPopupContex.Provider>
