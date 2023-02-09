@@ -33,6 +33,7 @@ export default function Nav({ setOpenLogIn }) {
     handleCloseUserMenu();
   };
   const handleLogOut = () => {
+    handleCloseUserMenu();
     ((name) => {
       document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:01 GMT;";
     })("token");
@@ -52,9 +53,11 @@ export default function Nav({ setOpenLogIn }) {
     navigae("/");
   };
   const HandleProfilePage = () => {
+    handleCloseUserMenu();
     navigae("/profile");
   };
   const handleAboutPage = () => {
+    handleCloseUserMenu();
     navigae("/about");
   };
 
@@ -113,18 +116,18 @@ export default function Nav({ setOpenLogIn }) {
                       Profile
                     </MenuItem>
                     <Divider />
-                    <MenuItem onClick={handleLogOut}>
-                      <ListItemIcon>
-                        <Logout fontSize="small" />
-                      </ListItemIcon>
-                      Log Out
-                    </MenuItem>
-                    <Divider />
                     <MenuItem onClick={handleAboutPage}>
                       <ListItemIcon>
                         <InfoIcon fontSize="small" />
                       </ListItemIcon>
                       About
+                    </MenuItem>
+                    <Divider />
+                    <MenuItem onClick={handleLogOut}>
+                      <ListItemIcon>
+                        <Logout fontSize="small" />
+                      </ListItemIcon>
+                      Log Out
                     </MenuItem>
                   </Box>
                 ) : (

@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from "react";
-import axios from "axios";
 import UserConnected from "../../../context/UserConnected";
 import Auth from "../../authentication/auth/Auth";
 import CreatePost from "../CreatePost/CreatePost";
@@ -22,7 +21,7 @@ export default function BodyApp({ openLogIn, handleCloseLogIn }) {
       </Box>
       <CreatePostButton setOpenPost={setOpenPost} />
       {openPost && <CreatePost open={openPost} setOpen={setOpenPost} />}
-      {/* <LearnMore></LearnMore> */}
+      <LearnMore></LearnMore>
     </Box>
   );
 }
