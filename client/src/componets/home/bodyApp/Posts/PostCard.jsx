@@ -14,7 +14,7 @@ export default function PostCard({ post }) {
   const { userConnected } = useContext(UserConnected);
 
   return (
-    <Card sx={{ minWidth: 250, maxWidth: 300, margin: 3, textAlign: "left" }}>
+    <Card  sx={{ minWidth: 250, maxWidth: 300, margin: 3, textAlign: "left" }}>
       <CardMedia
         component="img"
         alt="languages"
