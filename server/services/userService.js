@@ -54,7 +54,7 @@ const getAllUsers = async () => {
                 country: answer.country,
                 languages: answer.languages,
                 phone_number: answer.phone_number,
-                age: answer.age_range,
+                age: answer.age,
                 about: answer.about || null,
                 }
             })
@@ -69,11 +69,9 @@ const getAllUsers = async () => {
 }
 
 const getOneUser = async (reqBody) => {
-    const { email } = reqBody;
+    const { email,id } = reqBody;
     try {
-        const answer = await UserRepo.getOneUser(email);
-        console.log(answer);
-        console.log(answer.email);
+        const answer = await UserRepo.getOneUser(email||null,id ||null);
         if (!answer.message) {
             return {
                 id: answer.id,
@@ -82,7 +80,7 @@ const getOneUser = async (reqBody) => {
                 country: answer.country,
                 languages: answer.languages,
                 phone_number: answer.phone_number,
-                age: answer.age_range,
+                age: answer.age,
                 about: answer.about || null,
                 posts: answer.posts || null,
                 subjects: answer.subjects || null,
@@ -104,7 +102,7 @@ const updateUser = async (reqBody) => {
             languages: languages || undefined,
             phone_number: phone_number || undefined,
             about: about || undefined,
-            age_range: age || undefined,
+            age: age || undefined,
         }
         const answer = await UserRepo.updateUser(email, newValues);
         return answer;
@@ -126,7 +124,6 @@ const deleteUser = async (reqBody) => {
         return err;
     }
 }
-
 
 module.exports = {
     addUser, getAllUsers, getOneUser, updateUser, deleteUser,bcrypt

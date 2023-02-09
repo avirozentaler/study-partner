@@ -24,10 +24,10 @@ export default function Profie() {
   const { userConnected } = useContext(UserConnected);
 
   useEffect(() => {
-    if (!UserConnected) {
+    if (!userConnected) {
       navigate('/')
     }
-  }, []);
+  }, [userConnected]);
 
   const handleChange = (panel) => {
     if (expanded === panel) {
@@ -39,13 +39,7 @@ export default function Profie() {
 
   return (
     <Box>
-      {/* <Paper > */}
-
-      {!userConnected ?
-        <Box >
-          <Typography>You are not loged in Please Login first</Typography>
-        </Box>
-        : <Box>
+      {userConnected && <Box>
           <Accordion expanded={expanded === '1'} onChange={() => { handleChange('1') }}>
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
@@ -99,7 +93,6 @@ export default function Profie() {
           </Accordion>
         </Box>
       }
-      {/* </Paper> */}
     </Box>
 
   )

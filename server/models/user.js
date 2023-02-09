@@ -41,7 +41,7 @@ const User = db.define('user', {
         // unique:true,
 
     },
-    age_range: {
+    age: {
         type: DataTypes.INTEGER,
         allowNull: true,
     },

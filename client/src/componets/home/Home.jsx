@@ -29,7 +29,7 @@ export default function Home() {
                 
                 <Routes>
                     <Route path='/' element={<BodyApp openLogIn={openLogIn} handleCloseLogIn={handleCloseLogIn} />} />
-                    <Route path='/about' element={<About/>} />
+                    <Route path='/about' element={<About />} />
                     <Route path='/profile' element={<Profie/>} />
                     <Route path='/user' element={<UserProfile/>} />
                 </Routes>

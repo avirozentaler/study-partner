@@ -1,10 +1,13 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
+import UserConnected from '../../../context/UserConnected';
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { TimePicker } from "@mui/x-date-pickers/TimePicker";
+import CircularProgress from '@mui/material/CircularProgress';
 import {
+  Box,
   Button,
   TextField,
   Autocomplete,
@@ -14,147 +17,88 @@ import {
   DialogContent,
   DialogTitle,
 } from "@mui/material/";
-
 const dateTime = new Date();
-const timeString = dateTime.toString();
 
 export default function CreatePost({ open, setOpen }) {
+
+  const { userConnected } = useContext(UserConnected)
   const [valueCategory, setValueCategory] = useState("");
   const [valueSubCategory, setValueSubCategory] = useState("");
-  const [date, setDate] = useState(timeString);
-  const [fromTime, setFromTime] = useState(timeString);
-  const [toTime, setToTime] = useState(timeString);
+  const [date, setDate] = useState(new Date(new Date().setHours(0, 0, 0, 0)));
+  const [fromTime, setFromTime] = useState(dateTime);
+  const [toTime, setToTime] = useState(dateTime);
   const [inputCategory, setInputCategory] = useState("");
   const [inputSubCategory, setInputSubCategory] = useState("");
-  
-  const option = [
-    {
-      id: 1,
-      name: "math",
-      user_connected: null,
-      subjects: [
-        {
-          id: 4,
-          name: "Linear Algebra",
-          category_id: 1,
-          user_connected: null,
-        },
-        {
-          id: 5,
-          name: "Geometry",
-          category_id: 1,
-          user_connected: null,
-        },
-        {
-          id: 6,
-          name: "Statistics",
-          category_id: 1,
-          user_connected: null,
-        },
-      ],
-    },
-    {
-      id: 2,
-      name: "languages",
-      user_connected: null,
-      subjects: [
-        {
-          id: 1,
-          name: "English",
-          category_id: 2,
-          user_connected: null,
-        },
-        {
-          id: 2,
-          name: "Hebrew",
-          category_id: 2,
-          user_connected: null,
-        },
-        {
-          id: 3,
-          name: "Arabic",
-          category_id: 2,
-          user_connected: null,
-        },
-      ],
-    },
-    {
-      id: 3,
-      name: "software",
-      user_connected: null,
-      subjects: [
-        {
-          id: 7,
-          name: "JavaScript",
-          category_id: 3,
-          user_connected: null,
-        },
-        {
-          id: 8,
-          name: "Java",
-          category_id: 3,
-          user_connected: null,
-        },
-        {
-          id: 9,
-          name: "Python",
-          category_id: 3,
-          user_connected: null,
-        },
-      ],
-    },
-    {
-      id: 4,
-      name: "philosophy",
-      user_connected: null,
-      subjects: [],
-    },
-  ];
+  const [option, setOption] = useState(null)
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const result = await axios.get("http://localhost:3005/category/get-all");
+        console.log(result);
+        setOption(result.data);
+      }
+      catch (err) {
+        console.log(err);
+      }
+    })()
+  }, [])
 
   const handleOptionSub = () => {
     const cat = option.find((item) => item.name === valueCategory);
     return cat.subjects.map((subject) => subject.name);
   };
+
   const handleClose = () => {
     setOpen(false);
   };
-  const handlePost = async () => {
-    //בדיקת שדות
-    if (!valueCategory || !valueSubCategory || !date || !fromTime || !toTime) {
-      alert("missing details");
-    }
-    // else if (valueCategory != handleOptionSub()){
-    //   alert('Invalid subcategory')
-    // }
-    // else if (date < timeString){
-    //   alert("Invalid date");
-    // }
-    // else if(fromTime<toTime){
-    //   alert('Invalid time range')
-    // }
-    else {
-      //קריאת שרת
 
-      try {
-        const answer = await axios.post("http://localhost:3005/post/add", {
-          /*userId, auther_name,  post,*/ category: valueCategory,
+  const handlePost = async () => {
+    try {
+      ///validation
+      if (!valueCategory || !valueSubCategory || !date || !fromTime || !toTime) {
+        alert("missing details");
+      }
+      else {
+        const tempDate = (date.$y && new Date(date.$y, date.$M, date.$D, 0, 0)) || date
+        const tempFrom = (fromTime.$H && new Date(tempDate.getFullYear(), tempDate.getMonth(), tempDate.getDate(), fromTime.$H, fromTime.$m)) ||
+          new Date(tempDate.getFullYear(), tempDate.getMonth(), tempDate.getDate(), fromTime.getHours(), fromTime.getMinutes())
+        const tempTo = (toTime.$H && new Date(tempDate.getFullYear(), tempDate.getMonth(), tempDate.getDate(), toTime.$H, toTime.$m)) ||
+          new Date(tempDate.getFullYear(), tempDate.getMonth(), tempDate.getDate(), toTime.getHours(), toTime.getMinutes())
+
+        if (tempFrom.getTime() > tempTo.getTime()) {
+          alert("the time to start should be early from the ending time")
+        }
+        if (tempFrom.getTime() < new Date().getTime()) {
+          alert("the time to start shouldn't be early from now")
+        }
+        ////create obj to fetch
+        const postObj = {
+          userId: userConnected.id || null,
+          auther_name: userConnected.name || null,
+          post: " " || null,
+          category: inputCategory,
           sub_category: valueSubCategory,
-          date: date,
-          time_from: fromTime,
-          time_to: toTime,
-        });
+          date: tempDate.getTime(),
+          time_from: tempFrom.getTime(),
+          time_to: tempTo.getTime(),
+
+        }
+        ///fetch to seever        
+        const answer = await axios.post("http://localhost:3005/post/add", postObj);
         console.log(answer);
         setOpen(false);
-      } catch (err) {
-        alert("post faild");
-        console.log(err);
       }
+    } catch (err) {
+      alert("post faild");
+      console.log(err);
     }
+
   };
 
   return (
     <div>
-      <Dialog open={open} onClose={handleClose}>
+      {option ? <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Post</DialogTitle>
         <DialogContent>
           <Grid container spacing={3}>
@@ -162,6 +106,7 @@ export default function CreatePost({ open, setOpen }) {
               <Autocomplete
                 options={option.map((category) => category.name)}
                 value={valueCategory}
+
                 inputValue={inputCategory}
                 onChange={(event, newValue) => {
                   setValueCategory(newValue);
@@ -190,13 +135,15 @@ export default function CreatePost({ open, setOpen }) {
                 )}
               />
             </Grid>
+
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <Grid item xs={6}>
                 <TimePicker
                   label="From Time"
                   value={fromTime}
                   onChange={(newValue) => {
-                    setFromTime(newValue);
+                    console.log(newValue);
+                    newValue && setFromTime(newValue);
                   }}
                   ampm={false}
                   renderInput={(params) => <TextField {...params} />}
@@ -207,7 +154,7 @@ export default function CreatePost({ open, setOpen }) {
                   label="To Time"
                   value={toTime}
                   onChange={(newValue) => {
-                    setToTime(newValue);
+                    newValue && setToTime(newValue);
                   }}
                   ampm={false}
                   renderInput={(params) => <TextField {...params} />}
@@ -216,9 +163,9 @@ export default function CreatePost({ open, setOpen }) {
               <Grid item xs={6}>
                 <DatePicker
                   label="Date"
-                  value={date}
+                  value={date || null}
                   onChange={(newValue) => {
-                    setDate(newValue);
+                    newValue && setDate(newValue);
                   }}
                   renderInput={(params) => <TextField {...params} />}
                 />
@@ -230,7 +177,10 @@ export default function CreatePost({ open, setOpen }) {
           <Button onClick={handleClose}>Cancel</Button>
           <Button onClick={handlePost}>Post</Button>
         </DialogActions>
-      </Dialog>
+      </Dialog> :
+        <Box >
+          <CircularProgress />
+        </Box>}
     </div>
   );
 }

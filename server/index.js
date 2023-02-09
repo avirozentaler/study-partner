@@ -1,7 +1,7 @@
 require('dotenv').config();
 
 const db = require('./db/mysql');
-const {fillCategoryTable,fillSubjectTable} = require('./utilities/dbUtilities/fillTables');
+const {fillCategoryTable,fillSubjectTable,fillUserAndPostst} = require('./utilities/dbUtilities/fillTables');
 
 const express = require('express');
 const router = require('./routers/index');
@@ -16,10 +16,12 @@ app.use(testRouter);
 
 app.listen(process.env.PORT, () => {
     (async () => {
-        await db.sync({alter:true});
+        await db.sync();
         console.log(await fillCategoryTable());
         console.log(await fillSubjectTable());
+        // console.log(await fillUserAndPostst());/// for testing
+        
     })()
-    console.log(`app listen on port ${process.env.PORT}`);
+    console.log(`app listen on port ${process.env.PORT}`)
 });
 

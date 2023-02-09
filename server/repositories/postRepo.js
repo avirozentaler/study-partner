@@ -16,7 +16,7 @@ const addPost = async (details) => {
 
 const getPosts = async () => {
     try {
-        const answer = await Models.PostModel.findAll();
+        const answer = await Models.PostModel.findAll({order:["time_from"]});
         return answer;
     }
     catch (err) {

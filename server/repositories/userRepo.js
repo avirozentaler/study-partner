@@ -27,10 +27,24 @@ const getAllUsers = async () => {
     }
 }
 
-const getOneUser = async (email) => {
+const getOneUser = async (email,id) => {
 
+    console.log('rep');
+    console.log(email);
+    console.log(id);
+    console.log('rep');
     try {
-        const answer = await UserModel.findOne({ where: { email },include:[PostModel,SubjectModel]});
+        let answer;
+        if(email){
+            console.log('email found');
+            answer = await UserModel.findOne({ where: { email },include:[PostModel,SubjectModel]});
+        }
+            
+        
+        else if(id) {
+            console.log('email found');
+            answer = await UserModel.findOne({ where: { id },include:[PostModel,SubjectModel]});
+        }
         if (!answer) {
             throw new Error('user not found');
         }
