@@ -1,13 +1,18 @@
-import React, { useState } from "react";
+import React, {useContext, useState } from "react";
+import UserConnected from '../../../../context/UserConnected'
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import Box from "@mui/material/Box";
+import Tooltip  from "@mui/material/Tooltip";
+import LearnMore from "../learn-more/learn-more";
+export default function PostCard({ post }) {
+  
+  const [openMore, setOpenMore] = useState(false);
+  const { userConnected } = useContext(UserConnected);
 
-export default function PostCard({ post, setLearnMore}) {
   return (
     <Card sx={{ minWidth: 250, maxWidth: 300, margin: 3, textAlign: "left" }}>
       <CardMedia
@@ -17,11 +22,9 @@ export default function PostCard({ post, setLearnMore}) {
         image={require("./languages.jpg")}
       />
       <CardContent>
-        <Box sx={{ display: "flex", justifyContent: "space-around" }}>
-          <Typography gutterBottom variant="h5" component="div">
-            {post.auther_name}
-          </Typography>
-        </Box>
+        <Typography gutterBottom variant="h5" component="div">
+          {post.auther_name}
+        </Typography>
         <Typography variant="body1" color="text.secondary">
           {post.sub_category}
         </Typography>
@@ -33,13 +36,34 @@ export default function PostCard({ post, setLearnMore}) {
         </Typography>
       </CardContent>
       <CardActions sx={{ display: "flex", justifyContent: "flex-end" }}>
-        <Button variant="outlined" size="small" onClick={setLearnMore(true)}>
+        <Button
+          variant="outlined"
+          size="small"
+          onClick={() => {
+            setOpenMore(true);
+          }}
+        >
           learn more
         </Button>
-        <Button variant="outlined" size="small">
-          ask to
-        </Button>
+        {userConnected ? (
+              <Button variant="outlined"  size="small">
+                be my partner
+              </Button>
+            ) : (
+              <Tooltip title="Only logged-in users can use this feature." arrow>
+                <span style={{ marginLeft: "5px" }}>
+                  <Button
+                    variant="outlined"
+                    disabled
+                    size="small"
+                  >
+                    be my partner
+                  </Button>
+                </span>
+              </Tooltip>
+            )}
       </CardActions>
+      <LearnMore openMore={openMore} setOpenMore={setOpenMore} userId={post.userId}/>
     </Card>
   );
 }
