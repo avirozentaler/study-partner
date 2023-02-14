@@ -2,15 +2,15 @@ require('dotenv').config();
 
 const db = require('./db/mysql');
 const {fillCategoryTable,fillSubjectTable,fillUserAndPostst} = require('./utilities/dbUtilities/fillTables');
-
 const express = require('express');
+const cookieParser = require('cookie-parser')
+const app = express();
 const router = require('./routers/index');
 const testRouter = require('./tests/testDB');
 const cors = require('cors');
-const app = express();
-
-app.use(cors({ origin: ['http://localhost:3000', 'http://localhost:3001', 'http://localhost:3002', 'http://localhost:3003'], credentials: true }));
+app.use(cors({ origin: ['http://localhost:3000', 'http://localhost:3001'], credentials: true }));
 app.use(express.json());
+app.use(cookieParser())
 app.use(router);
 app.use(testRouter);
 

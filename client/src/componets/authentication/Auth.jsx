@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import Register from "../register/Register";
-import LogIn from "../logIn/LogIn";
-import ForgetPassword from "../forgetPassword/ForgetPassword";
-import ResetPassword from "../resetPassword/ResetPassword";
+import Register from "./Register";
+import LogIn from "./LogIn";
+import ForgetPassword from "./ForgetPassword";
+import ResetPassword from "./ResetPassword";
 
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";

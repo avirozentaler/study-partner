@@ -40,7 +40,12 @@ const Post = db.define('post', {
     time_to: {
         type: DataTypes.BIGINT,
         allowNull: false 
+    },
+    mathed:{
+        type:DataTypes.BOOLEAN,
+        defaultValue:false,
     }
+
 },
     {
         timestamps: false

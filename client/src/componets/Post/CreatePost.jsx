@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState, useContext } from "react";
-import UserConnected from '../../../context/UserConnected';
+import UserConnected from '../../context/UserConnected';
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
@@ -76,7 +76,7 @@ export default function CreatePost({ open, setOpen }) {
         const postObj = {
           userId: userConnected.id || null,
           auther_name: userConnected.name || null,
-          post: " " || null,
+          post: "" || null,
           category: inputCategory,
           sub_category: valueSubCategory,
           date: tempDate.getTime(),

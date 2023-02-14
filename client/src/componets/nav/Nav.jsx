@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import UserConnected from "../../../context/UserConnected";
+import UserConnected from "../../context/UserConnected";
 import {
   AppBar,
   Box,
@@ -44,6 +44,7 @@ export default function Nav({ setOpenLogIn }) {
     setMode(mode === "light" ? "dark" : "light");
   };
   const handleOpenUserMenu = (event) => {
+    console.log(event.currentTarget.value);
     setAnchorUserMenu(event.currentTarget);
   };
   const handleCloseUserMenu = () => {

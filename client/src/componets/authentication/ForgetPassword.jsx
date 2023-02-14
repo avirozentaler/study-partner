@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate} from "react-router-dom";
-import { emailValid } from '../../../utilities/validetion/validetion.js';
+import { emailValid } from '../../utilities/validetion/validetion.js';
 import {Box, TextField, Button }from '@mui/material';
 
 export default function ForgetPassword({handleResetPass}) {

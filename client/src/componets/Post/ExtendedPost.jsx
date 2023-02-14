@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import UserConnected from "../../../../context/UserConnected";
+import UserConnected from "../../context/UserConnected";
 import Tooltip from "@mui/material/Tooltip";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
@@ -9,7 +9,7 @@ import Typography from "@mui/material/Typography";
 import DialogActions from "@mui/material/DialogActions";
 import Grid from "@mui/material/Grid";
 import Avatar from "@mui/material/Avatar";
-export default function LearnMore({ openMore, setOpenMore, userId }) {
+export default function ExtendedPost({ openMore, setOpenMore, userId }) {
   const { userConnected } = useContext(UserConnected);
   const navigae = useNavigate();
 
