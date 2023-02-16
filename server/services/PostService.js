@@ -1,6 +1,6 @@
 const { Error } = require('sequelize');
 const PostRepo = require('../repositories/postRepo');
-
+const convertToReadingPossibility = require('../utilities/adjustingData/adjustungPostData');
 const addPost = async (reqBody) => {
     try {
         const { email, userId, auther_name, category, sub_category, post, date, time_from, time_to } = reqBody;
@@ -25,26 +25,9 @@ const getPosts = async () => {
         if(!result){
             throw new Error("fail to get posts or not found any posts");
         }
-        let Tdate ;
-        let Tfrom ;
-        let Tto   ;
         answer = result.map((post) => {
-            Tdate = new Date(post.date)
-            Tfrom = new Date(post.time_from)
-            Tto = new Date(post.time_to)
-            return {
-                id: post.id,
-                user_id: post.user_id,
-                auther_name: post.auther_name,
-                category: post.category,
-                sub_category: post.sub_category,
-                post: post.post,
-                date: `${Tdate.getDate()}/${Tdate.getMonth()}/${Tdate.getFullYear()}`,
-                time_from: `${Tfrom.getHours()<10?"0":""}${Tfrom.getHours()}:${Tfrom.getMinutes()<10?"0":""}${Tfrom.getMinutes()}`,
-                time_to: `${Tto.getHours()<10?"0":""}${Tto.getHours()}:${Tto.getMinutes()<10?"0":""}${Tto.getMinutes()}`
-            }
+            return convertToReadingPossibility(post)
         })
-
         return answer;
     }
     catch (err) {
@@ -52,7 +35,6 @@ const getPosts = async () => {
         return err;
     }
 }
-
 
 const updatePost = async (reqBody) => {
 

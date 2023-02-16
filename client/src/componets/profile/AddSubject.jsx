@@ -4,16 +4,14 @@ import UserConnected from '../../context/UserConnected';
 import { Box, Button, InputLabel, MenuItem, FormControl, Typography } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-import { getValue } from '@mui/system';
 
 export default function AddSubject({ addSubject, setAddSubject }) {
     const { userConnected } = useContext(UserConnected);
     const [cat, setCat] = useState('');
     const [subCat, setSubCat] = useState("");
-    const [catValue, setCatValue] = useState('');
+    // const [catValue, setCatValue] = useState('');
+    // const [subValue, setSubValue] = useState('');
     const [subjectId, setSubjectId] = useState();
-    const [subValue, setSubValue] = useState('');
-
     useEffect(() => {
         (async () => {
             try {
@@ -33,29 +31,15 @@ export default function AddSubject({ addSubject, setAddSubject }) {
     }, [])
 
     const handleChangeCat = (event) => {
-        console.log('CALL');
         const {target:{value}} = event
-        console.log('typeof >>');
-        // setCatValue(value.name);
         const sub = cat.filter((item)=>item.id == value.id);
-        console.log('sub >>');
-        console.log(sub[0].subjects);
         setSubCat(sub[0].subjects)
     };
 
     const handleChangeSub = (event) => {
-        // setSubValue(event.target.value)
-        console.log('id >>' ,event.target.value);
-
         setSubjectId(event.target.value);
-
     }
-
-    const handleCancel = async () => {
-        // setCat(temp)
-        setAddSubject(addSubject => !addSubject);
-    }
-
+    
     const handleSave = async () => {
         try {
             await axios.post('http://localhost:3005/user-subject/add', { userId: userConnected.id, subjectId });
@@ -66,26 +50,10 @@ export default function AddSubject({ addSubject, setAddSubject }) {
         setAddSubject(addSubject => !addSubject);
     }
 
-    const handleChange = (event) => {
-        console.log('CALL');
-        const {target:{value}} = event
-        console.log('typeof >>');
-        setCatValue(value.name);
-        console.log(value);
-        const sub = cat.filter((item)=>item.id == value.id);
-        console.log('sub >>');
-        console.log(sub[0].subjects);
-        setSubCat(sub[0].subjects)
-    };  ////////////////
-
-    console.log('catValue',catValue);
-    console.log(subCat);
-    console.log('RENDER');
     return (
         <Box>
             {cat ? <Box sx={{ m: 2 }}>
                 <Typography sx={{ m: 1 }} variant='h6' color="primary">Please select Subject to add</Typography>
-
                 <FormControl sx={{ m: 1, minWidth:180 }}>
                     <InputLabel>Category</InputLabel>
                     <Select
@@ -116,10 +84,8 @@ export default function AddSubject({ addSubject, setAddSubject }) {
                     </Select>
                 </FormControl>
 
-                
-
                 <Button sx={{ m: 1, height: "55px" }} size="large" variant='contained' startIcon={<AddIcon fontSize='small' />} onClick={handleSave}>Add</Button>
-                <Button sx={{ m: 1, height: "55px" }} size="large" variant='outlined' onClick={handleCancel}>Cancel</Button>
+                <Button sx={{ m: 1, height: "55px" }} size="large" variant='outlined' onClick={()=>{setAddSubject(addSubject => !addSubject)}}>Cancel</Button>
             </Box> : <Box>
             </Box>}
         </Box>

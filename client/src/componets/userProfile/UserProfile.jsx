@@ -1,4 +1,5 @@
-import React, { useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
 import axios from 'axios';
 import UserPosts from './UserPosts';
 import {
@@ -15,17 +16,24 @@ import {
 } from "@mui/material";
 import StarRateOutlinedIcon from '@mui/icons-material/StarRateOutlined';
 
-export default function UserProfile({ email }) {
+export default function UserProfile() {
+  const { state: { userId } } = useLocation()
   const [user, setUser] = useState();
-  const [stars, setStars] = useState(0);
-  const [rating, setRating] = useState(false);
+  const [rate, setRate] = useState(null);
+  const [userStars, setUserStars] = useState(null);
+  const [stars, setStars] = useState(null);
+  const [isRating, setIsRating] = useState(false);
 
   useEffect(() => {
     (async () => {
       try {
-        const userData = await axios.post("http://localhost:3005/user/get-one", { email: "Yonatan@g.com" })
+        console.log('userId >>', userId);
+        const userData = await axios.post("http://localhost:3005/user/get-one", { id: userId })
         console.log(userData.data);
         setUser(userData.data);
+        setRate(userData.data.rate);
+        console.log(userData.data.rate);
+        // setUserStars(userData.data.rate);
       }
       catch (err) {
         console.log(err);
@@ -33,15 +41,20 @@ export default function UserProfile({ email }) {
     })()
   }, [])
 
-  const handleOpenRatingOption = () => {
-    setRating(rating => !rating)
-  }
-  const handleRate = () => {
+  const handleRate = async () => {
     ////////////////needed to  manage
-    setRating(rating => !rating)////////////////
+    await axios.put('http://localhost:3005/user/update', 
+    { email:user.email,rate:stars },
+    { withCredentials: true });
+    setStars(null)
+    setIsRating(rating => !rating)////////////////
   }
 
-
+  const handleCancelRate =()=>{
+    setStars(null)
+    setIsRating(rating => !rating)
+  }
+console.log(rate);
   return (
     <Box>
       {user ?
@@ -51,17 +64,19 @@ export default function UserProfile({ email }) {
             <Grid container minHeight={300} >
 
               <Grid item xs={12} sm={12} md={3}>
-                {/* display: "flex", justifyContent: "center", alignItems: "center", minHeight: "200px"  */}
-                <Box sx={{ display:"flex",justifyContent: "center",  }}><Avatar  sx={{ width: 100, height: 100,marginTop:5 }} /> </Box>
-                {/* marginLeft: 19, marginTop: 6 */}
+                <Box sx={{ display: "flex", justifyContent: "center", }}><Avatar sx={{ width: 100, height: 100, marginTop: 5 }} /> </Box>
                 <Box sx={{ m: 5 }}>
-                  <Rating
-                    name="simple-controlled"
-                    value={stars}
+                   <Rating
+                   disabled={!isRating}
+                    value={!isRating ?rate || null :stars}
                     onChange={(event, newValue) => {
                       setStars(newValue);
                     }}
-                  />
+                  />  
+                  <Box>
+                    {!isRating ? <Box><Tooltip title="Rate Skill"><StarRateOutlinedIcon sx={{ m: 1 }} fontSize='small' color='primary' onClick={()=>{ setIsRating(rating => !rating)}} /></Tooltip></Box> :
+                      <Box><Button onClick={handleCancelRate}>Cancel</Button><Button onClick={handleRate}>Save</Button></Box>}
+                  </Box>
                 </Box>
               </Grid>
 
@@ -85,16 +100,16 @@ export default function UserProfile({ email }) {
 
                     <Box sx={{ m: 1, display: 'flex', flexWrap: 'wrap' }}>
                       {user.subjects && user.subjects.map((item, index) => {
-                        return <Paper key={index} sx={{ m: 3, padding: 2}}>
+                        return <Paper key={index} sx={{ m: 3, padding: 2 }}>
                           <Typography align='center'> {item.name} </Typography>
-                          {!rating ? <Tooltip title="Rate Skill"><StarRateOutlinedIcon sx={{ m: 1 }} fontSize='small' color='primary' onClick={handleOpenRatingOption} /></Tooltip> : <Rating
+                          {/* {!rating ? <Tooltip title="Rate Skill"><StarRateOutlinedIcon sx={{ m: 1 }} fontSize='small' color='primary' onClick={handleOpenRatingOption} /></Tooltip> : <Rating
                             name="simple-controlled"
                             value={stars}
                             onChange={(event, newValue) => {
                               setStars(newValue);
                             }}
-                          />}
-                          {rating && <Box><Button onClick={handleRate}>Save</Button><Button onClick={handleOpenRatingOption}>Cancel</Button></Box>}
+                          />} */}
+                          {/* {isRating && <Box><Button onClick={handleRate}>Save</Button><Button onClick={handleOpenRatingOption}>Cancel</Button></Box>} */}
                         </Paper>
                       })}
                     </Box>

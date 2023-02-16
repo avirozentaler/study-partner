@@ -1,6 +1,6 @@
 const userSubjectRepo = require('../repositories/userSubjectRepo');
 
-const addUserSubject = async (values) => {
+const addUserSubject = async (req) => {
     try {
         const {userId,subjectId} = req.body;
         const answer = await  userSubjectRepo.addUserSubject({UserId:userId,SubjectId:subjectId});

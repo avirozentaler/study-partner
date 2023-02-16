@@ -6,7 +6,9 @@ import Posts from "../Post/Posts";
 import Box from "@mui/material/Box";
 
 export default function Main({ openLogIn, handleCloseLogIn }) {
+
   const { userConnected, setUserConnected } = useContext(UserConnected);
+
   const [openPost, setOpenPost] = useState(false);
 
   return (

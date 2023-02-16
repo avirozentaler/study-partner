@@ -2,10 +2,11 @@ const {UserSubject} = require('../models/Models');
 
 const addUserSubject = async (values) => {
     try {
-        const answer = await UserSubject.create(values)
+        const answer = await UserSubject.create(values);
         return "user subCategory added";
     }
     catch (err) {
+        console.log(err);
         return err;
     }
 }

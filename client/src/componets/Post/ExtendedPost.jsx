@@ -55,7 +55,7 @@ export default function ExtendedPost({ openMore, setOpenMore, userId }) {
             </Grid>
           </Grid>
           <DialogActions sx={{ paddingTop: 5 }}>
-            <Button onClick={()=>{navigae("/user", userId)}} variant="outlined" size="small">
+            <Button onClick={()=>{navigae("/user",{state:{userId}})}} variant="outlined" size="small">
               View profile
             </Button>
             {userConnected ? (

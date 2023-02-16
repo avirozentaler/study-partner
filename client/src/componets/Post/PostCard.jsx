@@ -29,7 +29,8 @@ export default function PostCard({ post }) {
           {post.sub_category}
         </Typography>
         <Typography variant="body1" color="text.secondary">
-          22/12/2023
+          {/* 22/12/2023 */}
+          {post.date}
         </Typography>
         <Typography variant="body1" color="text.secondary">
           {post.time_from} - {post.time_to}
@@ -63,7 +64,7 @@ export default function PostCard({ post }) {
               </Tooltip>
             )}
       </CardActions>
-      <ExtendedPost openMore={openMore} setOpenMore={setOpenMore} userId={post.userId}/>
+      <ExtendedPost openMore={openMore} setOpenMore={setOpenMore} userId={post.user_id} />
     </Card>
   );
 }

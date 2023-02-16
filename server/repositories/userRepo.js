@@ -29,18 +29,12 @@ const getAllUsers = async () => {
 
 const getOneUser = async (email,id) => {
 
-    console.log('rep');
-    console.log(email);
-    console.log(id);
-    console.log('rep');
     try {
         let answer;
         if(email){
-            console.log('email found');
             answer = await UserModel.findOne({ where: { email },include:[PostModel,SubjectModel]});
         }
             
-        
         else if(id) {
             console.log('email found');
             answer = await UserModel.findOne({ where: { id },include:[PostModel,SubjectModel]});
@@ -55,9 +49,16 @@ const getOneUser = async (email,id) => {
     }
 }
 
-const updateUser = async (email, updatedValues) => {
+const updateUser = async (email,id, updatedValues) => {
     try {
-        const answer = await UserModel.update(updatedValues, { where: { email } });
+        let answer ;
+        if(id){
+            answer = await UserModel.update(updatedValues, { where: { id } });
+        }
+        else if(email){
+            answer = await UserModel.update(updatedValues, { where: { email } });
+        }
+         
         if (!answer[0]) {
             throw new Error('user has not updated');
         }
