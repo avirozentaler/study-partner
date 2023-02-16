@@ -12,7 +12,6 @@ const User = db.define('user', {
         allowNull: false,
         primaryKey: true
     },
-
     name: {
         type: DataTypes.STRING(16),
         allowNull: false,
@@ -49,6 +48,10 @@ const User = db.define('user', {
         type:DataTypes.TEXT,
         allowNull:true
     },
+    rate:{
+        type:DataTypes.TINYINT,
+        defaultValue:0,
+    },
     refresh_token: {
         type: DataTypes.TEXT,
         allowNull: true,
@@ -75,14 +78,3 @@ SubjectModel.belongsToMany(User, { through: UserSubjects, foreignKey: "SubjectId
 
 module.exports = User;
 
-
-
-
-
-// (async () => {
-//     // User.hasMany(PostModel,{foreignKey:"id"});
-//     // PostModel.belongsTo(User,{foreignKey:"id"});
-//     // User.belongsToMany(SubjectModel,{through: UserSubjects});
-//     // SubjectModel.belongsToMany(User, { through: UserSubjects});
-//     await db.sync();
-// })()

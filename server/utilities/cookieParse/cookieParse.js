@@ -1,5 +1,5 @@
 
-
+//getting cookie  type from requests, and generate it to an object
 const cookieParse =(cookie)=>{
     try{
         console.log('COOOKIE PARSER');

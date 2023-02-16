@@ -3,12 +3,12 @@ const jwt = require('jsonwebtoken');
 const BCRYPT_ROUNDS = parseInt(process.env.BCRYPT_ROUNDS);
 const { nameValid, emailValid, passwordValid, countryValid, languagesValid, phone_numberValid, age_rangeValid } = require('../utilities/validations/validations');
 const UserRepo = require('../repositories/userRepo');
-
+const convertToReadingPossibility = require('../utilities/adjustingData/adjustungPostData');
 
 const addUser = async (reqBody) => {
 
     try {
-        const { name, email, password, confirmPassword, country, languages, phone_number,age } = reqBody;
+        const { name, email, password, confirmPassword, country, languages, phone_number, age } = reqBody;
         if (!name || !email || !password || !confirmPassword || !languages) {
             throw new Error('please fill all the fields');
         }
@@ -20,21 +20,21 @@ const addUser = async (reqBody) => {
         else if (country && !countryValid) { throw Error('country is not valid') }
         else if (phone_number && !phone_numberValid) { throw Error('phone number is not valid') }
         else if (age && !age_rangeValid) { throw Error('age is not valid') }
-        else{
+        else {
             const hashPssword = bcrypt.hashSync(password, BCRYPT_ROUNDS);
             const answer = await UserRepo.addUser({
                 name,
                 email,
-                password:hashPssword,
+                password: hashPssword,
                 country,
                 languages,
                 phone_number,
-                age: age 
+                age: age
             });
             return answer;
         }
 
-        
+
     }
     catch (err) {
         console.log(err);
@@ -48,14 +48,15 @@ const getAllUsers = async () => {
         if (!answer.message) {
             const result = answer.map((user) => {
                 return {
-                id: answer.id,
-                name: answer.name,
-                email: answer.email,
-                country: answer.country,
-                languages: answer.languages,
-                phone_number: answer.phone_number,
-                age: answer.age,
-                about: answer.about || null,
+                    id: answer.id,
+                    name: answer.name,
+                    email: answer.email,
+                    country: answer.country,
+                    languages: answer.languages,
+                    phone_number: answer.phone_number,
+                    age: answer.age,
+                    about: answer.about || null,
+                    rate: rate || null,
                 }
             })
             return result
@@ -69,9 +70,11 @@ const getAllUsers = async () => {
 }
 
 const getOneUser = async (reqBody) => {
-    const { email,id } = reqBody;
+    const { email, id } = reqBody;
     try {
-        const answer = await UserRepo.getOneUser(email||null,id ||null);
+        const answer = await UserRepo.getOneUser(email || null, id || null);
+        console.log('email>>', email);
+        console.log('id>>', id);
         if (!answer.message) {
             return {
                 id: answer.id,
@@ -82,7 +85,8 @@ const getOneUser = async (reqBody) => {
                 phone_number: answer.phone_number,
                 age: answer.age,
                 about: answer.about || null,
-                posts: answer.posts || null,
+                rate: answer.rate || null,
+                posts: (answer.posts && answer.posts.map((post) => { return convertToReadingPossibility(post) })) || null,
                 subjects: answer.subjects || null,
             }
         }
@@ -94,7 +98,9 @@ const getOneUser = async (reqBody) => {
 }
 
 const updateUser = async (reqBody) => {
-    const { email, name, country, languages, phone_number,age,about } = reqBody
+    const {id, email, name, country, languages, phone_number, age, about, rate } = reqBody
+    console.log('id >>' ,id);
+    console.log('email >>' ,email);
     try {
         const newValues = {
             name: name || undefined,
@@ -103,8 +109,9 @@ const updateUser = async (reqBody) => {
             phone_number: phone_number || undefined,
             about: about || undefined,
             age: age || undefined,
+            rate: rate || undefined,
         }
-        const answer = await UserRepo.updateUser(email, newValues);
+        const answer = await UserRepo.updateUser(email || null, id || null, newValues);
         return answer;
     }
     catch (err) {
@@ -126,6 +133,6 @@ const deleteUser = async (reqBody) => {
 }
 
 module.exports = {
-    addUser, getAllUsers, getOneUser, updateUser, deleteUser,bcrypt
+    addUser, getAllUsers, getOneUser, updateUser, deleteUser, bcrypt
 };
 
