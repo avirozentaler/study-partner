@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { Box, TextField, Button, Divider, IconButton, InputLabel, MenuItem, Paper, Select, FormControl, InputBase, Typography } from '@mui/material';
+import { Box, Button, Divider,Paper,Typography } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import SaveIcon from '@mui/icons-material/Save';
@@ -10,12 +10,15 @@ import axios from 'axios';
 import UserConnected from '../../context/UserConnected';
 
 export default function ProfileSubjects() {
-
     const { userConnected, setUserConnected } = useContext(UserConnected);
     const [subjects, setSubjects] = useState(userConnected.subjects || null);
     const [edit, setEdit] = useState(false);
     const [addSubject, setAddSubject] = useState(false);
+    const [cat, setCat] = useState("");
 
+    useEffect(()=>{
+       
+    },[])
     const handleEdit = () => {
         setEdit(!edit);
     }

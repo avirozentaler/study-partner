@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext,useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import UserConnected from '../../context/UserConnected';
 import ProfileSummary from './ProfileSummary';
@@ -6,7 +6,6 @@ import ProfileDetails from './ProfileDetails';
 import ProfileSubjects from './ProfileSubjects';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {
-  Paper,
   Accordion,
   AccordionSummary,
   AccordionDetails,
@@ -14,20 +13,21 @@ import {
   Typography,
 } from "@mui/material";
 
-import { useEffect } from 'react';
-
 
 export default function Profie() {
-
   const navigate = useNavigate()
   const [expanded, setExpanded] = useState("1");
   const { userConnected } = useContext(UserConnected);
-
+  
   useEffect(() => {
-    if (!userConnected) {
-      navigate('/')
-    }
-  }, [userConnected]);
+    
+    // setInterval(()=>{
+    //   if (!userConnected) {
+    //     navigate('/')
+    //   }
+    // },5000)
+    
+  }, [userConnected,navigate]);
 
   const handleChange = (panel) => {
     if (expanded === panel) {

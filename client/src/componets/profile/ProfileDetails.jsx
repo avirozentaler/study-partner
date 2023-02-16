@@ -1,16 +1,10 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useContext } from 'react'
 import EditIcon from '@mui/icons-material/Edit';
 import SaveIcon from '@mui/icons-material/Save';
 import {
-    FormControl,
     Box,
-    Typography,
-    IconButton,
     TextField,
-    Autocomplete,
     Button,
-    Divider,
-    Paper,
 } from "@mui/material";
 import axios from 'axios';
 import UserConnected from "../../context/UserConnected";
@@ -19,8 +13,7 @@ import UserConnected from "../../context/UserConnected";
 
 export default function ProfileDetails() {
 
-
-    const { userConnected, setUserConnected } = useContext(UserConnected);
+    const { userConnected} = useContext(UserConnected);
 
     const [name, setName] = useState(userConnected.name);
     const [email, setEmail] = useState(userConnected.email);
@@ -36,7 +29,7 @@ export default function ProfileDetails() {
 
     const handleSave = async () => {
         try {
-            const update = await axios.post('http://localhost:3005/user/update',
+             await axios.post('http://localhost:3005/user/update',
                 { email, name, country, languages, age, phone_number },
                 { withCredentials: true }
             );

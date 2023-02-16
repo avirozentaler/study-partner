@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
-import { passwordValid } from '../../../utilities/validetion/validetion.js';
+import { passwordValid } from '../../utilities/validetion/validetion.js';
 import { Box, Typography, TextField, Button } from '@mui/material';
 
 export default function ResetPassword({ handleHavePass }) {

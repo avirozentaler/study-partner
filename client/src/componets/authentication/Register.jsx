@@ -8,7 +8,7 @@ import {
   languagesValid,
   phone_numberValid,
   age_rangeValid,
-} from "../../../utilities/validetion/validetion.js";
+} from "../../utilities/validetion/validetion.js";
 import { Box, Typography, TextField, Button } from "@mui/material";
 
 export default function Register() {

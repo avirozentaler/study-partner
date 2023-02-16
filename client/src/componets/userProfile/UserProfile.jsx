@@ -1,17 +1,10 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect} from 'react'
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom'
 import UserPosts from './UserPosts';
-// import UserConnected from '../../context/UserConnected';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {
   Paper,
   Button,
   Tooltip,
-  FormControlLabel,
-  Accordion,
-  AccordionSummary,
-  AccordionDetails,
   Rating,
   Box,
   Typography,
@@ -21,9 +14,8 @@ import {
   Divider,
 } from "@mui/material";
 import StarRateOutlinedIcon from '@mui/icons-material/StarRateOutlined';
-import { padding } from '@mui/system';
-export default function UserProfile({ email }) {
 
+export default function UserProfile({ email }) {
   const [user, setUser] = useState();
   const [stars, setStars] = useState(0);
   const [rating, setRating] = useState(false);
@@ -31,80 +23,9 @@ export default function UserProfile({ email }) {
   useEffect(() => {
     (async () => {
       try {
-        const userD = await axios.post("http://localhost:3005/user/get-one", { email: "Yonatan@g.com" })
-        console.log(userD.data);
-        setUser(userD.data);
-        // setUser({
-        //   id: 2,
-        //   name: "Yonatan",
-        //   email: "Yonatan@g.com",
-        //   country: "Israel",
-        //   languages: "[\"English\",\"Hebrew\"]",
-        //   phone_number: "+01248787637",
-        //   age: 30,
-        //   about: "",
-        //   posts: [
-        //     {
-        //       "id": 16,
-        //       "user_id": 2,
-        //       "auther_name": "moshe cohen",
-        //       "category": "0",
-        //       "sub_category": "Hebrew",
-        //       "post": " ",
-        //       "date": 1675720800000,
-        //       "time_from": 1675777860000,
-        //       "time_to": 1675777860000
-        //     },
-        //     {
-        //       "id": 17,
-        //       "user_id": 2,
-        //       "auther_name": "moshe cohen",
-        //       "category": "0",
-        //       "sub_category": "Hebrew",
-        //       "post": " ",
-        //       "date": 1675720800000,
-        //       "time_from": 1675790280000,
-        //       "time_to": 1675790280000
-        //     },
-        //     {
-        //       "id": 18,
-        //       "user_id": 2,
-        //       "auther_name": "moshe cohen",
-        //       "category": "languages",
-        //       "sub_category": "English",
-        //       "post": " ",
-        //       "date": 1675720800000,
-        //       "time_from": 1675794780000,
-        //       "time_to": 1675791180000
-        //     },
-        //     {
-        //       "id": 19,
-        //       "user_id": 2,
-        //       "auther_name": "moshe cohen",
-        //       "category": "languages",
-        //       "sub_category": "Hebrew",
-        //       "post": " ",
-        //       "date": 1675720800000,
-        //       "time_from": 1675794780000,
-        //       "time_to": 1675791180000
-        //     }
-        //   ],
-        //   subjects: [{
-        //     id: 4,
-        //     name: "Linear Algebra",
-        //     category_id: 1,
-        //     user_connected: null,
-        //   },
-        //   {
-        //     id: 0,
-        //     name: "Geometry",
-        //     category_id: 1,
-        //     user_connected: null,
-        //   }]
-       
-       
-        // })
-
+        const userData = await axios.post("http://localhost:3005/user/get-one", { email: "Yonatan@g.com" })
+        console.log(userData.data);
+        setUser(userData.data);
       }
       catch (err) {
         console.log(err);

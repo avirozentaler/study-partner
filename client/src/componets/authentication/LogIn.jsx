@@ -1,10 +1,10 @@
 import axios from "axios";
 import React, { useState, useContext } from "react";
-import UserConnected from "../../../context/UserConnected";
+import UserConnected from "../../context/UserConnected";
 import {
   emailValid,
   passwordValid,
-} from "../../../utilities/validetion/validetion.js";
+} from "../../utilities/validetion/validetion.js";
 import { Box, Typography, TextField, Button, Link, Grid } from "@mui/material";
 
 export default function Login({
@@ -28,12 +28,11 @@ export default function Login({
           { email, password },
           { withCredentials: true }
         );
-
-        console.log(answer);
-        setUserConnected(answer.data);
         sessionStorage.setItem("user",JSON.stringify(answer.data));
-        handleCloseLogIn();
-      } catch (err) {
+        setUserConnected(answer.data);
+        handleCloseLogIn();   
+      }
+      catch (err) {
         alert("login faild");
         console.log(err);
       }
@@ -44,10 +43,6 @@ export default function Login({
       <Box
         sx={{
           width: 450,
-          // mx: "auto", //margin left & right
-          // my: "auto", // margin top & botom
-          // py: "auto", // padding top & bottom
-          // px: "auto", // padding left & right
           display: "flex",
           flexDirection: "column",
           gap: 5,

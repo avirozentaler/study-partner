@@ -4,6 +4,30 @@ const AuthRepo = require('../repositories/authRepo');
 const UserRepo = require('../repositories/userRepo');
 const { emailValid, passwordValid } = require('../utilities/validations/validations');
 const nodeMailer = require('nodemailer');
+const {cookieParse}= require('../utilities/cookieParse/cookieParse')
+
+const auth = async (req, res) => {
+    try {
+        console.log(req.headers.cookie);
+        const cookie = req.headers.cookie || null 
+        if (!cookie ||cookie === undefined ) {
+            return false;
+        }
+        const obj = cookieParse(cookie)
+        if(!obj){
+            throw new Error("couldn't parse cookie");
+        }
+        const isVarify = jwt.verify(obj.token, process.env.SECRET_KEY);
+        if (isVarify.email) {
+            console.log(true);
+        }
+        return true
+    }
+    catch (err) {
+        console.log(err);
+        return err
+    }
+}
 
 const logIn = async (req, res) => {
     try {
@@ -34,12 +58,13 @@ const logIn = async (req, res) => {
             maxAge: 1000 * 60 * 60 * 24,
             httpOnly: false
         })
+  
         return {
             id: answer.id,
             name: answer.name,
             email: answer.email,
             country: answer.country,
-            languages: answer.languages,
+            languages: JSON.parse(answer.languages),
             phone_number: answer.phone_number,
             age: answer.age_range,
             about: answer.about || null,
@@ -56,21 +81,7 @@ const logIn = async (req, res) => {
 
 
 
-const auth = async (req, res) => {
-    try {
-        const cookie = req.cookies.token;
-        if (!cookie ||cookie === undefined ) {
-            return false;
-        }
-        const isVarify = jwt.verify(cookie, process.env.SECRET_KEY);
-        if (isVarify.email) {
-            return true;
-        }
-    }
-    catch (err) {
-        console.log(err);
-    }
-}
+
 
 
 const forgetPassword = async (reqBody) => {
