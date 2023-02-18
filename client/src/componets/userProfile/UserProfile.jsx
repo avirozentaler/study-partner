@@ -43,7 +43,7 @@ export default function UserProfile() {
 
   const handleRate = async () => {
     ////////////////needed to  manage
-    await axios.put('http://localhost:3005/user/update', 
+    await axios.put('http://localhost:3005/user/update',
     { email:user.email,rate:stars },
     { withCredentials: true });
     setStars(null)
@@ -72,7 +72,7 @@ console.log(rate);
                     onChange={(event, newValue) => {
                       setStars(newValue);
                     }}
-                  />  
+                  />
                   <Box>
                     {!isRating ? <Box><Tooltip title="Rate Skill"><StarRateOutlinedIcon sx={{ m: 1 }} fontSize='small' color='primary' onClick={()=>{ setIsRating(rating => !rating)}} /></Tooltip></Box> :
                       <Box><Button onClick={handleCancelRate}>Cancel</Button><Button onClick={handleRate}>Save</Button></Box>}
