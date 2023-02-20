@@ -36,8 +36,8 @@ export default function Home() {
                         <Route path='/user' element={<UserProfile />} />
                     </Routes>
                     {openLogIn && <Auth handleCloseLogIn={handleCloseLogIn} openLogIn={openLogIn} />}
-                    <Divider />
-                    <Footer />
+                    {/* <Divider /> */}
+                    {/* <Footer /> */}
                 </BrowserRouter>
             </AuthPopupContex.Provider>
         </Box>

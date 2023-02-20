@@ -14,8 +14,13 @@ export default function PostCard({ post }) {
   const { userConnected } = useContext(UserConnected);
 
   return (
-    <Card  sx={{ minWidth: 250, maxWidth: 300, margin: 3, textAlign: "left" }}>
-      <CardMedia
+    <Tooltip title={ post.matched?"post has been already matched to another user.":''} followCursor>
+      
+    <Card 
+    
+     sx={{ minWidth: 250, maxWidth: 300, margin: 3, textAlign: "left" ,opacity:post.matched? '0.5':'1'}}>
+      
+      <CardMedia 
         component="img"
         alt="languages"
         height="140"
@@ -29,7 +34,6 @@ export default function PostCard({ post }) {
           {post.sub_category}
         </Typography>
         <Typography variant="body1" color="text.secondary">
-          {/* 22/12/2023 */}
           {post.date}
         </Typography>
         <Typography variant="body1" color="text.secondary">
@@ -38,6 +42,7 @@ export default function PostCard({ post }) {
       </CardContent>
       <CardActions sx={{ display: "flex", justifyContent: "flex-end" }}>
         <Button
+        disabled={post.matched}
           variant="outlined"
           size="small"
           onClick={() => {
@@ -46,25 +51,9 @@ export default function PostCard({ post }) {
         >
           learn more
         </Button>
-        {userConnected ? (
-              <Button variant="outlined"  size="small">
-                be my partner
-              </Button>
-            ) : (
-              <Tooltip title="Only logged-in users can use this feature." arrow>
-                <span style={{ marginLeft: "5px" }}>
-                  <Button
-                    variant="outlined"
-                    disabled
-                    size="small"
-                  >
-                    be my partner
-                  </Button>
-                </span>
-              </Tooltip>
-            )}
       </CardActions>
-      <ExtendedPost openMore={openMore} setOpenMore={setOpenMore} userId={post.user_id} />
+      <ExtendedPost openMore={openMore} setOpenMore={setOpenMore} userId={post.user_id} post={post} />
     </Card>
+    </Tooltip>
   );
 }
