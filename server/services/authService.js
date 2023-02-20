@@ -67,7 +67,7 @@ const logIn = async (req, res) => {
             country: answer.country,
             languages: JSON.parse(answer.languages),
             phone_number: answer.phone_number,
-            age: answer.age_range,
+            age: answer.age,
             about: answer.about || null,
             posts: answer.posts || null,
             subjects: answer.subjects || null,

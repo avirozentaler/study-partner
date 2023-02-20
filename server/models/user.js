@@ -49,8 +49,12 @@ const User = db.define('user', {
         allowNull:true
     },
     rate:{
-        type:DataTypes.TINYINT,
+        type:DataTypes.FLOAT,
         defaultValue:0,
+    },
+    num_of_rates:{
+        type:DataTypes.TINYINT,
+        defaultValue:1,
     },
     refresh_token: {
         type: DataTypes.TEXT,

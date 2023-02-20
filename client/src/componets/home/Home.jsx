@@ -37,7 +37,7 @@ export default function Home() {
                     </Routes>
                     {openLogIn && <Auth handleCloseLogIn={handleCloseLogIn} openLogIn={openLogIn} />}
                     <Divider />
-                    <Footer />
+                    {/* <Footer /> */}
                 </BrowserRouter>
             </AuthPopupContex.Provider>
         </Box>

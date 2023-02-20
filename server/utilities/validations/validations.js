@@ -6,17 +6,17 @@ const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,16}$/;
 const countryRegex = /^[a-zA-Z ]{3,30}$/
 const languagesRegex = /^[a-zA-Z ]{3,20}$/
 const phoneNumberRegex = /^[+ 0-9]{7,14}$/
-const ageRangeRegex = /^[0-9]$/
+const ageRegex = /^[0-9]{2,2}$/
 
 
 
 const nameValid = (name) => { return nameRegex.test(name) }
 const emailValid = (email) => { return emailRegex.test(email) }
 const passwordValid = (password) => { return passwordRegex.test(password) }
-const countryValid = (country) => { return countryRegex.test(country) }
+const countryValid = (country) => { return countryRegex.test(country)  }
 const languagesValid = (languages) => { return languagesRegex.test(languages) }
 const phone_numberValid = (phone_number) => { return phoneNumberRegex.test(phone_number) }
-const age_rangeValid = (age_range) => { return ageRangeRegex.test(age_range) }
+const age_rangeValid = (age) => { return ageRegex.test(age) && (age >16 && age < 100) }
 
 
 module.exports = {

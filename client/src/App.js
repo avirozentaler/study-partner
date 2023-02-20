@@ -1,6 +1,7 @@
 import './App.css';
 import { useEffect, useState } from 'react';
 import UserConnected from './context/UserConnected';
+import UrlContext from './context/UrlContext';
 import Home from './componets/home/Home';
 import CssBaseline from '@mui/material/CssBaseline';
 import { Experimental_CssVarsProvider as CssVarsProvider } from '@mui/material/styles';
@@ -8,7 +9,7 @@ import axios from 'axios';
 
 function App() {
   const [userConnected, setUserConnected] = useState(null);
-
+  const [url] = useState('http://localhost:3005/');
   useEffect(() => {
     (async () => {
       try {
@@ -44,9 +45,11 @@ function App() {
     <div className="App">
       <CssVarsProvider>
         <CssBaseline>
-          <UserConnected.Provider value={{ userConnected, setUserConnected }}>
-            <Home />
-          </UserConnected.Provider>
+          <UrlContext.Provider value={{ url }}>
+            <UserConnected.Provider value={{ userConnected, setUserConnected }}>
+              <Home />
+            </UserConnected.Provider>
+          </UrlContext.Provider>
         </CssBaseline>
       </CssVarsProvider>
     </div>
