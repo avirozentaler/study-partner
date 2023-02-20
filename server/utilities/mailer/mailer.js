@@ -14,7 +14,7 @@ const transferMail = async (emailDestination, titleMessage, bodyMessage,htmlBody
         const sent = await mailTransporter.sendMail(
             {
                 from: 'study-partner',
-                to: "avraham8585@gmail.com", ///emailDestination,
+                to: emailDestination, ///emailDestination,
                 subject: titleMessage,
                 // text: bodyMessage,
                 html: htmlBody,
