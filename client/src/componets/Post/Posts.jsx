@@ -32,7 +32,7 @@ export default function Posts() {
       {posts ? <Grid container>
         {posts.map((post, index) => {
           return (
-            <Grid item xs key={index}>
+            <Grid item key={index}>
               <PostCard post={post} />
             </Grid>
           );

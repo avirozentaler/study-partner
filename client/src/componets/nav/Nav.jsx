@@ -65,7 +65,7 @@ export default function Nav({ setOpenLogIn }) {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
-        <Toolbar>
+        <Toolbar sx={{height:'90px'}}>
           <Button type="link" onClick={handleBodyValContent}>
             <Avatar sx={{ width: 60, height: 50 }} alt="LOGO" src="SP.png" />
           </Button>

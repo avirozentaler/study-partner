@@ -41,10 +41,6 @@ const logIn = async (req, res) => {
         if (answer.message) {
             throw new Error('email or password are not correct');
         }
-        console.log('//////////////////////');
-        console.log(password);
-        console.log(answer.password);
-        console.log('///////////////////////')
         const isComparePassword = await bcrypt.compare(password, answer.password);
         console.log(isComparePassword);
         if (!isComparePassword) {
@@ -82,7 +78,6 @@ const logIn = async (req, res) => {
 
 
 const forgetPassword = async (reqBody) => {
-    console.log('CALLED FORGET'); 
     try {
         const { email } = reqBody;
         if (!email) {

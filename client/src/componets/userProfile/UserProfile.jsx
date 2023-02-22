@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect,useContext} from 'react'
 import { useLocation } from 'react-router-dom'
 import axios from 'axios';
 import UserPosts from './UserPosts';
@@ -15,9 +15,10 @@ import {
   Divider,
 } from "@mui/material";
 
-
 export default function UserProfile() {
-  const { state: { userId } } = useLocation()
+  const {
+    state: { userId },
+  } = useLocation();
   const [user, setUser] = useState();
   const [rate, setRate] = useState(null);
   const [isRating, setIsRating] = useState(false);
@@ -26,9 +27,10 @@ export default function UserProfile() {
   useEffect(() => {
     (async () => {
       try {
-        console.log('userId >>', userId);
-        const userData = await axios.post("http://localhost:3005/user/get-one", { id: userId })
-        console.log(userData.data);
+        const userData = await axios.post(
+          "http://localhost:3005/user/get-one",
+          { id: userId }
+        );
         setUser(userData.data);
         setRate(userData.data.rate);
       }
@@ -50,10 +52,10 @@ export default function UserProfile() {
   const handleCancelRate = () => {
     setIsRating(rating => !rating)
   }
-  console.log(rate);
+
   return (
     <Box>
-      {user ?
+      {user ? (
         <Box>
           <Box sx={{ flexGrow: 1 }} >
             <Grid container minHeight={300} >
@@ -74,25 +76,129 @@ export default function UserProfile() {
                   {userConnected && <Box>
                     {!isRating ? <Button onClick={() => setIsRating(rating => !rating)}>Rate</Button> : <Button onClick={handleCancelRate}>Cancel</Button>}
                   </Box>}
+
                 </Box>
               </Grid>
 
-              <Grid item sx={{ display: "flex", alignItems: "flex-start", flexDirection: "column" }} md={9} xs={12} sm={12} >
-                <Box sx={{ m: 3 }} > <Typography sx={{ textDecoration: "underline", }} color="primary" variant='h3'>{user.name}</Typography> </Box>
-                <Box sx={{ display: "flex", flexWrap: 'wrap', alignItems: "flex-start" }}>
-                  <Paper sx={{ display: "flex", m: 3, padding: 2, flexDirection: "column", alignItems: "flex-start", minWidth: "130px" }}><Typography variant="caption">Age:</Typography             >  <Typography sx={{}} >{user.age}</Typography>  </Paper>
-                  <Paper sx={{ display: "flex", m: 3, padding: 2, flexDirection: "column", alignItems: "flex-start", minWidth: "130px" }}><Typography variant="caption">Country:</Typography         >  <Typography sx={{}} >{user.country}</Typography>  </Paper>
-                  <Paper sx={{ display: "flex", m: 3, padding: 2, flexDirection: "column", alignItems: "flex-start", minWidth: "130px" }}><Typography variant="caption">Email:</Typography           >  <Typography sx={{}} >{user.email}</Typography>  </Paper>
-                  <Paper sx={{ display: "flex", m: 3, padding: 2, flexDirection: "column", alignItems: "flex-start", minWidth: "130px" }}><Typography variant="caption">Phone Number:</Typography    >  <Typography sx={{}} >{user.phone_number}</Typography>  </Paper>
-                  <Paper sx={{ display: "flex", m: 3, padding: 2, flexDirection: "column", alignItems: "flex-start", minWidth: "130px" }}><Typography variant="caption">Languages Skill:</Typography >  <Typography sx={{}} >{user.languages}</Typography>  </Paper>
+              <Grid
+                item
+                sx={{
+                  display: "flex",
+                  alignItems: "flex-start",
+                  flexDirection: "column",
+                }}
+                md={9}
+                xs={12}
+                sm={12}
+              >
+                <Box sx={{ m: 3 }}>
+                  {" "}
+                  <Typography
+                    sx={{ textDecoration: "underline" }}
+                    color="primary"
+                    variant="h3"
+                  >
+                    {user.name}
+                  </Typography>{" "}
+                </Box>
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexWrap: "wrap",
+                    alignItems: "flex-start",
+                  }}
+                >
+                  <Paper
+                    sx={{
+                      display: "flex",
+                      m: 3,
+                      padding: 2,
+                      flexDirection: "column",
+                      alignItems: "flex-start",
+                      minWidth: "130px",
+                    }}
+                  >
+                    <Typography variant="caption">Age:</Typography>{" "}
+                    <Typography sx={{}}>{user.age}</Typography>{" "}
+                  </Paper>
+                  <Paper
+                    sx={{
+                      display: "flex",
+                      m: 3,
+                      padding: 2,
+                      flexDirection: "column",
+                      alignItems: "flex-start",
+                      minWidth: "130px",
+                    }}
+                  >
+                    <Typography variant="caption">Country:</Typography>{" "}
+                    <Typography sx={{}}>{user.country}</Typography>{" "}
+                  </Paper>
+                  <Paper
+                    sx={{
+                      display: "flex",
+                      m: 3,
+                      padding: 2,
+                      flexDirection: "column",
+                      alignItems: "flex-start",
+                      minWidth: "130px",
+                    }}
+                  >
+                    <Typography variant="caption">Email:</Typography>{" "}
+                    <Typography sx={{}}>{user.email}</Typography>{" "}
+                  </Paper>
+                  <Paper
+                    sx={{
+                      display: "flex",
+                      m: 3,
+                      padding: 2,
+                      flexDirection: "column",
+                      alignItems: "flex-start",
+                      minWidth: "130px",
+                    }}
+                  >
+                    <Typography variant="caption">Phone Number:</Typography>{" "}
+                    <Typography sx={{}}>{user.phone_number}</Typography>{" "}
+                  </Paper>
+                  <Paper
+                    sx={{
+                      display: "flex",
+                      m: 3,
+                      padding: 2,
+                      flexDirection: "column",
+                      alignItems: "flex-start",
+                      minWidth: "130px",
+                    }}
+                  >
+                    <Typography variant="caption">Languages Skill:</Typography>{" "}
+                    <Typography sx={{}}>{user.languages}</Typography>{" "}
+                  </Paper>
                 </Box>
                 <Box sx={{ minWidth: "95%", m: 3 }}>
-                  <Paper sx={{ display: "flex", padding: 2, flexDirection: "column", alignItems: "flex-start", minWidth: "100%" }}> <Typography variant="caption">About Me:</Typography> <Typography>{user.about || "User hasn't added yet..."}</Typography></Paper>
+                  <Paper
+                    sx={{
+                      display: "flex",
+                      padding: 2,
+                      flexDirection: "column",
+                      alignItems: "flex-start",
+                      minWidth: "100%",
+                    }}
+                  >
+                    {" "}
+                    <Typography variant="caption">About Me:</Typography>{" "}
+                    <Typography>
+                      {user.about || "User hasn't added yet..."}
+                    </Typography>
+                  </Paper>
                 </Box>
                 <Box sx={{ minWidth: "96%", m: 2 }}>
                   <Paper sx={{ m: 1 }}>
-                    <Typography variant="body1" sx={{ textDecoration: "underline" }}>All Subjects</Typography>
-
+                    <Typography
+                      variant="body1"
+                      sx={{ textDecoration: "underline" }}
+                    >
+                      All Subjects
+                    </Typography>
                     <Box sx={{ m: 1, display: 'flex', flexWrap: 'wrap' }}>
                       {user.subjects && user.subjects.map((item, index) => {
                         return <Paper key={index} sx={{ m: 3, padding: 2 }}>
@@ -100,6 +206,7 @@ export default function UserProfile() {
 
                         </Paper>
                       })}
+
                     </Box>
                   </Paper>
                 </Box>
@@ -112,11 +219,12 @@ export default function UserProfile() {
             {user.posts && <UserPosts posts={user.posts} />}
           </Box>
         </Box>
-
-        : <Box sx={{ marginTop: '20%' }}>
+      ) : (
+        <Box sx={{ marginTop: "20%" }}>
           <CircularProgress />
         </Box>
-      }
+      )}
     </Box>
   )
 }
+

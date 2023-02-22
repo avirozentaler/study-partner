@@ -3,7 +3,6 @@ const userRepo = require('../repositories/userRepo');
 const postRepo = require('../repositories/postRepo');
 const { transferMail } = require('../utilities/mailer/mailer')
 
-
 const reactToPost = async (req) => {
     try {
         const { postId, userId } = req.body;

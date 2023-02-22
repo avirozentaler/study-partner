@@ -29,6 +29,7 @@ export default function Login({
           { withCredentials: true }
         );
         sessionStorage.setItem("user",JSON.stringify(answer.data));
+        sessionStorage.setItem("user_id",JSON.stringify(answer.data.id));
         setUserConnected(answer.data);
         handleCloseLogIn();   
       }

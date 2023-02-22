@@ -19,14 +19,15 @@ function App() {
           sessionStorage.clear()
         }
         else {
-          const user = sessionStorage.getItem("user") || null
-          if (!user) {
-            throw new Error("error to load user details, please log in again!");
+          const userId = JSON.parse(sessionStorage.getItem("user_id")) ||null
+          if (!userId || userId === undefined) {
+            throw new Error("somthing wrong to get user details");
           }
-          else {
-            const userJSON = JSON.parse(sessionStorage.getItem("user"));
-            setUserConnected(userJSON);
+          const user = await axios.post('http://localhost:3005/user/get-one', { id: userId }, { withCredentials: true });
+          if(!user.data){
+            throw new Error("somthing wrong to get user details");
           }
+            setUserConnected(user.data);
         }
       }
       catch (err) {

@@ -13,7 +13,8 @@ const convertToReadingPossibility =(post)=>{
          post: post.post,
          date: `${Tdate.getDate()<10?"0":""}${Tdate.getDate()}/${Tfrom.getMonth()<10?"0":""}${Tdate.getMonth()}/${Tdate.getFullYear()}`,
          time_from: `${Tfrom.getHours()<10?"0":""}${Tfrom.getHours()}:${Tfrom.getMinutes()<10?"0":""}${Tfrom.getMinutes()}`,
-         time_to: `${Tto.getHours()<10?"0":""}${Tto.getHours()}:${Tto.getMinutes()<10?"0":""}${Tto.getMinutes()}`
+         time_to: `${Tto.getHours()<10?"0":""}${Tto.getHours()}:${Tto.getMinutes()<10?"0":""}${Tto.getMinutes()}`,
+         matched :post.mathed,
      }
 }
 

@@ -28,7 +28,6 @@ export default function ProfileSummary() {
     setVal(userConnected.about || " ");
     setEdited(!edited);
   }
-
   return (
     <Box
       sx={{}}
