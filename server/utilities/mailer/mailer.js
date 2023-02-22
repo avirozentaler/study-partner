@@ -16,22 +16,13 @@ const transferMail = async (emailDestination, titleMessage, bodyMessage,htmlBody
                 from: 'study-partner',
                 to: emailDestination, ///emailDestination,
                 subject: titleMessage,
-                // text: bodyMessage,
+                text: bodyMessage,
                 html: htmlBody,
             },
         );
         console.log(sent);
         console.log("email sent");
     }
-    // (err, data) => {
-    //     if (err) {
-    //         throw new Error('err to send')
-    //     }
-    //     console.log(data);
-    //     console.log("email sent");
-    //     return "email sended"
-    // });
-
     catch (err) {
         console.log('err');
         console.log("err", err);

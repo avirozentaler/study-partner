@@ -7,6 +7,9 @@ const reactToPost = async (req) => {
     try {
         const { postId, userId } = req.body;
         const user = await userRepo.getOneUser(null, userId || null);
+        if (!user) {
+            throw new Error("user not found");
+        }
         if (user.message) {
             throw new Error("user not found");
         }
@@ -19,14 +22,14 @@ const reactToPost = async (req) => {
         please click <a href=url>here</a> to confirm.
         have a nice day !!</p>
         </div>`;
-        console.log('error >>', user.message);
         const sendEmail = await transferMail(user.email, titleMessage, "", htmlMessage);
         console.log(sendEmail);
         postRepo.updatePost(postId, { mathed: true });
         return "email sent";
     }
     catch (err) {
-        console.log(err);
+        console.log('activity serv >> reactToPost >>error');
+        console.log(err);   
         return err
     }
 

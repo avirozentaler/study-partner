@@ -15,9 +15,6 @@ import CloseIcon from "@mui/icons-material/Close";
 import Avatar from "@mui/material/Avatar";
 import DialogTitle from "@mui/material/DialogTitle";
 import Box from "@mui/material/Box";
-import OutboxOutlinedIcon from '@mui/icons-material/OutboxOutlined';
-import MarkEmailReadOutlinedIcon from '@mui/icons-material/MarkEmailReadOutlined';
-import ErrorOutlinedIcon from '@mui/icons-material/ErrorOutlined';
 import axios from "axios";
 
 export default function ExtendedPost({ openMore, setOpenMore, post }) {
@@ -37,13 +34,14 @@ export default function ExtendedPost({ openMore, setOpenMore, post }) {
         { withCredentials: true }
       );
       if (!answer.data) {
+        setEmailFailed(true);
         throw new Error('fail to send email');
       }
       setEmailSent(true);
       console.log(answer.data);
     } catch (err) {
-      console.log(err);
       setEmailFailed(true);
+      console.log(err);      
     }
   };
 
@@ -60,7 +58,7 @@ export default function ExtendedPost({ openMore, setOpenMore, post }) {
         <Box>
           <DialogTitle>
             <IconButton
-              onClick={()=>{
+              onClick={() => {
                 setOpenMore(false);
                 setIsSendingEmail(false);
               }}
@@ -75,7 +73,7 @@ export default function ExtendedPost({ openMore, setOpenMore, post }) {
           </DialogTitle>
         </Box>
         <DialogContent sx={{ padding: 5 }}>
-          {!isSendingEmail? <Box>
+          {!isSendingEmail ? <Box>
             <Grid container spacing={2} columns={16}>
               <Grid item xs={10}>
                 <Typography gutterBottom variant="body1">
@@ -138,15 +136,10 @@ export default function ExtendedPost({ openMore, setOpenMore, post }) {
               )}
               {/* </Box> */}
             </DialogActions>
-          </Box>:
-          <Box>
-          <Typography variant="h5">sending email to your partner</Typography>
-          <OutboxOutlinedIcon color="primary" fontSize="large"/>
-          </Box>
-          // <PostSending/>
+          </Box> :
+            <PostSending emailSent={emailSent} emailFailed={emailFailed}/>
           }
         </DialogContent>
-
       </Dialog>
     </>
   );

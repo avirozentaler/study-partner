@@ -17,8 +17,7 @@ app.use(cookieParser())
 app.use(router);
 app.use(testRouter);
 
-cron.schedule("* * */2 * * *",removeOldPosts)
-
+cron.schedule("* * * */2 * *",removeOldPosts)
 app.listen(process.env.PORT, () => {
     (async () => {
         await db.sync();
