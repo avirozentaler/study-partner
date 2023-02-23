@@ -1,9 +1,9 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const BCRYPT_ROUNDS = parseInt(process.env.BCRYPT_ROUNDS);
-const { nameValid, emailValid, passwordValid, countryValid, languagesValid, phone_numberValid, age_rangeValid } = require('../utilities/validations/validations');
+const { nameValid, emailValid, passwordValid, countryValid, languagesValid, phone_numberValid, age_rangeValid: ageValid } = require('../utilities/validations/validations');
 const UserRepo = require('../repositories/userRepo');
-const convertToReadingPossibility = require('../utilities/adjustingData/adjustungPostData');
+const {convertToReadingPossibility} = require('../utilities/adjustingData/adjustungPostData');
 
 const addUser = async (reqBody) => {
 
@@ -19,8 +19,10 @@ const addUser = async (reqBody) => {
         else if (password !== confirmPassword) { throw Error('auth faild') }
         else if (country && !countryValid) { throw Error('country is not valid') }
         else if (phone_number && !phone_numberValid) { throw Error('phone number is not valid') }
-        else if (age && !age_rangeValid) { throw Error('age is not valid') }
+        else if (age && !ageValid) { throw Error('age is not valid') }
         else {
+            console.log('age >>' ,age);
+            console.log('typeof age >>' ,typeof age);
             const hashPssword = bcrypt.hashSync(password, BCRYPT_ROUNDS);
             const answer = await UserRepo.addUser({
                 name,
@@ -29,7 +31,7 @@ const addUser = async (reqBody) => {
                 country,
                 languages,
                 phone_number,
-                age: age
+                age:parseInt(age),
             });
             return answer;
         }
@@ -76,6 +78,9 @@ const getOneUser = async (reqBody) => {
         console.log('email>>', email);
         console.log('id>>', id);
         if (!answer.message) {
+            console.log('answer' ,answer);
+            console.log('age >>' ,  answer.age);
+            console.log('age type >>',  typeof answer.age);
             return {
                 id: answer.id,
                 name: answer.name,

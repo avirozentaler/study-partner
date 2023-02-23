@@ -1,6 +1,6 @@
 const { Error } = require('sequelize');
 const PostRepo = require('../repositories/postRepo');
-const convertToReadingPossibility = require('../utilities/adjustingData/adjustungPostData');
+const {convertToReadingPossibility} = require('../utilities/adjustingData/adjustungPostData');
 const addPost = async (reqBody) => {
     try {
         const { email, userId, auther_name, category, sub_category, post, date, time_from, time_to } = reqBody;

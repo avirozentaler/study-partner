@@ -11,7 +11,7 @@ const passwordRegexp = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,16}$/;
 const countryRegexp = /^[a-zA-Z ]{3,30}$/
 const languagesRegexp = /^[a-zA-Z ]{3,20}$/
 const phoneNumberRegexp =/^[+ 0-9]{7,14}$/
-const ageRangeRegexp = /^[0-9]$/
+const ageRegexp = /^[0-9]$/
 
 
 
@@ -21,7 +21,7 @@ const passwordValid = (password) => { return passwordRegexp.test(password) }
 const countryValid = (country) => { return countryRegexp.test(country) }
 const languagesValid = (languages) => { return languagesRegexp.test(languages) }
 const phone_numberValid = (phone_number) => { return phoneNumberRegexp.test(phone_number) }
-const age_rangeValid = (age_range) => { return ageRangeRegexp.test(age_range) }
+const age_rangeValid = (age) => { return ageRegexp.test(age) }
 
 
 

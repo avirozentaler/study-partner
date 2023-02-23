@@ -6,12 +6,11 @@ import PostCard from "../Post/PostCard";
 import { Box, Grid } from "@mui/material";
 
 export default function UserPosts({ posts }) {
-  console.log(posts);
   return (
     <Box sx={{display:'flex',overflowX:'scroll'}}>
       {posts &&
-        posts.map((post) => {
-          return <PostCard post={post} />;
+        posts.map((post,index) => {
+          return <PostCard key={index} post={post} />;
         })}
     </Box>
   );

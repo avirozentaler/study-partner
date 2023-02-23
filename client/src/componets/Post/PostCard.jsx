@@ -24,7 +24,7 @@ export default function PostCard({ post }) {
         component="img"
         alt="languages"
         height="140"
-        image={require("./languages.jpg")}
+        image={require('./cardPics/'+post.category+'.jpg')}
       />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">

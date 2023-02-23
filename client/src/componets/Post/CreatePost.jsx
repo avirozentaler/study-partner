@@ -124,6 +124,8 @@ export default function CreatePost({ open, setOpen }) {
           );
           console.log(answer);
           setOpen(false);
+
+          
         }
       }
     } catch (err) {

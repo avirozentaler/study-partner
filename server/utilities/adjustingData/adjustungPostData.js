@@ -18,4 +18,4 @@ const convertToReadingPossibility =(post)=>{
      }
 }
 
-module.exports = convertToReadingPossibility;
+module.exports = {convertToReadingPossibility}

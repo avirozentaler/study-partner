@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
-import axios from "axios";
-import UserPosts from "./UserPosts";
+import React, { useState, useEffect,useContext} from 'react'
+import { useLocation } from 'react-router-dom'
+import axios from 'axios';
+import UserPosts from './UserPosts';
+import UserConnected from '../../context/UserConnected';
 import {
   Paper,
   Button,
-  Tooltip,
   Rating,
   Box,
   Typography,
@@ -14,7 +14,6 @@ import {
   Avatar,
   Divider,
 } from "@mui/material";
-import StarRateOutlinedIcon from "@mui/icons-material/StarRateOutlined";
 
 export default function UserProfile() {
   const {
@@ -22,9 +21,8 @@ export default function UserProfile() {
   } = useLocation();
   const [user, setUser] = useState();
   const [rate, setRate] = useState(null);
-  const [userStars, setUserStars] = useState(null);
-  const [stars, setStars] = useState(null);
   const [isRating, setIsRating] = useState(false);
+  const { userConnected } = useContext(UserConnected);
 
   useEffect(() => {
     (async () => {
@@ -35,62 +33,50 @@ export default function UserProfile() {
         );
         setUser(userData.data);
         setRate(userData.data.rate);
-        console.log(userData.data.rate);
-        // setUserStars(userData.data.rate);
-      } catch (err) {
+      }
+      catch (err) {
         console.log(err);
       }
-    })();
-  }, []);
+    })()
+  }, [])
+  const handleRate = async (newValue) => {
+    console.log('newVal >>', newValue);
+    const newRate = await axios.put('http://localhost:3005/activity/rate-user',
+      { email: user.email, rate: newValue },
+      { withCredentials: true });
 
-  const handleRate = async () => {
-    console.log('newValue >>' ,stars);
-    alert("called");
-    ////////////////needed to  manage
-    // await axios.put(
-    //   "http://localhost:3005/user/update",
-    //   { email: user.email, rate: newValue },
-    //   { withCredentials: true }
-    // );
-    setStars(null);
-    setIsRating((rating) => !rating); ////////////////
-  };
+    setRate(newRate.data);
+    setIsRating(rating => !rating)
+  }
 
-  // const handleCancelRate = () => {
-  //   setStars(null);
-  //   setIsRating((rating) => !rating);
-  // };
+  const handleCancelRate = () => {
+    setIsRating(rating => !rating)
+  }
+
   return (
     <Box>
       {user ? (
         <Box>
-          <Box sx={{ flexGrow: 1 }}>
-            <Grid container minHeight={300}>
+          <Box sx={{ flexGrow: 1 }} >
+            <Grid container minHeight={300} >
+
               <Grid item xs={12} sm={12} md={3}>
-                <Box sx={{ display: "flex", justifyContent: "center" }}>
-                  <Avatar sx={{ width: 100, height: 100, marginTop: 5 }} />{" "}
+                <Box sx={{ display: "flex", justifyContent: "center", }}>
+                  <Avatar sx={{ width: 100, height: 100, marginTop: 5 }} />
                 </Box>
                 <Box sx={{ m: 5 }}>
                   <Rating
+                    precision={0.5}
                     disabled={!isRating}
-                    value={!isRating ? rate || null : stars}
-                    onClick={handleRate}
-
-                    onChange={(event, newValue) => {setStars(newValue); 
-                    }
-                     
-                  }
+                    value={rate || null}
+                    onChange={(event, newValue) => {
+                      handleRate(newValue);
+                    }}
                   />
-                  <Box>
-                    <Button
-                      endIcon={<StarRateOutlinedIcon />}
-                      onClick={() => {
-                        setIsRating((rating) => !rating);
-                      }}
-                    >
-                      {!isRating ? "Rate" : "Cencel"}
-                    </Button>
-                  </Box>
+                  {userConnected && <Box>
+                    {!isRating ? <Button onClick={() => setIsRating(rating => !rating)}>Rate</Button> : <Button onClick={handleCancelRate}>Cancel</Button>}
+                  </Box>}
+
                 </Box>
               </Grid>
 
@@ -188,7 +174,6 @@ export default function UserProfile() {
                     <Typography sx={{}}>{user.languages}</Typography>{" "}
                   </Paper>
                 </Box>
-
                 <Box sx={{ minWidth: "95%", m: 3 }}>
                   <Paper
                     sx={{
@@ -206,7 +191,6 @@ export default function UserProfile() {
                     </Typography>
                   </Paper>
                 </Box>
-
                 <Box sx={{ minWidth: "96%", m: 2 }}>
                   <Paper sx={{ m: 1 }}>
                     <Typography
@@ -215,36 +199,25 @@ export default function UserProfile() {
                     >
                       All Subjects
                     </Typography>
+                    <Box sx={{ m: 1, display: 'flex', flexWrap: 'wrap' }}>
+                      {user.subjects && user.subjects.map((item, index) => {
+                        return <Paper key={index} sx={{ m: 3, padding: 2 }}>
+                          <Typography align='center'> {item.name} </Typography>
 
-                    <Box sx={{ m: 1, display: "flex", flexWrap: "wrap" }}>
-                      {user.subjects &&
-                        user.subjects.map((item, index) => {
-                          return (
-                            <Paper key={index} sx={{ m: 3, padding: 2 }}>
-                              <Typography align="center">
-                                {" "}
-                                {item.name}{" "}
-                              </Typography>
-                              {/* {!rating ? <Tooltip title="Rate Skill"><StarRateOutlinedIcon sx={{ m: 1 }} fontSize='small' color='primary' onClick={handleOpenRatingOption} /></Tooltip> : <Rating
-                            name="simple-controlled"
-                            value={stars}
-                            onChange={(event, newValue) => {
-                              setStars(newValue);
-                            }}
-                          />} */}
-                              {/* {isRating && <Box><Button onClick={handleRate}>Save</Button><Button onClick={handleOpenRatingOption}>Cancel</Button></Box>} */}
-                            </Paper>
-                          );
-                        })}
+                        </Paper>
+                      })}
+
                     </Box>
                   </Paper>
                 </Box>
               </Grid>
+
             </Grid>
           </Box>
           <Divider />
-
-          <Box sx={{}}>{user.posts && <UserPosts posts={user.posts} />}</Box>
+          <Box>
+            {user.posts && <UserPosts posts={user.posts} />}
+          </Box>
         </Box>
       ) : (
         <Box sx={{ marginTop: "20%" }}>
@@ -252,5 +225,6 @@ export default function UserProfile() {
         </Box>
       )}
     </Box>
-  );
+  )
 }
+

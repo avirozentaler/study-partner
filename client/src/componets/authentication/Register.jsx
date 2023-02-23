@@ -7,7 +7,7 @@ import {
   countryValid,
   languagesValid,
   phone_numberValid,
-  age_rangeValid,
+  age_Valid,
 } from "../../utilities/validetion/validetion.js";
 import { Box, Typography, TextField, Button } from "@mui/material";
 
@@ -19,7 +19,7 @@ export default function Register() {
   const [country, setCountry] = useState("");
   const [languages, setLanguages] = useState("");
   const [phone_number, setPhone_number] = useState("");
-  const [age_range, setAge_range] = useState("");
+  const [age, setAge] = useState("");
 
   const submit = async () => {
     if (!nameValid(name)) {
@@ -50,7 +50,7 @@ export default function Register() {
           country,
           languages,
           phone_number,
-          age_range,
+          age,
         });
         console.log(answer);
       } catch (err) {
@@ -160,8 +160,8 @@ export default function Register() {
           type="number"
           autoComplete="age"
           autoFocus
-          value={age_range}
-          onChange={(event) => setAge_range(event.target.value)}
+          value={age}
+          onChange={(event) => setAge(event.target.value)}
         />
         <Button
           type="submit"

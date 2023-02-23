@@ -1,6 +1,8 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import UserConnected from "../../context/UserConnected";
+import PostSending from "./PostSending";
+
 import Tooltip from "@mui/material/Tooltip";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
@@ -13,23 +15,32 @@ import CloseIcon from "@mui/icons-material/Close";
 import Avatar from "@mui/material/Avatar";
 import DialogTitle from "@mui/material/DialogTitle";
 import Box from "@mui/material/Box";
-
 import axios from "axios";
 
 export default function ExtendedPost({ openMore, setOpenMore, post }) {
+
   const { userConnected } = useContext(UserConnected);
   const navigae = useNavigate();
+  const [isSendingEmail, setIsSendingEmail] = useState(false);
+  const [emailSent, setEmailSent] = useState(false);
+  const [emailFailed, setEmailFailed] = useState(false);
 
   const handleBeMyPartner = async () => {
     try {
-      console.log("BEEEEE MYYY");
+      setIsSendingEmail(true);
       const answer = await axios.post(
         "http://localhost:3005/activity/react-to-post",
         { userId: post.user_id, postId: post.id },
         { withCredentials: true }
       );
-      console.log(answer);
+      if (!answer.data) {
+        setEmailFailed(true);
+        throw new Error('fail to send email');
+      }
+      setEmailSent(true);
+      console.log(answer.data);
     } catch (err) {
+      setEmailFailed(true);
       console.log(err);
     }
   };
@@ -44,20 +55,25 @@ export default function ExtendedPost({ openMore, setOpenMore, post }) {
   return (
     <>
       <Dialog open={openMore} onClose={handleClose} fullWidth={true}>
-        <DialogTitle>
-          <IconButton
-            onClick={handleClose}
-            sx={{
-              position: "absolute",
-              right: 8,
-              top: 8,
-            }}
-          >
-            <CloseIcon />
-          </IconButton>
-        </DialogTitle>
         <Box>
-          <DialogContent sx={{ padding: 5 }}>
+          <DialogTitle>
+            <IconButton
+              onClick={() => {
+                setOpenMore(false);
+                setIsSendingEmail(false);
+              }}
+              sx={{
+                position: "absolute",
+                right: 8,
+                top: 8,
+              }}
+            >
+              <CloseIcon />
+            </IconButton>
+          </DialogTitle>
+        </Box>
+        <DialogContent sx={{ padding: 5 }}>
+          {!isSendingEmail ? <Box>
             <Grid container spacing={2} columns={16}>
               <Grid item xs={10}>
                 <Typography gutterBottom variant="body1">
@@ -86,9 +102,13 @@ export default function ExtendedPost({ openMore, setOpenMore, post }) {
               </Grid>
             </Grid>
             <DialogActions sx={{ paddingTop: 5 }}>
+              {/* <Box> */}
               <Button
                 onClick={() => {
-                  navigae("/user", { state: { userId: post.user_id } });
+                  userConnected && (userConnected.id === post.user_id) ?
+                    navigae("/profile")
+                    : navigae("/user", { state: { userId: post.user_id } })
+                  console.log('done');
                 }}
                 variant="outlined"
                 size="small"
@@ -96,7 +116,7 @@ export default function ExtendedPost({ openMore, setOpenMore, post }) {
                 View profile
               </Button>
               {userConnected ? (
-                <Button
+                (userConnected.id !== post.user_id) && <Button
                   onClick={handleBeMyPartner}
                   variant="outlined"
                   size="small"
@@ -117,8 +137,10 @@ export default function ExtendedPost({ openMore, setOpenMore, post }) {
               )}
               {/* </Box> */}
             </DialogActions>
-          </DialogContent>
-        </Box>
+          </Box> :
+            <PostSending emailSent={emailSent} emailFailed={emailFailed} />
+          }
+        </DialogContent>
       </Dialog>
     </>
   );

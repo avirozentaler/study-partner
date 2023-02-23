@@ -1,6 +1,7 @@
 import './App.css';
 import { useEffect, useState } from 'react';
 import UserConnected from './context/UserConnected';
+import UrlContext from './context/UrlContext';
 import Home from './componets/home/Home';
 import CssBaseline from '@mui/material/CssBaseline';
 import { Experimental_CssVarsProvider as CssVarsProvider } from '@mui/material/styles';
@@ -8,7 +9,7 @@ import axios from 'axios';
 
 function App() {
   const [userConnected, setUserConnected] = useState(null);
-
+  const [url] = useState('http://localhost:3005/');
   useEffect(() => {
     (async () => {
       try {
@@ -18,14 +19,15 @@ function App() {
           sessionStorage.clear()
         }
         else {
-          const user = sessionStorage.getItem("user") || null
-          if (!user) {
-            throw new Error("error to load user details, please log in again!");
+          const userId = JSON.parse(sessionStorage.getItem("user_id")) ||null
+          if (!userId || userId === undefined) {
+            throw new Error("somthing wrong to get user details");
           }
-          else {
-            const userJSON = JSON.parse(sessionStorage.getItem("user"));
-            setUserConnected(userJSON);
+          const user = await axios.post('http://localhost:3005/user/get-one', { id: userId }, { withCredentials: true });
+          if(!user.data){
+            throw new Error("somthing wrong to get user details");
           }
+            setUserConnected(user.data);
         }
       }
       catch (err) {
@@ -44,9 +46,11 @@ function App() {
     <div className="App">
       <CssVarsProvider>
         <CssBaseline>
-          <UserConnected.Provider value={{ userConnected, setUserConnected }}>
-            <Home />
-          </UserConnected.Provider>
+          <UrlContext.Provider value={{ url }}>
+            <UserConnected.Provider value={{ userConnected, setUserConnected }}>
+              <Home />
+            </UserConnected.Provider>
+          </UrlContext.Provider>
         </CssBaseline>
       </CssVarsProvider>
     </div>

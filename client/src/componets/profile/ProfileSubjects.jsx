@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { Box, Button, Divider,Paper,Typography } from '@mui/material';
+import { Box, Button, Divider, Paper, Typography } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import SaveIcon from '@mui/icons-material/Save';
@@ -16,9 +16,9 @@ export default function ProfileSubjects() {
     const [addSubject, setAddSubject] = useState(false);
     const [cat, setCat] = useState("");
 
-    useEffect(()=>{
-       
-    },[])
+    useEffect(() => {
+
+    }, [])
     const handleEdit = () => {
         setEdit(!edit);
     }
@@ -46,7 +46,7 @@ export default function ProfileSubjects() {
                 posts: userConnected.posts,
                 subjects: subjects,
             })
-            axios.post("http://localhost:3005/user/update", {email:userConnected.email, subjects}, { withCredentials: true });
+            axios.post("http://localhost:3005/user/update", { email: userConnected.email, subjects }, { withCredentials: true });
             setEdit(!edit);
         }
         catch (err) {
@@ -59,7 +59,6 @@ export default function ProfileSubjects() {
         setSubjects(userConnected.subjects || null);
         setEdit(false);
     }
-
     return (
         <Box>
             {subjects ?

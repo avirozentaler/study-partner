@@ -9,8 +9,6 @@ import {
 import axios from 'axios';
 import UserConnected from "../../context/UserConnected";
 
-
-
 export default function ProfileDetails() {
 
     const { userConnected} = useContext(UserConnected);
