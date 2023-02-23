@@ -1,5 +1,5 @@
 const cron = require('node-cron');
-const { Sequelize, Op } = require('sequelize');
+const {Op} = require('sequelize');
 const Models = require('../../models/Models');
 
 const removeOldPosts = async () => {

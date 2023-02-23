@@ -6,7 +6,7 @@ const { emailValid, passwordValid } = require('../utilities/validations/validati
 const nodeMailer = require('nodemailer');
 const { cookieParse } = require('../utilities/cookieParse/cookieParse')
 const { transferMail } = require('../utilities/mailer/mailer');
-
+const {convertToReadingPossibility} =require('../utilities/adjustingData/adjustungPostData')
 
 const auth = async (req, res) => {
     try {
@@ -65,7 +65,7 @@ const logIn = async (req, res) => {
             phone_number: answer.phone_number,
             age: answer.age,
             about: answer.about || null,
-            posts: answer.posts || null,
+            posts: (answer.posts && answer.posts.map((post) => { return convertToReadingPossibility(post) })) || null,
             subjects: answer.subjects || null,
         }
     }

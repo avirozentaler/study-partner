@@ -41,7 +41,7 @@ export default function ExtendedPost({ openMore, setOpenMore, post }) {
       console.log(answer.data);
     } catch (err) {
       setEmailFailed(true);
-      console.log(err);      
+      console.log(err);
     }
   };
 
@@ -105,9 +105,10 @@ export default function ExtendedPost({ openMore, setOpenMore, post }) {
               {/* <Box> */}
               <Button
                 onClick={() => {
-                  userConnected && (userConnected.id !== post.user_id) ?
-                    navigae("/user", { state: { userId: post.user_id } })
-                    : navigae("/profile")
+                  userConnected && (userConnected.id === post.user_id) ?
+                    navigae("/profile")
+                    : navigae("/user", { state: { userId: post.user_id } })
+                  console.log('done');
                 }}
                 variant="outlined"
                 size="small"
@@ -137,7 +138,7 @@ export default function ExtendedPost({ openMore, setOpenMore, post }) {
               {/* </Box> */}
             </DialogActions>
           </Box> :
-            <PostSending emailSent={emailSent} emailFailed={emailFailed}/>
+            <PostSending emailSent={emailSent} emailFailed={emailFailed} />
           }
         </DialogContent>
       </Dialog>

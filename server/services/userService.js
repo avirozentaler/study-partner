@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const BCRYPT_ROUNDS = parseInt(process.env.BCRYPT_ROUNDS);
 const { nameValid, emailValid, passwordValid, countryValid, languagesValid, phone_numberValid, age_rangeValid: ageValid } = require('../utilities/validations/validations');
 const UserRepo = require('../repositories/userRepo');
-const convertToReadingPossibility = require('../utilities/adjustingData/adjustungPostData');
+const {convertToReadingPossibility} = require('../utilities/adjustingData/adjustungPostData');
 
 const addUser = async (reqBody) => {
 

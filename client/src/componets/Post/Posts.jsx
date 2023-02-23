@@ -39,7 +39,6 @@ export default function Posts() {
         })}
       </Grid> :
         <Box sx={{ marginTop: '20%' }}>
-          <Typography variant="h4">Loading Posts</Typography>
           <CircularProgress />
         </Box>}
 
