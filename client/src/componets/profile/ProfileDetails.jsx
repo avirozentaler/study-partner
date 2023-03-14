@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react'
+import UrlContext from "../../context/UrlContext.js";
 import EditIcon from '@mui/icons-material/Edit';
 import SaveIcon from '@mui/icons-material/Save';
 import {
@@ -12,7 +13,7 @@ import UserConnected from "../../context/UserConnected";
 export default function ProfileDetails() {
 
     const { userConnected} = useContext(UserConnected);
-
+    const {urlServer} = useContext(UrlContext);
     const [name, setName] = useState(userConnected.name);
     const [email, setEmail] = useState(userConnected.email);
     const [country, setCountry] = useState(userConnected.country);
@@ -20,17 +21,30 @@ export default function ProfileDetails() {
     const [age, setAge] = useState(userConnected.age);
     const [phone_number, setPhone_number] = useState(userConnected.phone_number);
     const [edit, setEdit] = useState(true);
-
     const handleEdit = async () => {
         setEdit(edit => !edit)
     }
 
     const handleSave = async () => {
         try {
-             await axios.post('http://localhost:3005/user/update',
+            console.log(email);
+            console.log(name);
+            console.log(country);
+            console.log(age);
+            console.log(phone_number);
+            console.log(languages);
+            
+            
+            console.log('start');
+            // const t=  axios.post('http://localhost:3005/user/update');
+            // console.log(t);
+             await axios.put(`${urlServer}/user/update`,
+            //  await axios.post('http://localhost:3005/user/update',
                 { email, name, country, languages, age, phone_number },
                 { withCredentials: true }
             );
+            console.log('do');
+            setEdit(edit => !edit);
         }
         catch (err) {
             console.log(err);

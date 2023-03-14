@@ -103,7 +103,9 @@ const getOneUser = async (reqBody) => {
 }
 
 const updateUser = async (reqBody) => {
+
     const {id, email, name, country, languages, phone_number, age, about, rate } = reqBody
+    console.log('test 2');
     console.log('id >>' ,id);
     console.log('email >>' ,email);
     try {

@@ -27,7 +27,7 @@ const getAllUsers = async () => {
     }
 }
 
-const getOneUser = async (email,id) => {
+const   getOneUser = async (email,id) => {
 
     try {
         let answer;
@@ -39,6 +39,7 @@ const getOneUser = async (email,id) => {
             console.log('email found');
             answer = await UserModel.findOne({ where: { id },include:[PostModel,SubjectModel]});
         }
+        console.log('answer', answer);
         if (!answer) {
             throw new Error('user not found');
         }
@@ -51,6 +52,7 @@ const getOneUser = async (email,id) => {
 
 const updateUser = async (email,id, updatedValues) => {
     try {
+        console.log('test 3');
         let answer ;
         if(id){
             answer = await UserModel.update(updatedValues, { where: { id } });

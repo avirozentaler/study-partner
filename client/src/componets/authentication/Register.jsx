@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState ,useContext} from "react";
 import axios from "axios";
+import UrlContext from "../../context/UrlContext.js";
 import {
   nameValid,
   emailValid,
@@ -11,7 +12,9 @@ import {
 } from "../../utilities/validetion/validetion.js";
 import { Box, Typography, TextField, Button } from "@mui/material";
 
+
 export default function Register() {
+  const {urlServer} = useContext(UrlContext);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -42,7 +45,7 @@ export default function Register() {
     // }
     else {
       try {
-        const answer = await axios.post("http://localhost:3005/user/register", {
+        const answer = await axios.post(urlServer+"/user/register", {
           name,
           email,
           password,
