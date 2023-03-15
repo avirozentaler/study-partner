@@ -7,7 +7,7 @@ import UrlContext from "../../context/UrlContext";
 export default function Posts() {
   const [posts, setPosts] = useState(null);
   const {urlServer} = useContext(UrlContext);
-  
+
   useEffect(() => {
     (async () => {
       try {
@@ -31,19 +31,21 @@ export default function Posts() {
 
   return (
     <Box>
-      {posts ? <Grid container sx={{placeContent:'center'}}>
-        {posts.map((post, index) => {
-          return (
-            <Grid item key={index}>
-              <PostCard post={post} />
-            </Grid>
-          );
-        })}
-      </Grid> :
-        <Box sx={{ marginTop: '20%' }}>
+      {posts ? (
+        <Grid container sx={{placeContent:'center'}}>
+          {posts.map((post, index) => {
+            return (
+              <Grid item key={index}>
+                <PostCard post={post} />
+              </Grid>
+            );
+          })}
+        </Grid>
+      ) : (
+        <Box sx={{ marginTop: "20%" }}>
           <CircularProgress />
-        </Box>}
-
-    </Box>
-  );
-}
+        </Box>
+      )}
+      </Box>
+  )
+      }
