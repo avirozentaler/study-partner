@@ -1,16 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import PostCard from "./PostCard";
 import { Box, Grid, CircularProgress, Typography } from "@mui/material";
+import UrlContext from "../../context/UrlContext";
 
 export default function Posts() {
   const [posts, setPosts] = useState(null);
+  const {urlServer} = useContext(UrlContext);
   
   useEffect(() => {
     (async () => {
       try {
         const postsList = await (
-          await axios.get("http://localhost:3005/post/get-all")
+          await axios.get(urlServer+"/post/get-all")
         ).data;
 
         if (!postsList) {
@@ -29,7 +31,7 @@ export default function Posts() {
 
   return (
     <Box>
-      {posts ? <Grid container>
+      {posts ? <Grid container sx={{placeContent:'center'}}>
         {posts.map((post, index) => {
           return (
             <Grid item key={index}>

@@ -31,7 +31,7 @@ const User = db.define('user', {
         allowNull: true,
     },
     languages: {
-        type: DataTypes.JSON,
+        type: DataTypes.STRING(16),
         allowNull: true,
     },
     phone_number: {

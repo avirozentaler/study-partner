@@ -8,6 +8,7 @@ import Auth from '../authentication/Auth';
 import Main from '../main/Main';
 import UserProfile from '../userProfile/UserProfile';
 import Footer from '../footer/Footer';
+import ConfirmPost from '../confirmPost/ConfirmPost';
 // import UserConnected from '../../context/UserConnected';
 import { Box, Divider } from '@mui/material'
 
@@ -34,6 +35,7 @@ export default function Home() {
                         <Route path='/about' element={<About />} />
                         <Route path='/profile' element={<Profie />} />
                         <Route path='/user' element={<UserProfile />} />
+                        <Route path='/confirm-post/:postid/:the_applicant_id' element={<ConfirmPost/>} />
                     </Routes>
                     {openLogIn && <Auth handleCloseLogIn={handleCloseLogIn} openLogIn={openLogIn} />}
                 </BrowserRouter>

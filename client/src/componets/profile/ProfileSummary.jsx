@@ -1,4 +1,6 @@
 import React, { useState, useContext } from 'react';
+import UrlContext from "../../context/UrlContext.js";
+
 import { Box,Button, InputBase} from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import SaveIcon from '@mui/icons-material/Save';
@@ -6,6 +8,7 @@ import axios from 'axios';
 import UserConnected from '../../context/UserConnected';
 
 export default function ProfileSummary() {
+  const {urlServer} = useContext(UrlContext);
   const { userConnected } = useContext(UserConnected);
   const [val, setVal] = useState(userConnected.about || "");
   const [edited, setEdited] = useState(true);
@@ -16,7 +19,7 @@ export default function ProfileSummary() {
 
   const handleSave = async() => {
     try{
-      axios.post('http://localhost:3005/user/update', { email: userConnected.email, about: val }, { withCredentials: true });  
+      axios.post(urlServer+'/user/update', { email: userConnected.email, about: val }, { withCredentials: true });  
     }
     catch(err){
     console.log(err);

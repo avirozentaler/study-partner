@@ -6,6 +6,8 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import CircularProgress from "@mui/material/CircularProgress";
+import UrlContext from "../../context/UrlContext.js";
+
 import {
   Box,
   Button,
@@ -20,6 +22,7 @@ import {
 const dateTime = new Date();
 
 export default function CreatePost({ open, setOpen }) {
+  const {urlServer} = useContext(UrlContext);
   const { userConnected } = useContext(UserConnected);
   const [valueCategory, setValueCategory] = useState("");
   const [valueSubCategory, setValueSubCategory] = useState("");
@@ -34,7 +37,7 @@ export default function CreatePost({ open, setOpen }) {
     (async () => {
       try {
         const result = await axios.get(
-          "http://localhost:3005/category/get-all"
+          urlServer+"/category/get-all"
         );
         console.log(result);
         setOption(result.data);
@@ -119,7 +122,7 @@ export default function CreatePost({ open, setOpen }) {
           };
           ///fetch to seever
           const answer = await axios.post(
-            "http://localhost:3005/post/add",
+            urlServer+"/post/add",
             postObj
           );
           console.log(answer);
