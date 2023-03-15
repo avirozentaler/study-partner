@@ -9,7 +9,7 @@ import {
   phone_numberValid,
   age_Valid,
 } from "../../utilities/validetion/validetion.js";
-import { Box, Typography, TextField, Button } from "@mui/material";
+import { Box, Typography, TextField, Button, Grid } from "@mui/material";
 
 export default function Register() {
   const [name, setName] = useState("");
@@ -61,21 +61,16 @@ export default function Register() {
   };
   return (
     <div className="Register auth">
-      <Box
-        display="flex"
-        width={300}
-        maxWidth="75%"
-        flexDirection="column"
-        gap={2}
-        variant="outlined"
-        alignItems={'center'}
-        margin={'auto'}
-      >
-        <div>
-          <Typography variant="h5" align="center">
+      <div>
+          <Typography variant="h5" align="center" margin={2}>
             Sign up
           </Typography>
         </div>
+      <Box xs={{width: '100%'} } align='center'
+    
+      >
+        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: -5 }}>
+        <Grid item xs={6}>
         <TextField
           required
           id="name"
@@ -87,6 +82,8 @@ export default function Register() {
           value={name}
           onChange={(event) => setName(event.target.value)}
         />
+        </Grid>
+        <Grid item xs={6}>
         <TextField
           required
           id="email"
@@ -98,6 +95,8 @@ export default function Register() {
           value={email}
           onChange={(event) => setEmail(event.target.value)}
         />
+        </Grid>
+        <Grid item xs={6}>
         <TextField
           required
           id="password"
@@ -109,6 +108,8 @@ export default function Register() {
           value={password}
           onChange={(event) => setPassword(event.target.value)}
         />
+        </Grid>
+        <Grid item xs={6}>
         <TextField
           required
           id="confirm_password"
@@ -119,6 +120,8 @@ export default function Register() {
           value={confirmPassword}
           onChange={(event) => setConfirmPassword(event.target.value)}
         />
+        </Grid>
+        <Grid item xs={6}>
         <TextField
           required
           id="country"
@@ -130,6 +133,8 @@ export default function Register() {
           value={country}
           onChange={(event) => setCountry(event.target.value)}
         />
+        </Grid>
+        <Grid item xs={6}>
         <TextField
           required
           id="languages"
@@ -141,6 +146,8 @@ export default function Register() {
           value={languages}
           onChange={(event) => setLanguages(event.target.value)}
         />
+        </Grid>
+        <Grid item xs={6}>
         <TextField
           required
           id="phone"
@@ -152,6 +159,8 @@ export default function Register() {
           value={phone_number}
           onChange={(event) => setPhone_number(event.target.value)}
         />
+        </Grid>
+        <Grid item xs={6}>
         <TextField
           required
           id="age"
@@ -163,13 +172,20 @@ export default function Register() {
           value={age}
           onChange={(event) => setAge(event.target.value)}
         />
-        <Button
+        </Grid>
+        </Grid>
+        <Box align='center'
+          margin={2}>
+        <Button 
+          
           type="submit"
           variant="outlined"
           onClick={submit}
         >
           Register
         </Button>
+
+        </Box>
       </Box>
     </div>
   );

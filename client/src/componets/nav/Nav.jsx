@@ -73,7 +73,7 @@ export default function Nav({ setOpenLogIn }) {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Study Partner
           </Typography>
-          <IconButton sx={{ ml: 1 }} onClick={modeToggle} color="inherit">
+          <IconButton sx={{ margin : 2 }} onClick={modeToggle} color="inherit">
             {mode === "dark" ? <Brightness7Icon /> : <Brightness4Icon />}
           </IconButton>
           <div>

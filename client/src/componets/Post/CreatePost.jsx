@@ -16,7 +16,9 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
+  Alert,
 } from "@mui/material/";
+import { width } from "@mui/system";
 const dateTime = new Date();
 
 export default function CreatePost({ open, setOpen }) {
@@ -29,6 +31,10 @@ export default function CreatePost({ open, setOpen }) {
   const [inputCategory, setInputCategory] = useState("");
   const [inputSubCategory, setInputSubCategory] = useState("");
   const [option, setOption] = useState(null);
+  const [comment, setComment] = useState("");
+  const [alert, setAlert] = useState(false);
+  const [alertContent, setAlertContent] = useState("");
+  const [alertSeverity, setAlertSeverity] = useState("");
 
   useEffect(() => {
     (async () => {
@@ -63,7 +69,12 @@ export default function CreatePost({ open, setOpen }) {
         !fromTime ||
         !toTime
       ) {
-        alert("missing details");
+        setAlertSeverity("error");
+        setAlert(true);
+        setAlertContent("missing details");
+        setTimeout(() => {
+          setAlert(false);
+        }, 5000);
       } else {
         const tempDate =
           (date.$y && new Date(date.$y, date.$M, date.$D, 0, 0)) || date;
@@ -110,7 +121,7 @@ export default function CreatePost({ open, setOpen }) {
           const postObj = {
             userId: userConnected.id || null,
             auther_name: userConnected.name || null,
-            post: "" || null,
+            post: comment || null,
             category: inputCategory,
             sub_category: valueSubCategory,
             date: tempDate.getTime(),
@@ -123,9 +134,14 @@ export default function CreatePost({ open, setOpen }) {
             postObj
           );
           console.log(answer);
+          setAlertSeverity("success");
+          setAlert(true);
+          setAlertContent("post published");
+          setTimeout(() => {
+            setAlert(false);}, 5000);
+            setTimeout(() => {
+              setOpen(false);}, 5000);
           setOpen(false);
-
-          
         }
       }
     } catch (err) {
@@ -140,6 +156,13 @@ export default function CreatePost({ open, setOpen }) {
         <Dialog open={open} onClose={handleClose}>
           <DialogTitle>Post</DialogTitle>
           <DialogContent>
+            <Box margin={1}>
+              {alert ? (
+                <Alert severity={alertSeverity}>{alertContent}</Alert>
+              ) : (
+                <></>
+              )}
+            </Box>
             <Grid container spacing={3}>
               <Grid item xs={6}>
                 <Autocomplete
@@ -209,6 +232,19 @@ export default function CreatePost({ open, setOpen }) {
                   />
                 </Grid>
               </LocalizationProvider>
+
+              <Grid item xs={12}>
+                <TextField
+                  value={comment}
+                  fullWidth
+                  multiline
+                  rows={2}
+                  placeholder="Add a description (optional)"
+                  onChange={(event) => {
+                    setComment(event.target.value);
+                  }}
+                ></TextField>
+              </Grid>
             </Grid>
           </DialogContent>
           <DialogActions>

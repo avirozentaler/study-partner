@@ -5,7 +5,7 @@ import { Box, Grid, CircularProgress, Typography } from "@mui/material";
 
 export default function Posts() {
   const [posts, setPosts] = useState(null);
-  
+
   useEffect(() => {
     (async () => {
       try {
@@ -14,34 +14,33 @@ export default function Posts() {
         ).data;
 
         if (!postsList) {
-          throw new Error("posts not dound")
+          throw new Error("posts not dound");
+        } else {
+          setPosts(postsList);
         }
-        else {
-          setPosts(postsList)
-        }
-
-      }
-      catch (err) {
+      } catch (err) {
         console.log(err);
       }
-    })()
+    })();
   }, []);
 
   return (
     <Box>
-      {posts ? <Grid container>
-        {posts.map((post, index) => {
-          return (
-            <Grid item key={index}>
-              <PostCard post={post} />
-            </Grid>
-          );
-        })}
-      </Grid> :
-        <Box sx={{ marginTop: '20%' }}>
+      {posts ? (
+        <Grid container>
+          {posts.map((post, index) => {
+            return (
+              <Grid item key={index}>
+                <PostCard post={post} />
+              </Grid>
+            );
+          })}
+        </Grid>
+      ) : (
+        <Box sx={{ marginTop: "20%" }}>
           <CircularProgress />
-        </Box>}
-
+        </Box>
+      )}
     </Box>
   );
 }

@@ -88,7 +88,7 @@ export default function ExtendedPost({ openMore, setOpenMore, post }) {
                 <Typography gutterBottom variant="body1">
                   on {post.date} between {post.time_from} to {post.time_to}
                 </Typography>
-                <Typography gutterBottom variant="body1">
+                <Typography gutterBottom variant="body1" marginTop={3} marginLeft={3}>
                   {post.post}
                 </Typography>
               </Grid>
@@ -96,19 +96,17 @@ export default function ExtendedPost({ openMore, setOpenMore, post }) {
                 <Avatar
                   variant="rounded"
                   alt="Remy Sharp"
-                  src={require("./languages.jpg")}
+                  src={require('./cardPics/'+post.category+'.jpg')}
                   sx={{ width: 175, height: 175 }}
                 />
               </Grid>
             </Grid>
             <DialogActions sx={{ paddingTop: 5 }}>
-              {/* <Box> */}
               <Button
                 onClick={() => {
                   userConnected && (userConnected.id === post.user_id) ?
                     navigae("/profile")
                     : navigae("/user", { state: { userId: post.user_id } })
-                  console.log('done');
                 }}
                 variant="outlined"
                 size="small"
@@ -135,7 +133,6 @@ export default function ExtendedPost({ openMore, setOpenMore, post }) {
                   </span>
                 </Tooltip>
               )}
-              {/* </Box> */}
             </DialogActions>
           </Box> :
             <PostSending emailSent={emailSent} emailFailed={emailFailed} />
