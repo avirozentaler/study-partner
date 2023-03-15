@@ -6,6 +6,7 @@ import {
   passwordValid,
 } from "../../utilities/validetion/validetion.js";
 import { Box, Typography, TextField, Button, Link, Grid } from "@mui/material";
+import UrlContext from "../../context/UrlContext.js";
 
 export default function Login({
   handleRegistered,
@@ -15,6 +16,7 @@ export default function Login({
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { userConnected, setUserConnected } = useContext(UserConnected);
+  const { urlServer } = useContext(UrlContext);
 
   const submit = async () => {
     if (!emailValid(email)) {
@@ -24,15 +26,15 @@ export default function Login({
     } else {
       try {
         const answer = await axios.post(
-          "http://localhost:3005/auth/log-in",
+          urlServer+"/auth/log-in",
           { email, password },
           { withCredentials: true }
         );
-        sessionStorage.setItem("user",JSON.stringify(answer.data));        
-        sessionStorage.setItem("user_id",JSON.stringify(answer.data.id));
+        sessionStorage.setItem("user", JSON.stringify(answer.data));
+        sessionStorage.setItem("user_id", JSON.stringify(answer.data.id));
         console.log(answer.data);
         setUserConnected(answer.data);
-        handleCloseLogIn();   
+        handleCloseLogIn();
       }
       catch (err) {
         alert("login faild");

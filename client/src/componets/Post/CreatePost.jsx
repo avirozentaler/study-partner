@@ -6,6 +6,8 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import CircularProgress from "@mui/material/CircularProgress";
+import UrlContext from "../../context/UrlContext.js";
+
 import {
   Box,
   Button,
@@ -22,6 +24,7 @@ import { width } from "@mui/system";
 const dateTime = new Date();
 
 export default function CreatePost({ open, setOpen }) {
+  const { urlServer } = useContext(UrlContext);
   const { userConnected } = useContext(UserConnected);
   const [valueCategory, setValueCategory] = useState("");
   const [valueSubCategory, setValueSubCategory] = useState("");
@@ -39,9 +42,7 @@ export default function CreatePost({ open, setOpen }) {
   useEffect(() => {
     (async () => {
       try {
-        const result = await axios.get(
-          "http://localhost:3005/category/get-all"
-        );
+        const result = await axios.get(urlServer + "/category/get-all");
         console.log(result);
         setOption(result.data);
       } catch (err) {
@@ -129,19 +130,18 @@ export default function CreatePost({ open, setOpen }) {
             time_to: tempTo.getTime(),
           };
           ///fetch to seever
-          const answer = await axios.post(
-            "http://localhost:3005/post/add",
-            postObj
-          );
+          const answer = await axios.post(urlServer + "/post/add", postObj);
           console.log(answer);
           setAlertSeverity("success");
           setAlert(true);
           setAlertContent("post published");
           setTimeout(() => {
-            setAlert(false);}, 5000);
-            setTimeout(() => {
-              setOpen(false);}, 5000);
-          setOpen(false);
+            setAlert(false);
+          }, 3000);
+          setTimeout(() => {
+            setOpen(false);
+          }, 2000);
+          
         }
       }
     } catch (err) {

@@ -1,9 +1,12 @@
 import axios from "axios";
-import { useState } from "react";
+import { useState,useContext } from "react";
 import { passwordValid } from '../../utilities/validetion/validetion.js';
+import UrlContext from "../../context/UrlContext.js";
 import { Box, Typography, TextField, Button } from '@mui/material';
 
 export default function ResetPassword({ handleHavePass }) {
+
+  const {urlServer} = useContext(UrlContext);
   const [code, setCode] = useState('');
   const [password, setPassword] = useState("")
   const [confirmPassword, setConfirmPassword] = useState("")
@@ -20,7 +23,7 @@ export default function ResetPassword({ handleHavePass }) {
     }
     else {
       try {
-        const answer = await axios.post('http://localhost:3005/auth/reset-pass', { code, password, confirmPassword })
+        const answer = await axios.post(urlServer+'/auth/reset-pass', { code, password, confirmPassword })
         console.log(answer);
         handleHavePass()
       }

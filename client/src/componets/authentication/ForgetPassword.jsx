@@ -1,13 +1,13 @@
 import axios from "axios";
-import { useState } from "react";
+import { useState ,useContext} from "react";
 import { useNavigate} from "react-router-dom";
 import { emailValid } from '../../utilities/validetion/validetion.js';
 import {Box, TextField, Button }from '@mui/material';
-
+import UrlContext from "../../context/UrlContext.js";
 export default function ForgetPassword({handleResetPass}) {
 
-
-const [email,setEmail]= useState('');
+  const [email,setEmail]= useState('');
+  const {urlServer} = useContext(UrlContext);
 
 const submit =async()=>{
     if(!email || !emailValid(email)){
@@ -15,7 +15,7 @@ const submit =async()=>{
     }
     else{
       try {
-        const answer = await axios.post('http://localhost:3005/auth/forget-pass', { email })
+        const answer = await axios.post( urlServer+'/auth/forget-pass', { email })
         handleResetPass()
 
     }

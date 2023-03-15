@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom'
 import axios from 'axios';
 import UserPosts from './UserPosts';
 import UserConnected from '../../context/UserConnected';
+import UrlContext from '../../context/UrlContext';
 import {
   Paper,
   Button,
@@ -23,12 +24,13 @@ export default function UserProfile() {
   const [rate, setRate] = useState(null);
   const [isRating, setIsRating] = useState(false);
   const { userConnected } = useContext(UserConnected);
+  const {urlServer} = useContext(UrlContext);
 
   useEffect(() => {
     (async () => {
       try {
         const userData = await axios.post(
-          "http://localhost:3005/user/get-one",
+          urlServer+"/user/get-one",
           { id: userId }
         );
         setUser(userData.data);
@@ -41,7 +43,7 @@ export default function UserProfile() {
   }, [])
   const handleRate = async (newValue) => {
     console.log('newVal >>', newValue);
-    const newRate = await axios.put('http://localhost:3005/activity/rate-user',
+    const newRate = await axios.put(urlServer+'/activity/rate-user',
       { email: user.email, rate: newValue },
       { withCredentials: true });
 

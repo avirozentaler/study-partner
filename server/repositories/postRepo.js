@@ -24,6 +24,16 @@ const getPosts = async () => {
     }
 }
 
+const getPost = async (id) => {
+    try {
+        const answer = await Models.PostModel.findOne({where:{id}});
+        return answer;
+    }
+    catch (err) {
+        return err;
+    }
+}
+
 const updatePost = async (id, updatedValues) => {
     try {
         console.log(updatedValues);
@@ -55,6 +65,7 @@ const deletePost = async (id) => {
 module.exports = PostRepo = {
     addPost,
     getPosts,
+    getPost,
     updatePost,
     deletePost
 }

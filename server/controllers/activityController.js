@@ -16,6 +16,35 @@ const reactToPost = async (req, res) => {
     }
 }
 
+const confirmPost = async (req, res) => {
+    try {
+        const answer =await activityService.confirmPost(req);
+        if(answer.message){
+            throw new Error(answer.message)
+        }
+        res.status(200).send(answer);
+    }
+    catch (err) {
+        console.log(err);
+        res.status(402).send(err);
+    }
+}
+
+const denyPost = async (req, res) => {
+    try {
+        const answer = await activityService.denyPost(req);
+        if(answer.message){
+            throw new Error(answer.message)
+        }
+        console.log('answer');
+        res.status(200).send(answer);
+        
+    }
+    catch (err) {
+        console.log(err);
+        res.status(402).send(err);
+    }
+}
 
 const rateUser = async (req, res) => {
     try {
@@ -38,5 +67,7 @@ const rateUser = async (req, res) => {
 
 module.exports = {
     reactToPost,
+    confirmPost,
+    denyPost,
     rateUser
 }

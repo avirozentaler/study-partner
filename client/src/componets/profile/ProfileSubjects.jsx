@@ -1,15 +1,17 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { Box, Button, Divider, Paper, Typography } from '@mui/material';
+import UrlContext from "../../context/UrlContext.js";
+import axios from 'axios';
+import AddSubject from './AddSubject';
+import UserConnected from '../../context/UserConnected';
+import { Box, Button, Divider, Paper, Typography } from     '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import SaveIcon from '@mui/icons-material/Save';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 
-import AddSubject from './AddSubject';
-import axios from 'axios';
-import UserConnected from '../../context/UserConnected';
 
 export default function ProfileSubjects() {
+    const {urlServer} = useContext(UrlContext);
     const { userConnected, setUserConnected } = useContext(UserConnected);
     const [subjects, setSubjects] = useState(userConnected.subjects || null);
     const [edit, setEdit] = useState(false);
@@ -46,7 +48,7 @@ export default function ProfileSubjects() {
                 posts: userConnected.posts,
                 subjects: subjects,
             })
-            axios.post("http://localhost:3005/user/update", { email: userConnected.email, subjects }, { withCredentials: true });
+            axios.post(urlServer+"/user/update", { email: userConnected.email, subjects }, { withCredentials: true });
             setEdit(!edit);
         }
         catch (err) {

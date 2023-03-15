@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import UserConnected from "../../context/UserConnected";
 import PostSending from "./PostSending";
-
+import UrlContext from "../../context/UrlContext.js";
 import Tooltip from "@mui/material/Tooltip";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
@@ -19,6 +19,7 @@ import axios from "axios";
 
 export default function ExtendedPost({ openMore, setOpenMore, post }) {
 
+  const {urlServer} = useContext(UrlContext);
   const { userConnected } = useContext(UserConnected);
   const navigae = useNavigate();
   const [isSendingEmail, setIsSendingEmail] = useState(false);
@@ -29,9 +30,9 @@ export default function ExtendedPost({ openMore, setOpenMore, post }) {
     try {
       setIsSendingEmail(true);
       const answer = await axios.post(
-        "http://localhost:3005/activity/react-to-post",
-        { userId: post.user_id, postId: post.id },
-        { withCredentials: true }
+        urlServer+"/activity/react-to-post",
+        {the_applicant_id:userConnected.id,  postId: post.id },
+        { withCredentials: true } 
       );
       if (!answer.data) {
         setEmailFailed(true);
@@ -77,7 +78,7 @@ export default function ExtendedPost({ openMore, setOpenMore, post }) {
             <Grid container spacing={2} columns={16}>
               <Grid item xs={10}>
                 <Typography gutterBottom variant="body1">
-                  Hi, my name is {post.auther_name}..
+                  Hi, my name is {post.auther_name}
                 </Typography>
                 <Typography gutterBottom variant="body1">
                   I am looking for a partner to study
