@@ -70,7 +70,7 @@ const confirmPost = async (req) => {
             study partner office
             ${autherPost.email} / ${autherPost.phone_number}`, null);
         await postRepo.updatePost(postId, { mathed: true });
-        return transfer;
+        return 'Email sent to the Partner';
     }
     catch (err) {
         console.log(err);
@@ -115,7 +115,7 @@ const denyPost = async (req) => {
                 </p>
             </div>`);
         await postRepo.updatePost(postId, { mathed: false });
-        return transfer;
+        return 'Email sent to the applicant';
     }
     catch (err) {
         console.log(err);

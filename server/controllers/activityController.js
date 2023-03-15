@@ -18,7 +18,7 @@ const reactToPost = async (req, res) => {
 
 const confirmPost = async (req, res) => {
     try {
-        const answer = activityService.confirmPost(req);
+        const answer =await activityService.confirmPost(req);
         if(answer.message){
             throw new Error(answer.message)
         }
@@ -32,10 +32,11 @@ const confirmPost = async (req, res) => {
 
 const denyPost = async (req, res) => {
     try {
-        const answer = activityService.denyPost(req);
+        const answer = await activityService.denyPost(req);
         if(answer.message){
             throw new Error(answer.message)
         }
+        console.log('answer');
         res.status(200).send(answer);
         
     }
