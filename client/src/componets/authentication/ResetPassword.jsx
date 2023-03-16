@@ -2,32 +2,64 @@ import axios from "axios";
 import { useState,useContext } from "react";
 import { passwordValid } from '../../utilities/validetion/validetion.js';
 import UrlContext from "../../context/UrlContext.js";
-import { Box, Typography, TextField, Button } from '@mui/material';
+import { Box, Typography, TextField, Button, Alert } from '@mui/material';
 
 export default function ResetPassword({ handleHavePass }) {
 
   const {urlServer} = useContext(UrlContext);
   const [code, setCode] = useState('');
   const [password, setPassword] = useState("")
-  const [confirmPassword, setConfirmPassword] = useState("")
+  const [confirmPassword, setConfirmPassword] = useState("") 
+  const [alert, setAlert] = useState(false);
+  const [alertContent, setAlertContent] = useState("");
+  const [alertSeverity, setAlertSeverity] = useState("");
+
+
 
   const submit = async () => {
     if (!code || !password || !confirmPassword) {
-      alert('please fill all the field');
+      setAlertSeverity("error");
+          setAlert(true);
+          setAlertContent("missing details");
+          setTimeout(() => {
+            setAlert(false);
+          }, 3000);
     }
     else if (!passwordValid(password)) {
-      alert('password not valid')
+          setAlertSeverity("error");
+          setAlert(true);
+          setAlertContent("password not valid");
+          setTimeout(() => {
+            setAlert(false);
+          }, 3000);
     }
     else if (password !== confirmPassword) {
-      alert('confirmPassword not match')
+      setAlertSeverity("error");
+          setAlert(true);
+          setAlertContent("Password not match to confirm password");
+          setTimeout(() => {
+            setAlert(false);
+          }, 3000);
     }
     else {
       try {
         const answer = await axios.post(urlServer+'/auth/reset-pass', { code, password, confirmPassword })
         console.log(answer);
+        setAlertSeverity("success");
+          setAlert(true);
+          setAlertContent("The password has been changed successfully");
+          setTimeout(() => {
+            setAlert(false);
+          }, 3000);
         handleHavePass()
       }
       catch (err) {
+        setAlertSeverity("error");
+          setAlert(true);
+          setAlertContent("Something went wrong. Please try again later");
+          setTimeout(() => {
+            setAlert(false);
+          }, 3000);
         console.log(err)
 
       }
@@ -51,6 +83,13 @@ export default function ResetPassword({ handleHavePass }) {
         }}
         variant="outlined"
       >
+        <Box margin={1}>
+              {alert ? (
+                <Alert severity={alertSeverity}>{alertContent}</Alert>
+              ) : (
+                <></>
+              )}
+            </Box>
         <div>
         <Typography variant='h5' align="center"  >Add new password</Typography>
         </div>

@@ -34,7 +34,7 @@ export default function PostSending({ emailSent, emailFailed }) {
         </Box>
       )}
       {emailSent && (
-        // button onClick="window.location.reload();">Refresh Page</button>
+        // button onClick="window.location.reload();">Refresh Page</button> 
         <Box  sx={{ display: "flex", justifyContent: "center" }}>
           <Box>
             <Typography variant="h5">
@@ -42,7 +42,7 @@ export default function PostSending({ emailSent, emailFailed }) {
             </Typography>
           </Box>
           <Box>
-            <MarkEmailReadOutlinedIcon color="primary" fontSize="large"/>
+            <MarkEmailReadOutlinedIcon color="success" fontSize="large"/>
           </Box>
         </Box>
       )}
