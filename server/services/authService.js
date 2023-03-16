@@ -94,7 +94,7 @@ const forgetPassword = async (reqBody) => {
         const emailDestination =user.email;
         const titleMessage ='temporary code from study partner'; 
         const bodyMessage =`<div>
-        <h4>hii avi! </h4>
+        <h4>hii ${user.name} </h4>
         <p>your temporary password is: ${newPass}  please do not share this password to anybody.. 
         have a nice day !!</p>
         </div>`;

@@ -113,10 +113,10 @@ export default function CreatePost({ open, setOpen }) {
           );
 
         if (tempFrom.getTime() > tempTo.getTime()) {
-          alert("the time to start should be early from the ending time");
+          // alert("the time to start should be early from the ending time");
         }
         if (tempFrom.getTime() < new Date().getTime()) {
-          alert("the time to start shouldn't be early from now");
+          // alert("the time to start shouldn't be early from now");
         } else {
           ////create obj to fetch
           const postObj = {
@@ -139,13 +139,14 @@ export default function CreatePost({ open, setOpen }) {
             setAlert(false);
           }, 3000);
           setTimeout(() => {
-            setOpen(false);
+              window.location.reload();
+            // setOpen(false);
           }, 2000);
           
         }
       }
     } catch (err) {
-      alert("post faild");
+      // alert("post faild");
       console.log(err);
     }
   };

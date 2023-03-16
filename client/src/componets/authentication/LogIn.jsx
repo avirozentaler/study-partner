@@ -5,7 +5,7 @@ import {
   emailValid,
   passwordValid,
 } from "../../utilities/validetion/validetion.js";
-import { Box, Typography, TextField, Button, Link, Grid } from "@mui/material";
+import { Box, Typography, TextField, Button, Link, Grid, Alert } from "@mui/material";
 import UrlContext from "../../context/UrlContext.js";
 
 export default function Login({
@@ -17,12 +17,19 @@ export default function Login({
   const [password, setPassword] = useState("");
   const { userConnected, setUserConnected } = useContext(UserConnected);
   const { urlServer } = useContext(UrlContext);
+  const [alert, setAlert] = useState(false);
+  const [alertContent, setAlertContent] = useState("");
+  const [alertSeverity, setAlertSeverity] = useState("");
 
   const submit = async () => {
-    if (!emailValid(email)) {
-      alert("email not valid!");
-    } else if (!passwordValid(password)) {
-      alert("password not valid");
+    if (!emailValid(email)||!passwordValid(password)) {
+      setAlertSeverity("error");
+          setAlert(true);
+          setAlertContent("Email or password not valid, Try again");
+          setTimeout(() => {
+            setAlert(false);
+          }, 3000);
+   
     } else {
       try {
         const answer = await axios.post(
@@ -34,10 +41,22 @@ export default function Login({
         sessionStorage.setItem("user_id", JSON.stringify(answer.data.id));
         console.log(answer.data);
         setUserConnected(answer.data);
+        setUserConnected(answer.data);
+        setAlertSeverity("success");
+          setAlert(true);
+          setAlertContent("Welcome and good luck finding a partner");
+          setTimeout(() => {
+            setAlert(false);
+          }, 3000);
         handleCloseLogIn();
       }
       catch (err) {
-        alert("login faild");
+        setAlertSeverity("error");
+        setAlert(true);
+        setAlertContent("Something went wrong. Please try again later");
+        setTimeout(() => {
+          setAlert(false);
+        }, 3000);
         console.log(err);
       }
     }
@@ -55,6 +74,13 @@ export default function Login({
         }}
         variant="outlined"
       >
+        <Box margin={1}>
+              {alert ? (
+                <Alert severity={alertSeverity}>{alertContent}</Alert>
+              ) : (
+                <></>
+              )}
+            </Box>
         <div>
           <Typography variant="h5" align="center">
             Log in

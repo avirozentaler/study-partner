@@ -79,10 +79,6 @@ export default function PostSending({ emailSent, emailFailed, handleClose }) {
 
 
 
-
-
-
-
 // import React from "react";
 // import {
 //   DialogTitle,

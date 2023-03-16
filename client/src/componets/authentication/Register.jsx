@@ -10,7 +10,7 @@ import {
   phone_numberValid,
   age_Valid,
 } from "../../utilities/validetion/validetion.js";
-import { Box, Typography, TextField, Button, Grid } from "@mui/material";
+import { Box, Typography, TextField, Button, Grid, Alert } from "@mui/material";
 
 
 export default function Register() {
@@ -23,9 +23,13 @@ export default function Register() {
   const [languages, setLanguages] = useState("");
   const [phone_number, setPhone_number] = useState("");
   const [age, setAge] = useState("");
+  const [alert, setAlert] = useState(false);
+  const [alertContent, setAlertContent] = useState("");
+  const [alertSeverity, setAlertSeverity] = useState("");
 
   const submit = async () => {
     if (!nameValid(name)) {
+      /////////////////////////
       alert("name not valid");
     } else if (!emailValid(email)) {
       alert("email not valid");
@@ -55,15 +59,34 @@ export default function Register() {
           phone_number,
           age,
         });
+        setAlertSeverity("success");
+          setAlert(true);
+          setAlertContent("You have successfully registered ");
+          setTimeout(() => {
+            setAlert(false);
+          }, 3000);
         console.log(answer);
       } catch (err) {
+        setAlertSeverity("error");
+      setAlert(true);
+      setAlertContent("Something went wrong. Please try again later");
+      setTimeout(() => {
+        setAlert(false);
+      }, 3000);
         console.log(err);
-        alert("faild");
+        
       }
     }
   };
   return (
     <div className="Register auth">
+      <Box margin={1}>
+              {alert ? (
+                <Alert severity={alertSeverity}>{alertContent}</Alert>
+              ) : (
+                <></>
+              )}
+            </Box>
       <div>
           <Typography variant="h5" align="center" margin={2}>
             Sign up
