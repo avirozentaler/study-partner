@@ -38,9 +38,34 @@ export default function PostCard({ post }) {
           maxWidth: 300,
           margin: 3,
           textAlign: "left",
-          opacity: post.matched === -1 ? "0.5" : post.matched === 0 ? "0.7" : "1",
+          opacity:
+            post.matched === -1 ? "0.5" : post.matched === 0 ? "0.8" : "1",
         }}
       >
+        <Box sx={{ position: "relative", width: "100%", height: "100%" }}>
+          {post.matched === 0 && (
+            <Paper
+              sx={{
+                width: "100%",
+                height: "100%",
+                position: "absolute",
+                padding: "6",
+                textAlign: "center",
+                opacity: "1",
+              }}
+              elevation={6}
+            >
+              <Typography
+                fontWeight={"bold"}
+                color="primary"
+                variant="h4"
+                m={5}
+              >
+                Post pending
+              </Typography>
+            </Paper>
+          )}
+        </Box>
         <CardMedia
           component="img"
           alt="languages"
@@ -49,18 +74,10 @@ export default function PostCard({ post }) {
         />
 
         <CardContent>
+          
           <Typography gutterBottom variant="h5" component="div">
             {(post.auther_name && post.auther_name) || "unknown"}
           </Typography>
-
-          <Box sx={{ position: 'relative', width: '100%', height: '100%' }}>
-
-            {post.matched === 0 && <Paper sx={{ width: '100%', height: '100%', position: 'absolute', padding: '6', textAlign: 'center', opacity: '0.7' }} elevation={6} >
-              <Divider />
-              <Typography color='primary' variant="h4" m={1}>Post pending</Typography>
-              <Divider />
-            </Paper>}
-          </Box>
 
           <Typography variant="body1" color="text.secondary">
             {post.sub_category}
@@ -71,7 +88,6 @@ export default function PostCard({ post }) {
           <Typography variant="body1" color="text.secondary">
             {post.time_from} - {post.time_to}
           </Typography>
-
         </CardContent>
 
         <CardActions sx={{ display: "flex", justifyContent: "flex-end" }}>
@@ -87,7 +103,11 @@ export default function PostCard({ post }) {
           </Button>
         </CardActions>
 
-        <ExtendPostDialog openMore={openMore} setOpenMore={setOpenMore} post={post} />
+        <ExtendPostDialog
+          openMore={openMore}
+          setOpenMore={setOpenMore}
+          post={post}
+        />
         {/* <ExtendedPost
           openMore={openMore}
           setOpenMore={setOpenMore}
