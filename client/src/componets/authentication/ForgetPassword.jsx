@@ -1,21 +1,17 @@
 import axios from "axios";
 import { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
 import { emailValid } from '../../utilities/validetion/validetion.js';
 import { Box, TextField, Button, Typography } from '@mui/material';
 import UrlContext from "../../context/UrlContext.js";
 
 export default function ForgetPassword({ handleAuthMode,handleOpenAlert }) {
 
-  // const [alertMessage, setAlertMessage] = useState('')
-  // const [opanAlert, setOpanAlert] = useState(false);
   const [email, setEmail] = useState('');
   const { urlServer } = useContext(UrlContext);
 
   const submit = async () => {
     if (!email || !emailValid(email)) {
       handleOpenAlert('error','please add an valid email');
-      // alert('please add an valid email');
     }
     else {
       try {
@@ -78,7 +74,7 @@ export default function ForgetPassword({ handleAuthMode,handleOpenAlert }) {
         <Button
         variant="outlined"
           type="submit"
-          sx={{ mt: 1 /* margin top */ }}
+          sx={{ mt: 1 }}
           onClick={submit}
         >
           Reset

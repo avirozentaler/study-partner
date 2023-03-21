@@ -14,15 +14,12 @@ export default function ResetPassword({ handleAuthMode,handleOpenAlert }) {
   const submit = async () => {
     if (!code || !password || !confirmPassword) {
       handleOpenAlert('error','please fill all the field')
-      // alert('please fill all the field');
     }
     else if (!passwordValid(password)) {
       handleOpenAlert('error','password not valid')
-      // alert('password not valid')
     }
     else if (password !== confirmPassword) {
       handleOpenAlert('error','confirm password is not matched')
-      // alert('confirmPassword not match')
     }
     else {
       try {

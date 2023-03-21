@@ -32,7 +32,7 @@ export default function Auth({ handleCloseLogIn, openLogIn }) {
   }
 
   return (
-    <Box>
+    <Box >
       <Dialog
         open={openLogIn}
         onClose={handleCloseLogIn}
