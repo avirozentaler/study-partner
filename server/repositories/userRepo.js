@@ -1,4 +1,3 @@
-
 const { UserModel, PostModel, SubjectModel } = require('../models/Models')
 
 const addUser = async (user) => {
@@ -35,10 +34,8 @@ const getOneUser = async (email, id) => {
         }
 
         else if (id) {
-            console.log('email found');
             answer = await UserModel.findOne({ where: { id }, include: [PostModel, SubjectModel] });
         }
-        console.log('answer', answer);
         if (!answer) {
             throw new Error('user not found');
         }

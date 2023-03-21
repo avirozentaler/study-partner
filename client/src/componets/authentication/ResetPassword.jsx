@@ -23,7 +23,7 @@ export default function ResetPassword({ handleAuthMode,handleOpenAlert }) {
     }
     else {
       try {
-        const answer = await axios.post(urlServer+'/auth/reset-pass', { code, password, confirmPassword })
+        await axios.post(urlServer+'/auth/reset-pass', { code, password, confirmPassword })
         handleOpenAlert('sucess','Password reset');
         handleAuthMode(0);
       }

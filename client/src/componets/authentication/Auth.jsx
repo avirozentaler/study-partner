@@ -3,7 +3,7 @@ import Register from "./Register";
 import LogIn from "./LogIn";
 import ForgetPassword from "./ForgetPassword";
 import ResetPassword from "./ResetPassword";
-import {Box,Dialog,DialogContent,DialogTitle,IconButton ,Typography,Alert } from "@mui/material";
+import {Box,Dialog,DialogContent,DialogTitle,IconButton ,Alert } from "@mui/material";
 
 import CloseIcon from "@mui/icons-material/Close";
 import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';

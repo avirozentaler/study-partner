@@ -1,17 +1,10 @@
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-const userModel = require('../models/User');
-const token = process.env.TOKEN_NAME;
-const BCRYPT_ROUNDS = parseInt(process.env.BCRYPT_ROUNDS);
-const nodeMailer = require('nodemailer');
-const { emailValid, passwordValid } = require('../utilities/validations/validations');
 const AuthService = require('../services/authService');
 
 
 const logIn = async (req, res) => {
     try {
         const answer = await AuthService.logIn(req, res);
-        console.log(answer);
+        // console.log(answer);
         if (answer.message) {
             throw new Error(answer.message);
         }
@@ -20,6 +13,7 @@ const logIn = async (req, res) => {
         }
     }
     catch (err) {
+        console.error(err);
         res.status(400).send(err.message);
     }
 
@@ -43,7 +37,6 @@ const auth = async (req, res) => {
 const forgetPassword = async (req, res) => {
     try {
         const answer = await AuthService.forgetPassword(req.body);
-        console.log('answer >>' ,answer);
         if(answer === undefined ||  answer.message !== undefined){
             throw new Error('Faild to sent Email');
         }
