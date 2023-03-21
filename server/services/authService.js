@@ -1,4 +1,5 @@
 const bcrypt = require('bcrypt');
+const BCRYPT_ROUNDS = parseInt(process.env.BCRYPT_ROUNDS);
 const jwt = require('jsonwebtoken');
 const AuthRepo = require('../repositories/authRepo');
 const UserRepo = require('../repositories/userRepo');
@@ -90,6 +91,7 @@ const forgetPassword = async (reqBody) => {
         if (!user) {
             throw Error('email not macth please try again');
         }
+        // const answer = UserRepo.updateUser(email, { refresh_token: newPass });
         const newPass = Math.random().toString(36).slice(2, 8);
         const emailDestination =user.email;
         const titleMessage ='temporary code from study partner'; 
@@ -99,8 +101,17 @@ const forgetPassword = async (reqBody) => {
         have a nice day !!</p>
         </div>`;
         // const bodyMessage =`your temporary password is: ${newPass}  please do not share this password to anybody`
-        const sendMail = transferMail(emailDestination,titleMessage,'',bodyMessage);   
-        console.log(sendMail);
+        const updatePassword= await UserRepo.updateUser(email,null, { refresh_token: newPass });
+        console.log('updatePassword >> ', updatePassword);
+        if(updatePassword.message ){
+            throw Error('Faild to Update password');
+        }
+        
+
+        const sendMail = await transferMail(emailDestination,titleMessage,'',bodyMessage);   
+        console.log('sendMail >> ',sendMail);
+        return sendMail
+
     }
     catch (err) {
         console.log(err);
@@ -165,7 +176,11 @@ const resetPassword = async (reqBody) => {
             throw new Error('passwords not match');
         }
         const hashPssword = bcrypt.hashSync(password, BCRYPT_ROUNDS);
+        console.log('hashPssword >>' ,hashPssword);
         const answer = await AuthRepo.resetPassword(code, hashPssword);
+        if(answer.message){
+            throw new Error(answer.message);
+        }
         return answer;
     }
     catch (err) {

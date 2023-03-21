@@ -4,7 +4,7 @@ import { passwordValid } from '../../utilities/validetion/validetion.js';
 import UrlContext from "../../context/UrlContext.js";
 import { Box, Typography, TextField, Button } from '@mui/material';
 
-export default function ResetPassword({ handleHavePass }) {
+export default function ResetPassword({ handleAuthMode,handleOpenAlert }) {
 
   const {urlServer} = useContext(UrlContext);
   const [code, setCode] = useState('');
@@ -13,19 +13,22 @@ export default function ResetPassword({ handleHavePass }) {
 
   const submit = async () => {
     if (!code || !password || !confirmPassword) {
-      alert('please fill all the field');
+      handleOpenAlert('error','please fill all the field')
+      // alert('please fill all the field');
     }
     else if (!passwordValid(password)) {
-      alert('password not valid')
+      handleOpenAlert('error','password not valid')
+      // alert('password not valid')
     }
     else if (password !== confirmPassword) {
-      alert('confirmPassword not match')
+      handleOpenAlert('error','confirm password is not matched')
+      // alert('confirmPassword not match')
     }
     else {
       try {
         const answer = await axios.post(urlServer+'/auth/reset-pass', { code, password, confirmPassword })
-        console.log(answer);
-        handleHavePass()
+        handleOpenAlert('sucess','Password reset');
+        handleAuthMode(0);
       }
       catch (err) {
         console.log(err)
@@ -66,7 +69,7 @@ export default function ResetPassword({ handleHavePass }) {
         />
         <TextField
           required
-          id='password'
+           id='password'
           name="password"
           type="password"
           label="Password"

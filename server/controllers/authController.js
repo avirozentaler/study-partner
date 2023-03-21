@@ -41,10 +41,13 @@ const auth = async (req, res) => {
 
 
 const forgetPassword = async (req, res) => {
-
-
     try {
         const answer = await AuthService.forgetPassword(req.body);
+        console.log('answer >>' ,answer);
+        if(answer === undefined ||  answer.message !== undefined){
+            throw new Error('Faild to sent Email');
+        }
+
         res.status(200).send(answer);
     }
     catch (err) {
@@ -56,6 +59,9 @@ const forgetPassword = async (req, res) => {
 const resetPassword = async (req, res) => {
     try {
         const answer = await AuthService.resetPassword(req.body);
+        if(answer.message){
+            throw new Error(answer.message)
+        }
         res.status(200).send(answer);
     }
     catch (err) {
