@@ -10,8 +10,7 @@ import {
   phone_numberValid,
   ageValid,
 } from "../../utilities/validetion/validetion.js";
-import { Box, Typography, TextField, Button,} from "@mui/material";
-
+import { Box, Typography, TextField, Button, } from "@mui/material";
 
 export default function Register({ handleOpenAlert }) {
   const { urlServer } = useContext(UrlContext);
@@ -26,7 +25,7 @@ export default function Register({ handleOpenAlert }) {
 
   const submit = async () => {
 
-    if(!name || !email ||!password || !confirmPassword ||!country){
+    if (!name || !email || !password || !confirmPassword || !country) {
       handleOpenAlert('error', 'Please fill all the require fields');
     }
     else if (!nameValid(name)) {
@@ -49,7 +48,7 @@ export default function Register({ handleOpenAlert }) {
     }
     else {
       try {
-        const answer = await axios.post(urlServer + "/user/register", {
+        await axios.post(urlServer + "/user/register", {
           name,
           email,
           password,
@@ -59,7 +58,6 @@ export default function Register({ handleOpenAlert }) {
           phone_number,
           age,
         });
-        console.log(answer);
         handleOpenAlert('success', 'User created successfully');
       } catch (err) {
         console.log(err);
@@ -68,8 +66,8 @@ export default function Register({ handleOpenAlert }) {
     }
   };
   return (
-    <Box sx={{textAlign:'center'}}>
-      <Box sx={{ }}>
+    <Box sx={{ textAlign: 'center' }}>
+      <Box sx={{}}>
         <Typography variant="h5" m={2} >
           Sign up
         </Typography>
@@ -170,11 +168,11 @@ export default function Register({ handleOpenAlert }) {
 
       </Box>
       <Box>
-        <Button        
+        <Button
           color="success"
           variant="contained"
           type="submit"
-          sx={{ m: 2}}
+          sx={{ m: 2 }}
           onClick={submit}
         >
           Register

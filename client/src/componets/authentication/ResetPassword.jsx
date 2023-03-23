@@ -2,14 +2,16 @@ import axios from "axios";
 import { useState,useContext } from "react";
 import { passwordValid } from '../../utilities/validetion/validetion.js';
 import UrlContext from "../../context/UrlContext.js";
-import { Box, Typography, TextField, Button } from '@mui/material';
+import { Box, Typography, TextField, Button, Alert } from '@mui/material';
 
 export default function ResetPassword({ handleAuthMode,handleOpenAlert }) {
-
   const {urlServer} = useContext(UrlContext);
   const [code, setCode] = useState('');
   const [password, setPassword] = useState("")
-  const [confirmPassword, setConfirmPassword] = useState("")
+  const [confirmPassword, setConfirmPassword] = useState("") 
+  const [alert, setAlert] = useState(false);
+  const [alertContent, setAlertContent] = useState("");
+  const [alertSeverity, setAlertSeverity] = useState("");
 
   const submit = async () => {
     if (!code || !password || !confirmPassword) {
@@ -28,6 +30,12 @@ export default function ResetPassword({ handleAuthMode,handleOpenAlert }) {
         handleAuthMode(0);
       }
       catch (err) {
+        setAlertSeverity("error");
+          setAlert(true);
+          setAlertContent("Something went wrong. Please try again later");
+          setTimeout(() => {
+            setAlert(false);
+          }, 3000);
         console.log(err)
 
       }
@@ -51,6 +59,13 @@ export default function ResetPassword({ handleAuthMode,handleOpenAlert }) {
         }}
         variant="outlined"
       >
+        <Box margin={1}>
+              {alert ? (
+                <Alert severity={alertSeverity}>{alertContent}</Alert>
+              ) : (
+                <></>
+              )}
+            </Box>
         <div>
         <Typography variant='h5' align="center"  >Add new password</Typography>
         </div>

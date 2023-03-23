@@ -29,7 +29,18 @@ const auth = async (req, res) => {
         if(!user){
             return true
         }
-        return user;
+        return {
+            id: user.id,
+            name: user.name,
+            email: user.email,
+            country: user.country,
+            languages: user.languages,
+            phone_number: user.phone_number,
+            age: user.age,
+            about: user.about || null,
+            posts: (user.posts && user.posts.map((post) => { return convertToReadingPossibility(post) })) || null,
+            subjects: user.subjects || null,
+        };
     }
     catch (err) {
         console.log(err);
@@ -105,7 +116,7 @@ const forgetPassword = async (reqBody) => {
         const emailDestination =user.email;
         const titleMessage ='temporary code from study partner'; 
         const bodyMessage =`<div>
-        <h4>hii avi! </h4>
+        <h4>hii ${user.name} </h4>
         <p>your temporary password is: ${newPass}  please do not share this password to anybody.. 
         have a nice day !!</p>
         </div>`;

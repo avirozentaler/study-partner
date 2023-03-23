@@ -47,7 +47,6 @@ export default function Nav({ setOpenLogIn }) {
     setMode(mode === "light" ? "dark" : "light");
   };
   const handleOpenUserMenu = (event) => {
-    console.log(event.currentTarget.value);
     setAnchorUserMenu(event.currentTarget);
   };
   const handleCloseUserMenu = () => {

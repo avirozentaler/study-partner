@@ -2,7 +2,6 @@ import axios from "axios";
 import React, { useEffect, useState, useContext } from "react";
 import { useParams,useNavigate } from 'react-router-dom';
 import UrlContext from "../../context/UrlContext.js";
-
 import {
     Box,
     Button,
@@ -113,15 +112,13 @@ export default function ConfirmPost() {
                         <Box><Button m={1} onClick={()=>{navigate('/')} } endIcon={<ArrowForwardIcon />}>Back to Home Page</Button></Box>
                     </Box>
                 }
-
             </Paper >
             <Snackbar
                 open={openSnack}
                 autoHideDuration={4000}
                 onClose={handleCloseSnack}
             >
-                {successActive ? <Alert onClose={handleCloseSnack} severity="success" sx={{ width: '100%' }}>Email sent</Alert> : <Alert onClose={handleCloseSnack} severity="error" sx={{ width: '100%' }}>Action failed</Alert>}
-
+                {successActive ? <Alert onClose={handleCloseSnack} severity="success" sx={{ width: '100%' }}>Email sent</Alert> : errorActive && <Alert onClose={handleCloseSnack} severity="error" sx={{ width: '100%' }}>Action failed</Alert>}
             </Snackbar>
         </Box >
     )

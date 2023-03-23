@@ -4,7 +4,6 @@ import LogIn from "./LogIn";
 import ForgetPassword from "./ForgetPassword";
 import ResetPassword from "./ResetPassword";
 import {Box,Dialog,DialogContent,DialogTitle,IconButton ,Alert } from "@mui/material";
-
 import CloseIcon from "@mui/icons-material/Close";
 import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
 
@@ -39,11 +38,9 @@ export default function Auth({ handleCloseLogIn, openLogIn }) {
         aria-describedby="auth"
       >
         <DialogTitle>
-
         <Box sx={{ position: 'relative' }}>
         {opanAlert ? <Alert onClose={handleCloseAlert} sx={{ position: 'absolute', width: '100%' }} severity={alertMode}>{alertMessage}</Alert> : null}
       </Box>
-
           {authMode >0 && <ArrowBackOutlinedIcon onClick={()=>handleAuthMode(0)}/>}
           {!opanAlert &&<IconButton
             onClick={handleCloseLogIn}

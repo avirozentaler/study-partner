@@ -34,7 +34,7 @@ export default function PostSending({ emailSent }) {
                 <ErrorOutlinedIcon color="error" fontSize="large"/>
               </Box>
             </Box> :
-            emailSent ==1 && (
+            emailSent ===1 && (
               <Box sx={{ textAlign: 'center'}}>
                 <Box>
                   <Typography variant="h5">

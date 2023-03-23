@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import UserConnected from "../../context/UserConnected";
 import UrlContext from "../../context/UrlContext.js";
@@ -110,8 +110,3 @@ export default function ExtendedPost({ post, setIsSendingEmail, setEmailSent  })
         </Box> 
   );
 }
-
-
-
-
-

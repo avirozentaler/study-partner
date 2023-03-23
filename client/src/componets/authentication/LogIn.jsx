@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useState, useContext } from "react";
 import UserConnected from "../../context/UserConnected";
 import { emailValid, passwordValid } from "../../utilities/validetion/validetion.js";
-import { Box, Typography, TextField, Button, Link, } from "@mui/material";
+import { Box, Typography, TextField, Button, Link } from "@mui/material";
 import UrlContext from "../../context/UrlContext.js";
 
 export default function Login({ handleAuthMode, handleCloseLogIn, handleOpenAlert }) {
@@ -28,8 +28,8 @@ export default function Login({ handleAuthMode, handleCloseLogIn, handleOpenAler
         );
         sessionStorage.setItem("user", JSON.stringify(answer.data));
         sessionStorage.setItem("user_id", JSON.stringify(answer.data.id));
-        console.log(answer.data);
         setUserConnected(answer.data);
+        handleOpenAlert('success', 'Welcome! and good luck finding a partner');
         handleCloseLogIn();
       }
       catch (err) {
@@ -40,10 +40,10 @@ export default function Login({ handleAuthMode, handleCloseLogIn, handleOpenAler
   };
   return (
     <Box
-      m={2}  
-      
+      m={2}
+
       sx={{
-        width:{
+        width: {
           xs: 240,
           sm: 285,
           md: 400,

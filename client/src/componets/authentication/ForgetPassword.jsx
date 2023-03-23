@@ -5,10 +5,8 @@ import { Box, TextField, Button, Typography } from '@mui/material';
 import UrlContext from "../../context/UrlContext.js";
 
 export default function ForgetPassword({ handleAuthMode,handleOpenAlert }) {
-
   const [email, setEmail] = useState('');
   const { urlServer } = useContext(UrlContext);
-
   const submit = async () => {
     if (!email || !emailValid(email)) {
       handleOpenAlert('error','please add an valid email');
@@ -22,19 +20,16 @@ export default function ForgetPassword({ handleAuthMode,handleOpenAlert }) {
         }
         handleOpenAlert('success','Password reset. please check your Email');
         handleAuthMode(3);
-
       }
       catch (err) {
         console.error(err)
         handleOpenAlert('error','Faild to reset password');
       }
     }
-
   }
 
   return (
-    <Box >
-      
+    <Box >      
       <Box>
         <Typography variant="h5" align="center">
           Reset Password

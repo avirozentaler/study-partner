@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import PostCard from "./PostCard";
-import { Box, Grid, CircularProgress, Typography } from "@mui/material";
+import { Box, Grid, CircularProgress } from "@mui/material";
 import UrlContext from "../../context/UrlContext";
 
 export default function Posts() {
@@ -21,7 +21,6 @@ export default function Posts() {
         else {
           setPosts(postsList)
         }
-
       }
       catch (err) {
         console.log(err);
