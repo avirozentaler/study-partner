@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useContext} from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { useLocation } from 'react-router-dom'
 import axios from 'axios';
 import UserPosts from './UserPosts';
@@ -24,13 +24,13 @@ export default function UserProfile() {
   const [rate, setRate] = useState(null);
   const [isRating, setIsRating] = useState(false);
   const { userConnected } = useContext(UserConnected);
-  const {urlServer} = useContext(UrlContext);
+  const { urlServer } = useContext(UrlContext);
 
   useEffect(() => {
     (async () => {
       try {
         const userData = await axios.post(
-          urlServer+"/user/get-one",
+          urlServer + "/user/get-one",
           { id: userId }
         );
         setUser(userData.data);
@@ -43,7 +43,7 @@ export default function UserProfile() {
   }, [])
   const handleRate = async (newValue) => {
     console.log('newVal >>', newValue);
-    const newRate = await axios.put(urlServer+'/activity/rate-user',
+    const newRate = await axios.put(urlServer + '/activity/rate-user',
       { email: user.email, rate: newValue },
       { withCredentials: true });
 
@@ -54,7 +54,6 @@ export default function UserProfile() {
   const handleCancelRate = () => {
     setIsRating(rating => !rating)
   }
-
   return (
     <Box>
       {user ? (

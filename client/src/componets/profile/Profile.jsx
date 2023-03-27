@@ -19,15 +19,13 @@ export default function Profie() {
   const navigate = useNavigate()
   const [expanded, setExpanded] = useState("1");
   const { userConnected } = useContext(UserConnected);
+
   useEffect(() => {
-
-    // setInterval(()=>{
-    //   if (!userConnected) {
-    //     navigate('/')
-    //   }
-    // },5000)
-
-  }, [userConnected, navigate]);
+    if(!userConnected){
+      navigate('/');
+    }   
+    
+  }, [userConnected]);
 
   const handleChange = (panel) => {
     if (expanded === panel) {
@@ -36,6 +34,7 @@ export default function Profie() {
     }
     setExpanded(panel);
   }
+  
   return (
     <Box>
       {userConnected && <Box>
@@ -85,7 +84,7 @@ export default function Profie() {
             <Typography>My Posts</Typography>
           </AccordionSummary>
           <AccordionDetails>
-              <ProfilePosts />
+              <ProfilePosts posts={userConnected.posts}/>
           </AccordionDetails>
         </Accordion>
       </Box>

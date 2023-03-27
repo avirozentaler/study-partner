@@ -4,8 +4,7 @@ import { passwordValid } from '../../utilities/validetion/validetion.js';
 import UrlContext from "../../context/UrlContext.js";
 import { Box, Typography, TextField, Button, Alert } from '@mui/material';
 
-export default function ResetPassword({ handleHavePass }) {
-
+export default function ResetPassword({ handleAuthMode,handleOpenAlert }) {
   const {urlServer} = useContext(UrlContext);
   const [code, setCode] = useState('');
   const [password, setPassword] = useState("")
@@ -14,44 +13,21 @@ export default function ResetPassword({ handleHavePass }) {
   const [alertContent, setAlertContent] = useState("");
   const [alertSeverity, setAlertSeverity] = useState("");
 
-
-
   const submit = async () => {
     if (!code || !password || !confirmPassword) {
-      setAlertSeverity("error");
-          setAlert(true);
-          setAlertContent("missing details");
-          setTimeout(() => {
-            setAlert(false);
-          }, 3000);
+      handleOpenAlert('error','please fill all the field')
     }
     else if (!passwordValid(password)) {
-          setAlertSeverity("error");
-          setAlert(true);
-          setAlertContent("password not valid");
-          setTimeout(() => {
-            setAlert(false);
-          }, 3000);
+      handleOpenAlert('error','password not valid')
     }
     else if (password !== confirmPassword) {
-      setAlertSeverity("error");
-          setAlert(true);
-          setAlertContent("Password not match to confirm password");
-          setTimeout(() => {
-            setAlert(false);
-          }, 3000);
+      handleOpenAlert('error','confirm password is not matched')
     }
     else {
       try {
-        const answer = await axios.post(urlServer+'/auth/reset-pass', { code, password, confirmPassword })
-        console.log(answer);
-        setAlertSeverity("success");
-          setAlert(true);
-          setAlertContent("The password has been changed successfully");
-          setTimeout(() => {
-            setAlert(false);
-          }, 3000);
-        handleHavePass()
+        await axios.post(urlServer+'/auth/reset-pass', { code, password, confirmPassword })
+        handleOpenAlert('sucess','Password reset');
+        handleAuthMode(0);
       }
       catch (err) {
         setAlertSeverity("error");
@@ -105,7 +81,7 @@ export default function ResetPassword({ handleHavePass }) {
         />
         <TextField
           required
-          id='password'
+           id='password'
           name="password"
           type="password"
           label="Password"

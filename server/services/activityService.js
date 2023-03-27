@@ -44,8 +44,6 @@ const reactToPost = async (req) => {
 const confirmPost = async (req) => {
     try {
         const { applicantId, postId } = req.body;
-        // console.log('applicantId >> ', applicantId);
-        // console.log('postId >> ', postId);
         if (applicantId === undefined || postId === undefined) {
             throw new Error('error with request details.');
         }
@@ -53,14 +51,11 @@ const confirmPost = async (req) => {
         if (!post) {
             throw new Error('post not found.');
         }
-        // console.log('post >> ', post);
         const autherPost = await userRepo.getOneUser(null, post.user_id);
-        // console.log(autherPost);
         if (!autherPost) {
             throw new Error('auther not found.');
         }
         const applicant = await userRepo.getOneUser(null, applicantId);
-        // console.log('applicant >> ',applicant);
         if (!applicant) {
             throw new Error('applicant not found.');
         }
@@ -71,11 +66,6 @@ const confirmPost = async (req) => {
             study partner office
             ${autherPost.email} / ${autherPost.phone_number}`, null);
         console.log(transfer);
-        // if(transfer.message){
-
-        //     console.log('typeof >>');
-        //     console.log(typeof transfer);
-        // }
         await postRepo.updatePost(postId, { mathed: -1 });
         return 'Email sent to the Partner';
     }
@@ -88,24 +78,18 @@ const confirmPost = async (req) => {
 const denyPost = async (req) => {
     try {
         const { applicantId, postId } = req.body;
-        // console.log('applicantId >> ', applicantId);
-        // console.log('postId >> ', postId);
         if (applicantId === undefined || postId === undefined) {
             throw new Error('error with request details.');
         }
         const post = await postRepo.getPost(postId);
-        // console.log('post >> ', post);
         if (!post) {
             throw new Error('post not found.');
         }
-        // console.log('user id post >>', post.user_id);
         const autherPost = await userRepo.getOneUser(null, post.user_id);
-        // console.log('autherPost >> ', autherPost);
         if (!autherPost) {
             throw new Error('auther not found.');
         }
         const applicant = await userRepo.getOneUser(null, applicantId);
-        // console.log('applicant >> ', applicant);
         if (!applicant) {
             throw new Error('applicant not found.');
         }
@@ -120,7 +104,6 @@ const denyPost = async (req) => {
                  study partner office
                 </p>
             </div>`);
-            console.log(transfer);
         if (transfer.message) {
             throw new Error(transfer.message)
         }
@@ -137,7 +120,6 @@ const rateUser = async (req) => {
     try {
         const { email, rate } = req.body;
         const user = await userRepo.getOneUser(email, null);
-        console.log(user);
         if (!user) {
             throw new Error('user not found');
         }

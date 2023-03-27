@@ -20,7 +20,6 @@ import {
   DialogTitle,
   Alert,
 } from "@mui/material/";
-import { width } from "@mui/system";
 const dateTime = new Date();
 
 export default function CreatePost({ open, setOpen }) {

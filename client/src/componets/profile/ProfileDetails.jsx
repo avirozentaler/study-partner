@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+    import React, { useState, useContext } from 'react'
 import UrlContext from "../../context/UrlContext.js";
 import EditIcon from '@mui/icons-material/Edit';
 import SaveIcon from '@mui/icons-material/Save';
@@ -27,28 +27,14 @@ export default function ProfileDetails() {
 
     const handleSave = async () => {
         try {
-            console.log(email);
-            console.log(name);
-            console.log(country);
-            console.log(age);
-            console.log(phone_number);
-            console.log(languages);
-            
-            
-            console.log('start');
-            // const t=  axios.post('http://localhost:3005/user/update');
-            // console.log(t);
              await axios.put(`${urlServer}/user/update`,
-            //  await axios.post('http://localhost:3005/user/update',
                 { email, name, country, languages, age, phone_number },
                 { withCredentials: true }
             );
-            console.log('do');
             setEdit(edit => !edit);
         }
         catch (err) {
             console.log(err);
-
         }
     }
     const handleCancel = () => {
