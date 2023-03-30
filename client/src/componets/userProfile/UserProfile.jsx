@@ -30,7 +30,7 @@ export default function UserProfile() {
     (async () => {
       try {
         const userData = await axios.post(
-          urlServer + "/user/get-one",
+          `${urlServer}/user/get-one`,
           { id: userId }
         );
         setUser(userData.data);
@@ -40,7 +40,7 @@ export default function UserProfile() {
         console.log(err);
       }
     })()
-  }, [])
+  }, [urlServer,userId])
   const handleRate = async (newValue) => {
     console.log('newVal >>', newValue);
     const newRate = await axios.put(urlServer + '/activity/rate-user',

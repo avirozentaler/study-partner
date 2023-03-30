@@ -25,7 +25,7 @@ export default function Profie() {
       navigate('/');
     }   
     
-  }, [userConnected]);
+  }, [userConnected,navigate]);
 
   const handleChange = (panel) => {
     if (expanded === panel) {

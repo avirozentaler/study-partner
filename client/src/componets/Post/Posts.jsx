@@ -12,7 +12,7 @@ export default function Posts() {
     (async () => {
       try {
         const postsList = await (
-          await axios.get(urlServer+"/post/get-all")
+          await axios.get(`${urlServer}/post/get-all`)
         ).data;
 
         if (!postsList) {
@@ -26,7 +26,7 @@ export default function Posts() {
         console.log(err);
       }
     })()
-  }, []);
+  }, [urlServer]);
 
   return (
     <Box>

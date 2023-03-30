@@ -19,12 +19,18 @@ import {
   DialogContent,
   DialogTitle,
   Alert,
+  Typography,
 } from "@mui/material/";
 const dateTime = new Date();
 
 export default function CreatePost({ open, setOpen }) {
   const { urlServer } = useContext(UrlContext);
   const { userConnected } = useContext(UserConnected);
+
+  const [alertMessage, setAlertMessage] = useState('')
+  const [opanAlert, setOpanAlert] = useState(false);
+  const [alertMode, setAlertMode] = useState('')
+
   const [valueCategory, setValueCategory] = useState("");
   const [valueSubCategory, setValueSubCategory] = useState("");
   const [date, setDate] = useState(new Date(new Date().setHours(0, 0, 0, 0)));
@@ -41,14 +47,26 @@ export default function CreatePost({ open, setOpen }) {
   useEffect(() => {
     (async () => {
       try {
-        const result = await axios.get(urlServer + "/category/get-all");
+        const result = await axios.get(`${urlServer}/category/get-all`);
         console.log(result);
         setOption(result.data);
       } catch (err) {
         console.log(err);
       }
     })();
-  }, []);
+  }, [urlServer]);
+
+  const handleOpenAlert = (alertStatus, message) => {
+    setAlertMode(alertStatus);
+    setAlertMessage(message)
+    setOpanAlert(true);
+    setTimeout(() => {
+      setOpanAlert(false);
+    }, 3500)
+  }
+  const handleCloseAlert = () => {
+    setOpanAlert(false);
+  }
 
   const handleOptionSub = () => {
     const cat = option.find((item) => item.name === valueCategory);
@@ -69,12 +87,13 @@ export default function CreatePost({ open, setOpen }) {
         !fromTime ||
         !toTime
       ) {
-        setAlertSeverity("error");
-        setAlert(true);
-        setAlertContent("missing details");
-        setTimeout(() => {
-          setAlert(false);
-        }, 5000);
+        handleOpenAlert("error", "missing details")
+        // setAlertSeverity("error");
+        // setAlert(true);
+        // setAlertContent("missing details");
+        // setTimeout(() => {
+        //   setAlert(false);
+        // }, 5000);
       } else {
         const tempDate =
           (date.$y && new Date(date.$y, date.$M, date.$D, 0, 0)) || date;
@@ -138,10 +157,10 @@ export default function CreatePost({ open, setOpen }) {
             setAlert(false);
           }, 3000);
           setTimeout(() => {
-              window.location.reload();
+            window.location.reload();
             // setOpen(false);
           }, 2000);
-          
+
         }
       }
     } catch (err) {
@@ -154,7 +173,11 @@ export default function CreatePost({ open, setOpen }) {
     <div>
       {option ? (
         <Dialog open={open} onClose={handleClose}>
-          <DialogTitle>Post</DialogTitle>
+          <Box m={1} >
+            <DialogTitle sx={{ position:'relative' }}>
+              {opanAlert ? <Alert onClose={handleCloseAlert} sx={{ position: 'absolute',width:'98%' }} severity={alertMode}>{alertMessage}</Alert> : <Typography variant="">{"Post"}</Typography>}
+            </DialogTitle>
+          </Box>
           <DialogContent>
             <Box margin={1}>
               {alert ? (
@@ -182,7 +205,7 @@ export default function CreatePost({ open, setOpen }) {
               </Grid>
               <Grid item xs={6}>
                 <Autocomplete
-                  options={valueCategory ? handleOptionSub() : []}
+                  options={valueCategory ? handleOptionSub() : [""]}
                   value={valueSubCategory}
                   inputValue={inputSubCategory}
                   onChange={(event, newValue) => {
@@ -224,12 +247,23 @@ export default function CreatePost({ open, setOpen }) {
                 <Grid item xs={6}>
                   <DatePicker
                     label="Date"
-                    value={date || null}
+                    inputFormat="DD/MM/YYYY"
+                    renderInput={(params) => <TextField {...params} />}
+                    value={date}
                     onChange={(newValue) => {
                       newValue && setDate(newValue);
+                      console.log(newValue);
+                    }}
+                  />
+                  {/* <DatePicker                  
+                    label="Date"
+                    inputFormat="DD/MM/YYYY"
+                    value={date || null}
+                    onChange={(newValue) => {
+                    newValue && setDate(newValue);
                     }}
                     renderInput={(params) => <TextField {...params} />}
-                  />
+                  /> */}
                 </Grid>
               </LocalizationProvider>
 

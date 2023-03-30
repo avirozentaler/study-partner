@@ -15,30 +15,21 @@ function App() {
   useEffect(() => {
     (async () => {
       try {
-        const auth = await (await axios.get('http://localhost:3005/auth/', { withCredentials: true })).data
+        // const auth = await (await axios.get('http://localhost:3005/auth/', { withCredentials: true })).data
+        const auth = await (await axios.get( `${urlServer}/auth/`, { withCredentials: true })).data
         if (!auth) {
           setUserConnected(null);
           sessionStorage.clear()
         }
         else {
           setUserConnected(auth);
-          //                 לא למחוק עדיין 
-          //   const userId = JSON.parse(sessionStorage.getItem("user_id")) ||null
-          //   if (!userId || userId === undefined) {
-          //     throw new Error("somthing wrong to get user details");
-          //   }
-          //   const user = await axios.post(urlServer+'/user/get-one', { id: userId }, { withCredentials: true });
-          //   if(!user.data){
-          //     throw new Error("somthing wrong to get user details");
-          //   }
-          //     setUserConnected(user.data);
         }
       }
       catch (err) {
         console.log(err.message);
       }
     })()
-  }, []);
+  }, [urlServer]);
 
   // useEffect(() => {
   //   if (userConnected) {

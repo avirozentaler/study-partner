@@ -37,7 +37,7 @@ export default function ConfirmPost() {
             }
 
         })()
-    }, [])
+    },[the_applicant_id,urlServer])
 
     const confirm = async () => {
         try {
