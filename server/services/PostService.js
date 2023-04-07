@@ -1,10 +1,24 @@
 const { Error } = require('sequelize');
 const PostRepo = require('../repositories/postRepo');
-const {convertToReadingPossibility} = require('../utilities/adjustingData/adjustungPostData');
+const { convertToReadingPossibility } = require('../utilities/adjustingData/adjustungPostData');
+// const addPost = async (reqBody) => {
+//     try {
+//         const { email, userId, auther_name, category, sub_category, post, date, time_from, time_to } = reqBody;
+//         const PostDetails = { email, userId, auther_name, category, sub_category, post, date: date, time_from: time_from, time_to: time_to };
+//         const answer = await PostRepo.addPost(PostDetails);
+
+//         return answer;
+//     }
+//     catch (err) {
+//         console.log(err);
+//         return err;
+//     }
+// }
+
 const addPost = async (reqBody) => {
     try {
-        const { email, userId, auther_name, category, sub_category, post, date, time_from, time_to } = reqBody;
-        const PostDetails = { email, userId, auther_name, category, sub_category, post, date: date, time_from: time_from, time_to: time_to };
+        const { email, userId, auther_name, category, sub_category, post, date_from, date_to, time_from, time_to, days } = reqBody;
+        const PostDetails = { email, userId, auther_name, category, sub_category, post, date_from, date_to, time_from, time_to, days };
         const answer = await PostRepo.addPost(PostDetails);
 
         return answer;
@@ -15,10 +29,26 @@ const addPost = async (reqBody) => {
     }
 }
 
+const getPost = async (req) => {
+    try {
+        const { id } = req.body;
+        const result = await PostRepo.getPost(id);
+        if (!result) {
+            throw new Error("fail to get post or post not found ");
+        }
+
+        return convertToReadingPossibility(result)
+    }
+    catch (err) {
+        console.log(err);
+        return err;
+    }
+}
+
 const getPosts = async () => {
     try {
         const result = await PostRepo.getPosts();
-        if(!result){
+        if (!result) {
             throw new Error("fail to get posts or not found any posts");
         }
         answer = result.map((post) => {
@@ -64,6 +94,7 @@ const deletePost = async (reqBody) => {
 
 module.exports = PostService = {
     addPost,
+    getPost,
     getPosts,
     updatePost,
     deletePost,

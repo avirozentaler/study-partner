@@ -13,6 +13,17 @@ const addPost = async (req, res) => {
     }
 }
 
+const getPost = async (req, res) => {
+    try {
+        const post = await PostService.getPost(req);
+        res.status(200).send(post);
+    }
+    catch (err) {
+        console.log(err);
+        res.status(404).send(err.message);
+    }
+}
+
 const getPosts = async (req, res) => {
     try {
         const posts = await PostService.getPosts();
@@ -54,6 +65,7 @@ const deletePost = async (req, res) => {
 
 module.exports = {
     addPost,
+    getPost,
     getPosts,
     updatePost,
     deletePost

@@ -13,7 +13,10 @@ import {
   Tooltip,
   Button,
   Divider,
+  Badge,
 } from "@mui/material";
+import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
+import NotificationsIcon from '@mui/icons-material/Notifications';
 import Logout from "@mui/icons-material/Logout";
 import { useColorScheme } from "@mui/material/styles";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
@@ -21,7 +24,7 @@ import Brightness7Icon from "@mui/icons-material/Brightness7";
 import InfoIcon from "@mui/icons-material/Info";
 import PersonIcon from "@mui/icons-material/Person";
 import { useNavigate } from "react-router-dom";
- 
+
 export default function Nav({ setOpenLogIn }) {
   const navigae = useNavigate();
   const { mode, setMode } = useColorScheme();
@@ -67,14 +70,19 @@ export default function Nav({ setOpenLogIn }) {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
-        <Toolbar sx={{height:'90px'}}>
+        <Toolbar sx={{ height: '90px' }}>
           <Button type="link" onClick={handleBodyValContent}>
             <Avatar sx={{ width: 60, height: 50 }} alt="LOGO" src="SP.png" />
           </Button>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Study Partner
           </Typography>
-          <IconButton sx={{ margin : 2 }} onClick={modeToggle} color="inherit">
+
+          {/* <Badge badgeContent={1} color="error">     //  התראות 
+            <NotificationsIcon onClick={()=>{alert('')}}/>
+          </Badge> */}
+
+          <IconButton sx={{ margin: 2 }} onClick={modeToggle} color="inherit">
             {mode === "dark" ? <Brightness7Icon /> : <Brightness4Icon />}
           </IconButton>
           <div>
@@ -86,7 +94,7 @@ export default function Nav({ setOpenLogIn }) {
                   ) : (
                     <Avatar>
                       {userConnected.name
-                        ? userConnected.name.slice(0, 1)
+                        ? userConnected.name.slice(0, 1).toUpperCase()
                         : " "}
                     </Avatar>
                   )}

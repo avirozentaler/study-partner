@@ -1,19 +1,31 @@
 const Models = require('../models/Models');
 
+// const addPost = async (details) => {
+//     try {
+//         const user = await Models.UserModel.findOne({ where: { id: details.userId } });
+//         if (!user) {
+//             throw new Error("user does not exist");
+//         }
+//         await Models.PostModel.create({ user_id: user.id, auther_name: details.auther_name, category: details.category, sub_category: details.sub_category, post: details.post, date: details.date, time_from: details.time_from, time_to: details.time_to });
+//         return "post added";
+//     }
+//     catch (err) {
+//         return err;
+//     }
+// }
 const addPost = async (details) => {
     try {
         const user = await Models.UserModel.findOne({ where: { id: details.userId } });
         if (!user) {
             throw new Error("user does not exist");
         }
-        await Models.PostModel.create({ user_id: user.id, auther_name: details.auther_name, category: details.category, sub_category: details.sub_category, post: details.post, date: details.date, time_from: details.time_from, time_to: details.time_to });
+        await Models.PostModel.create({ user_id: user.id, auther_name: details.auther_name, category: details.category, sub_category: details.sub_category, post: details.post, date_from: details.date_from, date_to: details.date_to, time_from: details.time_from, time_to: details.time_to, days: details.days});
         return "post added";
     }
     catch (err) {
         return err;
     }
 }
-
 const getPosts = async () => {
     try {
         const answer = await Models.PostModel.findAll({order:["time_from"]});
