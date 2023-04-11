@@ -52,7 +52,12 @@ const updatePost = async (req, res) => {
 
 const deletePost = async (req, res) => {
     try {
-        const answer = await PostService.deletePost(req.body);
+        const {id}= req.body;
+        console.log('id controller' ,id);
+        const answer = await PostService.deletePost(req);
+        if(answer.message){
+            throw new Error(answer.message)
+        }
         res.status(200).send(answer);
     }
     catch (err) {

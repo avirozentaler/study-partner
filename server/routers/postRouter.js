@@ -8,7 +8,7 @@ postRouter.post('/add',addPost);
 postRouter.post('/get-one',getPost);
 postRouter.get('/get-all',getPosts);
 postRouter.put('/update',updatePost);
-postRouter.delete('/delete',deletePost);
+postRouter.post('/delete',deletePost);
 
 
 

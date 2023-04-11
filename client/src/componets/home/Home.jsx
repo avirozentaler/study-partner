@@ -27,19 +27,20 @@ export default function Home() {
 
     return (
         <Box sx={{ flexGrow: 1 }}>
-            <AuthPopupContex.Provider value={{ handleAuthPopup }}>
-                <BrowserRouter>
-                    <Nav setOpenLogIn={setOpenLogIn} />
-                    <Routes>
-                        <Route path='/' element={<Main openLogIn={openLogIn} handleCloseLogIn={handleCloseLogIn} />} />
-                        <Route path='/about' element={<About />} />
-                        <Route path='/profile' element={<Profie />} />
-                        <Route path='/user' element={<UserProfile />} />
-                        <Route path='/confirm-post/:postid/:the_applicant_id' element={<ConfirmPost/>} />
-                    </Routes>
-                    {openLogIn && <Auth handleCloseLogIn={handleCloseLogIn} openLogIn={openLogIn} />}
-                </BrowserRouter>
-            </AuthPopupContex.Provider>
+            {/* <AuthPopupContex.Provider value={{ handleAuthPopup }}> */}
+            <BrowserRouter>
+                <Nav setOpenLogIn={setOpenLogIn} />
+                <Routes>
+                    <Route path='/' element={<Main openLogIn={openLogIn} handleCloseLogIn={handleCloseLogIn} />} />
+                    <Route path='/about' element={<About />} />
+                    <Route path='/profile' element={<Profie />} />
+                    <Route path='/user' element={<UserProfile />} />
+                    <Route path='/confirm-post' element={<ConfirmPost openLogIn={openLogIn} setOpenLogIn={setOpenLogIn} />} />
+                    {/* <Route path='/confirm-post/:postid/:the_applicant_id' element={<ConfirmPost openLogIn={openLogIn} setOpenLogIn={setOpenLogIn} />} /> */}
+                </Routes>
+                {openLogIn && <Auth handleCloseLogIn={handleCloseLogIn} openLogIn={openLogIn} />}
+            </BrowserRouter>
+            {/* </AuthPopupContex.Provider> */}
         </Box>
     );
 }

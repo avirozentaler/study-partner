@@ -62,7 +62,8 @@ const updatePost = async (id, updatedValues) => {
 
 const deletePost = async (id) => {
     try {
-        const result = await Models.PostModel.destroy({ where: { id } });
+        console.log('id >> ',id);
+        const result = await Models.PostModel.destroy({ where: { id:id } });
         if(!result){
             throw new Error('post has not deleted');
         }

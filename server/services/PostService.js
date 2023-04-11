@@ -80,10 +80,14 @@ const updatePost = async (reqBody) => {
     }
 }
 
-const deletePost = async (reqBody) => {
-    const { id } = reqBody
+const deletePost = async (req) => {
+    const { id } = req.body;
+    console.log('id serv >> ' ,id);
     try {
         const answer = await PostRepo.deletePost(id);
+        if(answer.message !==undefined){
+            throw new Error(answer.message)
+        }
         return answer;
     }
     catch (err) {

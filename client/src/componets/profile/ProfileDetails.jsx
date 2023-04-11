@@ -50,8 +50,8 @@ export default function ProfileDetails() {
     return (
         <Box>
             <Box >
-                <TextField sx={{ m: 1 }} disabled={edit} label="Name" type='text' onChange={(event) => { setName(event.target.value) }} value={name || undefined} required />
-                <TextField sx={{ m: 1 }} disabled label="Email" type='email' onChange={(event) => { setEmail(event.target.value) }} value={email || undefined} required />
+                <TextField sx={{ m: 1 }} disabled={edit} label="Name" type='text' onChange={(event) => { setName(event.target.value) }} value={name || undefined} />
+                <TextField sx={{ m: 1 }} disabled label="Email" type='email' onChange={(event) => { setEmail(event.target.value) }} value={email || undefined}  />
                 <TextField sx={{ m: 1 }} disabled={edit} label="Age" type='number' onChange={(event) => { setAge(event.target.value) }} value={age || undefined} />
                 <TextField sx={{ m: 1 }} disabled={edit} label="Country" type='text' onChange={(event) => { setCountry(event.target.value) }} value={country || undefined} />
                 <TextField sx={{ m: 1 }} disabled={edit} label="Languages" type='text' onChange={(event) => { setLanguages(event.target.value) }} value={languages || undefined} />

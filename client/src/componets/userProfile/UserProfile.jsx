@@ -145,32 +145,6 @@ export default function UserProfile() {
                       minWidth: "130px",
                     }}
                   >
-                    <Typography variant="caption">Email:</Typography>{" "}
-                    <Typography sx={{}}>{user.email}</Typography>{" "}
-                  </Paper>
-                  <Paper
-                    sx={{
-                      display: "flex",
-                      m: 3,
-                      padding: 2,
-                      flexDirection: "column",
-                      alignItems: "flex-start",
-                      minWidth: "130px",
-                    }}
-                  >
-                    <Typography variant="caption">Phone Number:</Typography>{" "}
-                    <Typography sx={{}}>{user.phone_number}</Typography>{" "}
-                  </Paper>
-                  <Paper
-                    sx={{
-                      display: "flex",
-                      m: 3,
-                      padding: 2,
-                      flexDirection: "column",
-                      alignItems: "flex-start",
-                      minWidth: "130px",
-                    }}
-                  >
                     <Typography variant="caption">Languages Skill:</Typography>{" "}
                     <Typography sx={{}}>{user.languages}</Typography>{" "}
                   </Paper>

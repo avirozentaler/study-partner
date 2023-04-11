@@ -2,7 +2,7 @@ import React from 'react'
 import PostCard from "../Post/PostCard";
 import { Box } from "@mui/material";
 
-export default function ProfilePosts({posts}) {
+export default function ProfilePosts({ posts }) {
 
     return (
         <Box sx={{ display: 'flex', overflowX: 'scroll' }}>
@@ -10,6 +10,15 @@ export default function ProfilePosts({posts}) {
                 posts.map((post,index) => {
                     return <PostCard key={index} post={post} />;
                 })}
+            {/* {posts && posts.map((post, index) => {
+                return (
+                    <Box>
+                         <Box sx={{position:'absolute'}}><DeleteIcon color='primary'/></Box>
+                        <PostCard key={index} post={post} />
+                    </Box>
+                )
+            })
+            } */}
         </Box>
     )
 }

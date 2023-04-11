@@ -75,7 +75,7 @@ export default function Nav({ setOpenLogIn }) {
             <Avatar sx={{ width: 60, height: 50 }} alt="LOGO" src="SP.png" />
           </Button>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Study Partner
+            {/* Study Partner */}
           </Typography>
 
           {/* <Badge badgeContent={1} color="error">     //  התראות 

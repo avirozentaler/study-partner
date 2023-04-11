@@ -1,8 +1,11 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import CreatePost from "../Post/CreatePost";
 import CreatePostButton from "../Post/CreatePostButton";
 import Posts from "../Post/Posts";
-import Box from "@mui/material/Box";
+// import Box from "@mui/material/Box";
+import { Box, Typography, TextField, Button } from "@mui/material";
+import SearchIcon from '@mui/icons-material/Search';
+
 
 export default function Main({ openLogIn, handleCloseLogIn }) {
 
@@ -10,6 +13,10 @@ export default function Main({ openLogIn, handleCloseLogIn }) {
 
   return (
     <Box>
+      <Box mt={3} mb={3}>
+        <Typography variant="h5">Study Partner</Typography>
+        <Typography variant="body1">Find partner to study common interests topics</Typography>
+      </Box>
       <Box>
         <Posts />
       </Box>
