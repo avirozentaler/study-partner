@@ -13,7 +13,6 @@ import {
   Box,
   Typography,
 } from "@mui/material";
-let connected = true;
 
 export default function Profie() {
   const navigate = useNavigate()
@@ -28,10 +27,7 @@ export default function Profie() {
 
   }, [userConnected, navigate]);
 
-  const sleep = (ms) => {
-    return new Promise(res => setTimeout(res, ms))
-  }
-
+  
   const handleChange = (panel) => {
     if (expanded === panel) {
       setExpanded(" ");
@@ -98,6 +94,3 @@ export default function Profie() {
 
   )
 }
-
-
-

@@ -2,6 +2,7 @@ const activityRepo = require('../repositories/activityRepo');
 const userRepo = require('../repositories/userRepo');
 const postRepo = require('../repositories/postRepo');
 const { transferMail } = require('../utilities/mailer/mailer')
+const { testMatched } = require('../utilities/post/postFunctions')
 const week = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
 
 const reactToPost = async (req) => {
@@ -15,9 +16,6 @@ const reactToPost = async (req) => {
         if (days[day] === 0) {
             throw new Error("The day already taken or not able to study");
         }
-        // if (post.mathed !==1) {
-        //     throw new Error("post already used");
-        // }
         const user = await userRepo.getOneUser(null, post.user_id || null);
         if (!user) {
             throw new Error("user not found");
@@ -29,7 +27,7 @@ const reactToPost = async (req) => {
         const htmlMessage = `<div>
         <h4>hii ${user.name}! </h4>
         <p>someone answer your post request to practice... on ${week[day]}</p>
-        <p>please click  <a href=http://localhost:3000/confirm-post?pid=${postId}&aid=${the_applicant_id}day?${day}> here </a> to confirm.</p>
+        <p>please click  <a href=http://localhost:3000/confirm-post?pid=${postId}&aid=${the_applicant_id}&day=${day}> here </a> to confirm.</p>
         <p>have a nice day !!</p>
         <p>Study partner office</p>
         </div>`;
@@ -37,8 +35,6 @@ const reactToPost = async (req) => {
         if (sendEmail.message) {
             throw new Error(sendEmail.message)
         }
-        // days[day] = 0;
-        // await postRepo.updatePost(postId, { days:days });
         return "email sent";
     }
     catch (err) {
@@ -50,12 +46,19 @@ const reactToPost = async (req) => {
 const confirmPost = async (req) => {
     try {
         const { applicantId, postId, day } = req.body;
-        if (applicantId === undefined || postId === undefined) {
+        if (applicantId === undefined || postId === undefined || day === undefined) {
             throw new Error('error with request details.');
+        }
+        if (!day) {
+            throw new Error('day not valid.');
         }
         const post = await postRepo.getPost(postId);
         if (!post) {
             throw new Error('post not found.');
+        }
+        const days = JSON.parse(post.days);
+        if (days[day] === 0) {
+            throw new Error('day already taken');
         }
         const autherPost = await userRepo.getOneUser(null, post.user_id);
         if (!autherPost) {
@@ -72,10 +75,9 @@ const confirmPost = async (req) => {
             study partner office.
           
             ${autherPost.email} / ${autherPost.phone_number}`, null);
-        console.log(transfer);
-        const days = post.days;
         days[day] = 0;
-        await postRepo.updatePost(post.id, { days });
+        const matched = testMatched(days)
+        await postRepo.updatePost(post.id, { days, matched: matched });
         return 'Email sent to the Partner';
     }
     catch (err) {

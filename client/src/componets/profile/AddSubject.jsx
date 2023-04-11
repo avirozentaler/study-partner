@@ -6,7 +6,7 @@ import { Box, Button, InputLabel, MenuItem, FormControl, Typography, Select } fr
 import AddIcon from '@mui/icons-material/Add';
 
 export default function AddSubject({ setAddSubject }) {
-    const { userConnected, setUserConnected } = useContext(UserConnected);
+    const { userConnected } = useContext(UserConnected);
     const { urlServer } = useContext(UrlContext);
     const [cat, setCat] = useState('');
     const [subCat, setSubCat] = useState('');
@@ -31,7 +31,7 @@ export default function AddSubject({ setAddSubject }) {
 
     const handleChangeCat = (event) => {
         const { target: { value } } = event
-        const sub = cat.filter((item) => item.id == value.id);
+        const sub = cat.filter((item) => item.id === value.id);
         setSubCat(sub[0].subjects)
     };
 

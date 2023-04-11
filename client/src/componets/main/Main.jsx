@@ -2,12 +2,11 @@ import React, { useState } from "react";
 import CreatePost from "../Post/CreatePost";
 import CreatePostButton from "../Post/CreatePostButton";
 import Posts from "../Post/Posts";
-// import Box from "@mui/material/Box";
-import { Box, Typography, TextField, Button } from "@mui/material";
-import SearchIcon from '@mui/icons-material/Search';
+import { Box, Typography,  } from "@mui/material";
+// import SearchIcon from '@mui/icons-material/Search';
 
 
-export default function Main({ openLogIn, handleCloseLogIn }) {
+export default function Main() {
 
   const [openPost, setOpenPost] = useState(false);
 

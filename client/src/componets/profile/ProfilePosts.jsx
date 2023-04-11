@@ -10,15 +10,6 @@ export default function ProfilePosts({ posts }) {
                 posts.map((post,index) => {
                     return <PostCard key={index} post={post} />;
                 })}
-            {/* {posts && posts.map((post, index) => {
-                return (
-                    <Box>
-                         <Box sx={{position:'absolute'}}><DeleteIcon color='primary'/></Box>
-                        <PostCard key={index} post={post} />
-                    </Box>
-                )
-            })
-            } */}
         </Box>
     )
 }

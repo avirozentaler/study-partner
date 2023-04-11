@@ -108,7 +108,7 @@ const Post = db.define('post', {
         type: DataTypes.JSON,
         allowNull: true 
     },
-    mathed:{
+    matched:{
         type:DataTypes.TINYINT,
         defaultValue:1,
     }

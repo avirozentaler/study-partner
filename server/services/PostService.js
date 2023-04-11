@@ -1,19 +1,5 @@
-const { Error } = require('sequelize');
 const PostRepo = require('../repositories/postRepo');
-const { convertToReadingPossibility } = require('../utilities/adjustingData/adjustungPostData');
-// const addPost = async (reqBody) => {
-//     try {
-//         const { email, userId, auther_name, category, sub_category, post, date, time_from, time_to } = reqBody;
-//         const PostDetails = { email, userId, auther_name, category, sub_category, post, date: date, time_from: time_from, time_to: time_to };
-//         const answer = await PostRepo.addPost(PostDetails);
-
-//         return answer;
-//     }
-//     catch (err) {
-//         console.log(err);
-//         return err;
-//     }
-// }
+const { convertToReadingPossibility } = require('../utilities/post/adjustungPostData');
 
 const addPost = async (reqBody) => {
     try {
@@ -36,7 +22,6 @@ const getPost = async (req) => {
         if (!result) {
             throw new Error("fail to get post or post not found ");
         }
-
         return convertToReadingPossibility(result)
     }
     catch (err) {
@@ -48,7 +33,7 @@ const getPost = async (req) => {
 const getPosts = async () => {
     try {
         const result = await PostRepo.getPosts();
-        if (!result) {
+        if(result.message){
             throw new Error("fail to get posts or not found any posts");
         }
         answer = result.map((post) => {

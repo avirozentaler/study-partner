@@ -1,5 +1,4 @@
-import React, { useState, useContext } from "react";
-import UserConnected from "../../context/UserConnected";
+import React, { useState } from "react";
 import ExtendPostDialog from "./ExtendPostDialog";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
@@ -10,12 +9,10 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import { Paper, Box } from "@mui/material";
 import CalendarTodayTwoToneIcon from '@mui/icons-material/CalendarTodayTwoTone';
-import DeleteIcon from '@mui/icons-material/Delete';
 
 export default function PostCard({ post }) {
   const [openMore, setOpenMore] = useState(false);
-  const [week, setWeek] = useState(["Sun", "Mon", "Tue", "Wen", "Thu", "Fri", "Sat"]);
-  const { userConnected } = useContext(UserConnected);
+  const [week] = useState(["Sun", "Mon", "Tue", "Wen", "Thu", "Fri", "Sat"]);
   return (
     <Box>
       <Tooltip
@@ -32,7 +29,6 @@ export default function PostCard({ post }) {
           ],
         }}
         title={post.matched === -1 ? "this post has been already matched." : ""}
-        // title={post.matched === -1 ? "this post has been already matched." : ""}
       >
         <Card
           sx={{
@@ -41,11 +37,11 @@ export default function PostCard({ post }) {
             margin: 3,
             textAlign: "left",
             opacity:
-              post.matched === -1 ? "0.5" : post.matched === 0 ? "0.8" : "1"
+              post.matched === 1 ? "0.5" : "1"
           }}
         >
           <Box sx={{ position: "relative", width: "100%", height: "100%" }}>
-            {post.matched === -1 && (
+            {post.matched === 1 && (
               <Paper
                 sx={{
                   width: "100%",
@@ -89,16 +85,14 @@ export default function PostCard({ post }) {
             </Typography>
             <Box mt={1}>
               {week?.map((item, index) => {
-                return <CalendarTodayTwoToneIcon key={index} fontSize="small" color={post.days[index] <1 ? "disabled" : "primary"} />
+                return <CalendarTodayTwoToneIcon key={index} fontSize="small" color={post.days[index] < 1 ? "disabled" : "primary"} />
               })}
             </Box>
 
           </CardContent>
-          {/* <CardActions sx={{ display: "flex", justifyContent: "flex-end" }}> */}
-          <CardActions sx={{ display: "flex",justifyContent:'space-between' }}>
-          {/* <Box>{userConnected && (userConnected.id === post.user_id) && <DeleteIcon opacity={1} sx={{ mr: 1,opacity:1 }} color='primary' onClick={()=>{alert("dsk")}}/>}</Box> */}
+          <CardActions sx={{ display: "flex", justifyContent: 'flex-end' }}>
             <Button
-              disabled={post.matched !== 1}
+              disabled={post.matched === 1}
               variant="outlined"
               size="small"
               onClick={() => {

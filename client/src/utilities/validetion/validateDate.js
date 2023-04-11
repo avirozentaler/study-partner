@@ -24,8 +24,6 @@ const weekIsEmpty = (week) => {
 
 const getOptionalsDays = (startDay, distance) => {
     const week = [-1, -1, -1, -1, -1, -1, -1];
-    // let t = startDay;
-    let i = 0;
     for(let i=0;i<distance; i++){
         week[startDay % 7] = 0;
         startDay++;

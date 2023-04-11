@@ -2,7 +2,7 @@ const UserRepo = require('../repositories/userRepo');
 const bcrypt = require('bcrypt');
 const BCRYPT_ROUNDS = parseInt(process.env.BCRYPT_ROUNDS);
 const { nameValid, emailValid, passwordValid, countryValid, languagesValid, phone_numberValid, age_rangeValid: ageValid } = require('../utilities/validations/validations');
-const {convertToReadingPossibility} = require('../utilities/adjustingData/adjustungPostData');
+const {convertToReadingPossibility} = require('../utilities/post/adjustungPostData');
 
 const addUser = async (reqBody) => {
 

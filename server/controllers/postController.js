@@ -27,6 +27,9 @@ const getPost = async (req, res) => {
 const getPosts = async (req, res) => {
     try {
         const posts = await PostService.getPosts();
+        if(posts.message !==undefined){
+            throw new Error(posts.message);
+        }
         res.status(200).send(posts);
     }
     catch (err) {

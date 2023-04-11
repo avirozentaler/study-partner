@@ -15,7 +15,7 @@ const convertToReadingPossibility =(post)=>{
          date_to: `${Tdto.getDate()<10?"0":""}${Tdto.getDate()}/${Tdto.getMonth()<10?"0":""}${Tdto.getMonth()+1}/${Tdto.getFullYear()}`||null,
          time_from: `${Tfrom.getHours()<10?"0":""}${Tfrom.getHours()}:${Tfrom.getMinutes()<10?"0":""}${Tfrom.getMinutes()}`,
          time_to: `${Tto.getHours()<10?"0":""}${Tto.getHours()}:${Tto.getMinutes()<10?"0":""}${Tto.getMinutes()}`,
-         matched :post.mathed,
+         matched :post.matched,
          days:JSON.parse(post.days)   
      }
 }

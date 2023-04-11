@@ -13,10 +13,8 @@ import {
 } from "@mui/material/";
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
-export default function ConfirmPost({ openLogIn, setOpenLogIn }) {
-    // const { postid, the_applicant_id } = useParams();
+export default function ConfirmPost({  setOpenLogIn }) {
     const [paramseS] = useSearchParams();
-
     const postid = paramseS.get('pid');
     const the_applicant_id = paramseS.get('aid');
     const day = paramseS.get('day');
@@ -30,6 +28,24 @@ export default function ConfirmPost({ openLogIn, setOpenLogIn }) {
     const [alertMessage, setAlertMessage] = useState('Email sent')
     const [alertMode, setAlertMode] = useState('error');
 
+    useEffect(() => {
+        (async () => {
+            console.log('pid' , postid );
+            console.log('aid' , the_applicant_id );
+            console.log('day' , day);
+            try {
+                if (the_applicant_id !== undefined && the_applicant_id) {
+                    const temp = await axios.post(`${urlServer}/user/get-one`, { id: the_applicant_id }, { withCredentials: true });
+                    console.log(temp);
+                    setApplicant(temp.data);
+                }
+            }
+            catch (err) {
+                console.log(err);
+            }
+        })()
+    }, [the_applicant_id, urlServer,day,postid])
+
     const handleOpenAlert = (alertStatus, message) => {
         setAlertMode(alertStatus);
         setAlertMessage(message)
@@ -42,21 +58,6 @@ export default function ConfirmPost({ openLogIn, setOpenLogIn }) {
     const handleCloseAlert = () => {
         setOpanAlert(false);
     }
-
-    useEffect(() => {
-        (async () => {
-            try {
-                if (the_applicant_id !== undefined && the_applicant_id) {
-                    const temp = await axios.post(`${urlServer}/user/get-one`, { id: the_applicant_id }, { withCredentials: true });
-                    console.log(temp);
-                    setApplicant(temp.data);
-                }
-            }
-            catch (err) {
-                console.log(err);
-            }
-        })()
-    }, [the_applicant_id, urlServer])
 
     const authConnected = () => {
         if (!userConnected) {
@@ -73,12 +74,18 @@ export default function ConfirmPost({ openLogIn, setOpenLogIn }) {
     const confirm = async () => {
         if (authConnected()) { return }
         try {
+            if(!postid ||!the_applicant_id ||!day){
+                handleOpenAlert("error", "Error with loading details");
+                return;
+            }
             setProgressTrans(true);
             const answer = await axios.post(urlServer + '/activity/confirm-post', { applicantId: the_applicant_id, postId: postid, day }, { withCredentials: true });
             console.log(answer);
             setProgressTrans(false);
-            setEmailSent(true);
             handleOpenAlert("success", "Email sent successful");
+            setTimeout(()=>{
+                setEmailSent(true);
+            },3500)
         }
         catch (err) {
             console.log(err);
@@ -90,6 +97,10 @@ export default function ConfirmPost({ openLogIn, setOpenLogIn }) {
 
     const deny = async () => {
         if (authConnected()) { return }
+        if(!postid ||!the_applicant_id ||!day){
+            handleOpenAlert("error", "Error with loading details");
+            return;
+        }
         try {
             setProgressTrans(true);
             const answer = await axios.post(urlServer + '/activity/deny-post', { applicantId: the_applicant_id, postId: postid }, { withCredentials: true });

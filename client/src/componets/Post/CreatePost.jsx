@@ -44,7 +44,7 @@ export default function CreatePost({ open, setOpen }) {
   const [option, setOption] = useState(null);
   const [comment, setComment] = useState("");
   const [days, setDays] = useState([0, 0, 0, 0, 0, 0, 0]);
-  const [week, setWeek] = useState(["Sun", "Mon", "Tue", "Wen", "Thu", "Fri", "Sat"]);
+  const [week] = useState(["Sun", "Mon", "Tue", "Wen", "Thu", "Fri", "Sat"]);
   const [loading, setLoading] = useState(false);
   const [rendering, setRendering] = useState(true);
 
@@ -106,14 +106,14 @@ export default function CreatePost({ open, setOpen }) {
         auther_name: userConnected.name || null,
         post: comment || null,
         category: inputCategory,
-        sub_category: valueSubCategory,
+        sub_category: inputSubCategory,
         date_from: dFrom,
         date_to: dTo,
         time_from: tFrom,
         time_to: tTo,
         days: days || null
       }
-      const answer = await axios.post(urlServer + "/post/add", post);
+      await axios.post(urlServer + "/post/add", post);
       setLoading(false);
       handleOpenAlert("success", "post published");
       setTimeout(() => {
