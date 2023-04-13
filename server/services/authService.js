@@ -6,7 +6,7 @@ const UserRepo = require('../repositories/userRepo');
 const { emailValid, passwordValid } = require('../utilities/validations/validations');
 const { cookieParse } = require('../utilities/cookieParse/cookieParse')
 const { transferMail } = require('../utilities/mailer/mailer');
-const {convertToReadingPossibility} =require('../utilities/adjustingData/adjustungPostData')
+const {convertToReadingPossibility} =require('../utilities/post/adjustungPostData')
 
 const auth = async (req, res) => {
     try {
@@ -19,8 +19,6 @@ const auth = async (req, res) => {
         if (!obj) {
             throw new Error("couldn't parse cookie");
         }
-        // console.log('obj >> ', obj);
-        // console.log('id >> ', obj.id);
         const isVarify = jwt.verify(obj.token, process.env.SECRET_KEY);
         if (isVarify.email) {
             console.log(true);
@@ -59,7 +57,6 @@ const logIn = async (req, res) => {
             throw new Error('email or password are not correct');
         }
         const isComparePassword = await bcrypt.compare(password, answer.password);
-        // console.log(isComparePassword);
         if (!isComparePassword) {
             throw new Error('email or password are not correct');
         }
@@ -67,7 +64,6 @@ const logIn = async (req, res) => {
             algorithm: 'HS256',
             expiresIn: '24h',
         });
-
         res.cookie(process.env.TOKEN_NAME, accessToken, {
             maxAge: 1000 * 60 * 60 * 24,
             httpOnly: false
@@ -76,7 +72,6 @@ const logIn = async (req, res) => {
             maxAge: 1000 * 60 * 60 * 24,
             httpOnly: false
         })
-
         return {
             id: answer.id,
             name: answer.name,
@@ -94,7 +89,6 @@ const logIn = async (req, res) => {
         console.log(err);
         return err;
     }
-
 }
 
 
@@ -111,7 +105,6 @@ const forgetPassword = async (reqBody) => {
         if (!user) {
             throw Error('email not macth please try again');
         }
-        // const answer = UserRepo.updateUser(email, { refresh_token: newPass });
         const newPass = Math.random().toString(36).slice(2, 8);
         const emailDestination =user.email;
         const titleMessage ='temporary code from study partner'; 
@@ -122,14 +115,10 @@ const forgetPassword = async (reqBody) => {
         </div>`;
         // const bodyMessage =`your temporary password is: ${newPass}  please do not share this password to anybody`
         const updatePassword= await UserRepo.updateUser(email,null, { refresh_token: newPass });
-        // console.log('updatePassword >> ', updatePassword);
         if(updatePassword.message ){
             throw Error('Faild to Update password');
         }
-        
-
         const sendMail = await transferMail(emailDestination,titleMessage,'',bodyMessage);   
-        // console.log('sendMail >> ',sendMail);
         return sendMail
 
     }
@@ -155,7 +144,6 @@ const resetPassword = async (reqBody) => {
             throw new Error('passwords not match');
         }
         const hashPssword = bcrypt.hashSync(password, BCRYPT_ROUNDS);
-        // console.log('hashPssword >>' ,hashPssword);
         const answer = await AuthRepo.resetPassword(code, hashPssword);
         if(answer.message){
             throw new Error(answer.message);

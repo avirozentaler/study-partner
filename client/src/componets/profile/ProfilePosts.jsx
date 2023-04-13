@@ -2,7 +2,7 @@ import React from 'react'
 import PostCard from "../Post/PostCard";
 import { Box } from "@mui/material";
 
-export default function ProfilePosts({posts}) {
+export default function ProfilePosts({ posts }) {
 
     return (
         <Box sx={{ display: 'flex', overflowX: 'scroll' }}>

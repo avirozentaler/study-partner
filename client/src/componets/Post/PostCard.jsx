@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import ExtendPostDialog from "./ExtendPostDialog";
-
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
@@ -9,9 +8,11 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import { Paper, Box } from "@mui/material";
+import CalendarTodayTwoToneIcon from '@mui/icons-material/CalendarTodayTwoTone';
 
 export default function PostCard({ post }) {
   const [openMore, setOpenMore] = useState(false);
+  const [week] = useState(["Sun", "Mon", "Tue", "Wen", "Thu", "Fri", "Sat"]);
   return (
     <Box>
       <Tooltip
@@ -36,11 +37,11 @@ export default function PostCard({ post }) {
             margin: 3,
             textAlign: "left",
             opacity:
-              post.matched === -1 ? "0.5" : post.matched === 0 ? "0.8" : "1"
+              post.matched === 1 ? "0.5" : "1"
           }}
         >
           <Box sx={{ position: "relative", width: "100%", height: "100%" }}>
-            {post.matched === 0 && (
+            {post.matched === 1 && (
               <Paper
                 sx={{
                   width: "100%",
@@ -58,7 +59,7 @@ export default function PostCard({ post }) {
                   variant="h4"
                   m={5}
                 >
-                  Post pending
+                  Post unavailable
                 </Typography>
               </Paper>
             )}
@@ -70,23 +71,28 @@ export default function PostCard({ post }) {
             image={require("./cardPics/" + post.category + ".jpg")}
           />
           <CardContent>
-            <Typography gutterBottom variant="h5" component="div">
+            <Typography variant="h6" color="text.secondary">
+              {post.sub_category}
+            </Typography>
+            <Typography gutterBottom variant="body1" component="div">
               {(post.auther_name && post.auther_name) || "unknown"}
             </Typography>
             <Typography variant="body1" color="text.secondary">
-              {post.sub_category}
-            </Typography>
-            <Typography variant="body1" color="text.secondary">
-              {post.date}
+              {post.date_from} - {post.date_to}
             </Typography>
             <Typography variant="body1" color="text.secondary">
               {post.time_from} - {post.time_to}
             </Typography>
-          </CardContent>
+            <Box mt={1}>
+              {week?.map((item, index) => {
+                return <CalendarTodayTwoToneIcon key={index} fontSize="small" color={post.days[index] < 1 ? "disabled" : "primary"} />
+              })}
+            </Box>
 
-          <CardActions sx={{ display: "flex", justifyContent: "flex-end" }}>
+          </CardContent>
+          <CardActions sx={{ display: "flex", justifyContent: 'flex-end' }}>
             <Button
-              disabled={post.matched !== 1}
+              disabled={post.matched === 1}
               variant="outlined"
               size="small"
               onClick={() => {

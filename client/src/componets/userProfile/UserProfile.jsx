@@ -30,7 +30,7 @@ export default function UserProfile() {
     (async () => {
       try {
         const userData = await axios.post(
-          urlServer + "/user/get-one",
+          `${urlServer}/user/get-one`,
           { id: userId }
         );
         setUser(userData.data);
@@ -40,7 +40,7 @@ export default function UserProfile() {
         console.log(err);
       }
     })()
-  }, [])
+  }, [urlServer,userId])
   const handleRate = async (newValue) => {
     console.log('newVal >>', newValue);
     const newRate = await axios.put(urlServer + '/activity/rate-user',
@@ -134,32 +134,6 @@ export default function UserProfile() {
                   >
                     <Typography variant="caption">Country:</Typography>{" "}
                     <Typography sx={{}}>{user.country}</Typography>{" "}
-                  </Paper>
-                  <Paper
-                    sx={{
-                      display: "flex",
-                      m: 3,
-                      padding: 2,
-                      flexDirection: "column",
-                      alignItems: "flex-start",
-                      minWidth: "130px",
-                    }}
-                  >
-                    <Typography variant="caption">Email:</Typography>{" "}
-                    <Typography sx={{}}>{user.email}</Typography>{" "}
-                  </Paper>
-                  <Paper
-                    sx={{
-                      display: "flex",
-                      m: 3,
-                      padding: 2,
-                      flexDirection: "column",
-                      alignItems: "flex-start",
-                      minWidth: "130px",
-                    }}
-                  >
-                    <Typography variant="caption">Phone Number:</Typography>{" "}
-                    <Typography sx={{}}>{user.phone_number}</Typography>{" "}
                   </Paper>
                   <Paper
                     sx={{

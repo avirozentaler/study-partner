@@ -6,13 +6,13 @@ import UrlContext from "../../context/UrlContext";
 
 export default function Posts() {
   const [posts, setPosts] = useState(null);
-  const {urlServer} = useContext(UrlContext);
+  const { urlServer } = useContext(UrlContext);
 
   useEffect(() => {
     (async () => {
       try {
         const postsList = await (
-          await axios.get(urlServer+"/post/get-all")
+          await axios.get(`${urlServer}/post/get-all`)
         ).data;
 
         if (!postsList) {
@@ -26,12 +26,12 @@ export default function Posts() {
         console.log(err);
       }
     })()
-  }, []);
+  }, [urlServer]);
 
   return (
     <Box>
       {posts ? (
-        <Grid container sx={{placeContent:'center'}}>
+        <Grid container sx={{ placeContent: 'center' }}>
           {posts.map((post, index) => {
             return (
               <Grid item key={index}>
@@ -45,6 +45,6 @@ export default function Posts() {
           <CircularProgress />
         </Box>
       )}
-      </Box>
+    </Box>
   )
-      }
+}
