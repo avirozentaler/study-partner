@@ -2,7 +2,6 @@ const filterService =require('../services/filterService');
 
 
 const filter = async (req, res) => {
-    console.log('controller/////////////////////////');
     try {
         const result = await filterService.filter(req);
         res.status(200).send(result);

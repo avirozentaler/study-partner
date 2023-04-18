@@ -3,13 +3,9 @@ const {convertToReadingPossibility} = require('../utilities/post/adjustungPostDa
 
 
 const filter = async (req) => {
-    console.log('serv/////////////////////////');
     try {
-        const { time } = req.body;
-        // const answer = await filterRepo.filter({subject_name});
-        // const answer = await filterRepo.filter(date);
-        const answer = await filterRepo.filter(time);
-        // console.log(answer);
+        const {subject,date, time } = req.body;  
+        const answer = await filterRepo.filter({subject,date,time});
         if (!answer || answer.message) {
             throw new Error("fail to get post or post not found ");
         }

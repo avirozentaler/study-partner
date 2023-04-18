@@ -3,7 +3,7 @@ import axios from "axios";
 import PostCard from "./PostCard";
 import UrlContext from "../../context/UrlContext";
 import Filters from "../filters/Filters";
-import { Box, Grid, CircularProgress } from "@mui/material";
+import { Box, Grid, CircularProgress,Typography } from "@mui/material";
 
 export default function Posts() {
   const [posts, setPosts] = useState(null);
@@ -33,20 +33,23 @@ export default function Posts() {
   const handleRendering=()=>{setRendering(!rendering)}
   
   return (
-    <Box>
+    <Box alignItems='center'>
       {posts ? (
         <Box>
-          <Box>
-            <Filters setPosts={setPosts} handleRendering={handleRendering}/>
-          </Box>
-          <Grid container sx={{ placeContent: 'center' }}>
-            {posts.map((post, index) => {
+          <Box sx={{display:'flex',justifyContent:'center'}} >
+             <Filters setPosts={setPosts} handleRendering={handleRendering}/>
+           </Box>
+          <Grid container sx={{ placeContent: 'center' }} spacing={1} >
+            {posts && posts.length? posts.map((post, index) => {
               return (
                 <Grid item key={index}>
                   <PostCard post={post} />
                 </Grid>
               );
-            })}
+            })
+          :<Box sx={{m:3}}>
+            <Typography>No posts found. try to change the filter</Typography>
+            </Box>}
           </Grid>
         </Box>
       ) : (
