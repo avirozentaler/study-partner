@@ -29,7 +29,11 @@
 //         type: DataTypes.TEXT,
 //         allowNull: true
 //     },
-//     date:{
+//     date_from:{
+//         type: DataTypes.BIGINT,
+//         allowNull: false,
+//     },
+//     date_to:{
 //         type: DataTypes.BIGINT,
 //         allowNull: false,
 //     },
@@ -41,9 +45,13 @@
 //         type: DataTypes.BIGINT,
 //         allowNull: false 
 //     },
-//     mathed:{
+//     days: {
+//         type: DataTypes.JSON,
+//         allowNull: true 
+//     },
+//     matched:{
 //         type:DataTypes.TINYINT,
-//         defaultValue:1,
+//         defaultValue:-1,
 //     }
 
 // },
@@ -55,7 +63,6 @@
 
 
 // module.exports = Post
-
 
 const db = require('../db/mysql');
 const { DataTypes } = require('sequelize');
@@ -110,7 +117,7 @@ const Post = db.define('post', {
     },
     matched:{
         type:DataTypes.TINYINT,
-        defaultValue:1,
+        defaultValue:-1,
     }
 
 },

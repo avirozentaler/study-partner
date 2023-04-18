@@ -87,6 +87,5 @@ module.exports = PostService = {
     getPosts,
     updatePost,
     deletePost,
-
 }
 
