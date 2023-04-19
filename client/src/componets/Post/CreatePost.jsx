@@ -82,12 +82,15 @@ export default function CreatePost({ open, setOpen }) {
       }
       const dFrom = dateFrom.$d.getTime();
       const dTo = dateTo.$d.getTime();
-      const tFrom = timeFrom.$d.getTime();
-      const tTo = timeTo.$d.getTime();
-      console.log(daysDistance(dFrom, dTo));
+      const tFrom = (timeFrom.$H)*100 +timeFrom.$m;
+      const tTo = (timeTo.$H)*100 +timeTo.$m;
       // //validation   
       if (dTo < dFrom) {
         handleOpenAlert("error", "The end date can not be earlier from the start");
+        return;
+      }
+      if (tFrom > tTo) {
+        handleOpenAlert("error", "the time not valid.");
         return;
       }
       if (tFrom === tTo) {
@@ -160,6 +163,7 @@ export default function CreatePost({ open, setOpen }) {
                 onInputChange={(event, newInputValue) => {
                   setInputCategory(newInputValue);
                 }}
+
                 renderInput={(params) => (
                   <TextField {...params} label="Category" />
                 )}
@@ -210,6 +214,7 @@ export default function CreatePost({ open, setOpen }) {
                     value={timeFrom}
                     onChange={(newValue) => {
                       newValue && setTimeFrom(newValue);
+                      console.log(newValue);
                     }}
                     ampm={false}
                     renderInput={(params) => <TextField {...params} />}
@@ -235,7 +240,6 @@ export default function CreatePost({ open, setOpen }) {
                     variant={days[index] !== 0 ? "contained" : "outlined"}
                     size="small"
                     sx={{ m: 0.4, width: '13%', }}
-                    // sx={{ m: 0.4, width: '13%', border: days[index] !== 0 ? "solid" : "" }}
                     onClick={() => {
                       let temp = days;
                       temp[index] = 0 + 1 - temp[index]
